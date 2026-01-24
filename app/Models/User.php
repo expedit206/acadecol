@@ -50,4 +50,9 @@ class User extends Authenticatable implements \Filament\Models\Contracts\Filamen
     {
         return $this->email === 'admin@acadecol.cm';
     }
+
+    public function preRegistration()
+    {
+        return $this->hasOne(PreRegistration::class);
+    }
 }

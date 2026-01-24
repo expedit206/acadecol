@@ -17,14 +17,14 @@ Route::controller(PublicController::class)->group(function () {
     Route::get('/actualites', 'news')->name('news');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/pre-inscription-reussie', [App\Http\Controllers\Auth\RegisteredUserController::class, 'success'])
+        ->name('pre-registration.success');
 });
 
 require __DIR__.'/auth.php';

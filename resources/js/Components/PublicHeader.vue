@@ -3,12 +3,10 @@
     <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
       <!-- Logo -->
       <Link href="/" class="flex items-center gap-2 group">
-        <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center text-white font-bold text-lg group-hover:shadow-lg transition">
-          📚
-        </div>
-        <span class="text-xl font-bold text-gray-900 hidden sm:inline">AcadEcol</span>
+     
+        <ApplicationLogo class="h-20 w-20 fill-current text-gray-500" />
+        <span class="text-xl font-bold text-gray-900 hidden md:inline">ACADECOL</span>
       </Link>
-
       <!-- Desktop Menu -->
       <div class="hidden md:flex items-center gap-8">
         <NavLink href="/" :active="isActive('/')">
@@ -60,6 +58,7 @@
 import { ref, computed } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import NavLink from '@/Components/NavLink.vue';
+import ApplicationLogo from './ApplicationLogo.vue';
 
 const mobileMenuOpen = ref(false);
 const page = usePage();
