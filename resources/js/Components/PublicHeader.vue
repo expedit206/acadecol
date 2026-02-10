@@ -79,7 +79,7 @@
                 <!-- Mobile Menu Button -->
                 <button
                     @click="mobileMenuOpen = !mobileMenuOpen"
-                    class="md:hidden p-2 text-gray-600 hover:text-gray-900"
+                    class="lg:hidden p-2 text-gray-600 hover:text-gray-900"
                 >
                     <svg
                         class="w-6 h-6"
@@ -144,6 +144,31 @@
                     class="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded"
                     >Contact</Link
                 >
+
+                <div class="border-t border-gray-200 mt-2 pt-2">
+                    <template v-if="$page.props.auth.user">
+                        <Link
+                            :href="route('admin.dashboard')"
+                            class="block px-4 py-2 text-green-600 font-bold hover:bg-green-50 rounded"
+                        >
+                            <i class="fas fa-cog mr-2"></i>Administration
+                        </Link>
+                    </template>
+                    <template v-else>
+                        <Link
+                            :href="route('pre-registration.login')"
+                            class="block px-4 py-2 text-blue-600 font-semibold hover:bg-blue-50 rounded"
+                        >
+                            <i class="fas fa-user-circle mr-2"></i>Mon Dossier
+                        </Link>
+                        <Link
+                            :href="route('pre-registration.create')"
+                            class="block px-4 py-2 text-blue-600 font-bold hover:bg-blue-50 rounded"
+                        >
+                            <i class="fas fa-pen mr-2"></i>Se Préinscrire
+                        </Link>
+                    </template>
+                </div>
             </div>
         </div>
     </header>

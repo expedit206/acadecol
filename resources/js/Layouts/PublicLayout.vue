@@ -15,8 +15,14 @@
                 </Link>
                 <template v-else>
                     <Link
+                        :href="route('pre-registration.login')"
+                        class="px-3 md:px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition shadow-sm font-semibold mr-2 hidden sm:inline-block"
+                    >
+                        Mon Dossier
+                    </Link>
+                    <Link
                         :href="route('pre-registration.create')"
-                        class="px-2 md:px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition shadow-md font-semibold"
+                        class="px-3 md:px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition shadow-md font-semibold"
                     >
                         Se Préinscrire
                     </Link>

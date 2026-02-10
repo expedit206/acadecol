@@ -44,29 +44,48 @@ class PreRegistrationController extends Controller
 
         $preRegistration = PreRegistration::create($validated);
 
-        return redirect()->route('pre-registration.success')
+        // Connexion automatique "session étudiante"
+        session(['student_id' => $preRegistration->id]);
+
+        return redirect()->route('pre-registration.show')
             ->with('success', 'Votre pré-inscription a été enregistrée avec succès !');
     }
 
-    public function status()
+    public function loginForm()
     {
-        return Inertia::render('PreRegistration/Status');
+        return Inertia::render('PreRegistration/Login');
     }
 
-    public function check(Request $request)
+    public function login(Request $request)
     {
         $validated = $request->validate([
-            'email' => 'required|email',
             'phone' => 'required|string',
         ]);
 
-        $preRegistration = PreRegistration::with('formation')
-            ->where('email', $validated['email'])
-            ->where('phone', $validated['phone'])
+        $preRegistration = PreRegistration::where('phone', $validated['phone'])
+            ->latest()
             ->first();
 
         if (!$preRegistration) {
-            return back()->withErrors(['email' => 'Aucune pré-inscription trouvée avec ces informations.']);
+            return back()->withErrors(['phone' => 'Aucune pré-inscription trouvée avec ce numéro.']);
+        }
+
+        session(['student_id' => $preRegistration->id]);
+
+        return redirect()->route('pre-registration.show');
+    }
+
+    public function show()
+    {
+        if (!session()->has('student_id')) {
+            return redirect()->route('pre-registration.login');
+        }
+
+        $preRegistration = PreRegistration::with('formation')->find(session('student_id'));
+
+        if (!$preRegistration) {
+            session()->forget('student_id');
+            return redirect()->route('pre-registration.login');
         }
 
         return Inertia::render('PreRegistration/View', [
@@ -77,8 +96,8 @@ class PreRegistrationController extends Controller
     
     public function update(Request $request, PreRegistration $preRegistration)
     {
-        // Simple vérification de sécurité
-        if ($request->email !== $preRegistration->email) {
+        // Sécurité basée sur la session
+        if (session('student_id') !== $preRegistration->id) {
             abort(403);
         }
 

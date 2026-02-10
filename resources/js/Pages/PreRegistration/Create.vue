@@ -10,7 +10,7 @@
                     <p class="font-bold">Attention</p>
                     <p>{{ $page.props.flash?.warning }}</p>
                     <Link
-                        :href="route('pre-registration.status')"
+                        :href="route('pre-registration.login')"
                         class="underline font-semibold mt-2 inline-block"
                     >
                         Cliquez ici pour consulter votre fiche de

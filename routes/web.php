@@ -21,26 +21,23 @@ Route::controller(PublicController::class)->group(function () {
 Route::controller(App\Http\Controllers\PreRegistrationController::class)->group(function () {
     Route::get('/pre-inscription', 'create')->name('pre-registration.create');
     Route::post('/pre-inscription', 'store')->name('pre-registration.store');
-    Route::get('/ma-fiche', 'status')->name('pre-registration.status');
-    Route::post('/ma-fiche/check', 'check')->name('pre-registration.check');
-    Route::put('/ma-fiche/{preRegistration}', 'update')->name('pre-registration.update');
+    
+    // Authentification "Mon Dossier"
+    Route::get('/mon-dossier/connexion', 'loginForm')->name('pre-registration.login');
+    Route::post('/mon-dossier/connexion', 'login')->name('pre-registration.check');
+    
+    // Consultation dossier et mise à jour
+    Route::get('/mon-dossier', 'show')->name('pre-registration.show');
+    Route::put('/mon-dossier/{preRegistration}', 'update')->name('pre-registration.update');
 });
-
-Route::get('/pre-inscription-reussie', function () {
-    return Inertia\Inertia::render('PreRegistration/Success');
-})->name('pre-registration.success');
 
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('/pre-inscription-reussie', [App\Http\Controllers\Auth\RegisteredUserController::class, 'success'])
-        ->name('pre-registration.success');
 });
 
-// Admin Routes
 // Admin Routes
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
     Route::get('/', function () {
