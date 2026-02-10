@@ -1009,7 +1009,7 @@
                 "filament/notifications": "self.version",
                 "filament/support": "self.version",
                 "league/csv": "^9.27",
-                "openspout/openspout": "^4.23",
+                "openspout/openspout": "^4.22",
                 "php": "^8.2"
             },
             "type": "library",
@@ -4081,7 +4081,7 @@
         },
         {
             "name": "openspout/openspout",
-            "version": "v4.32.0",
+            "version": "v4.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/openspout/openspout.git",
@@ -4158,7 +4158,7 @@
             ],
             "support": {
                 "issues": "https://github.com/openspout/openspout/issues",
-                "source": "https://github.com/openspout/openspout/tree/v4.32.0"
+                "source": "https://github.com/openspout/openspout/tree/v4.22.0"
             },
             "funding": [
                 {

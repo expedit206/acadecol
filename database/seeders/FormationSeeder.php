@@ -3,253 +3,49 @@
 namespace Database\Seeders;
 
 use App\Models\Formation;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class FormationSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $formations = [
-            // ===== CATÉGORIE 1: LES LANGUES (ID 1) =====
-            [
-                'titre' => ['fr' => 'Français Intégration (A1-A2)', 'en' => 'French Integration (A1-A2)'],
-                'slug' => 'francais-integration',
-                'description_courte' => ['fr' => 'Bases essentielles pour communiquer au quotidien.', 'en' => 'Essential basics for daily communication.'],
-                'description_complete' => ['fr' => 'Idéal pour les débutants. Ce cours vous donne les clés pour vous exprimer en français : se présenter, faire des achats, comprendre des instructions simples et interagir avec l\'administration ou les locaux. Méthode interactive axée sur la pratique orale.', 'en' => 'Ideal for beginners. This course gives you the keys to express yourself in French: introducing yourself, shopping, understanding simple instructions, and interacting with administration or locals. Interactive method focused on oral practice.'],
-                'debouches' => ['fr' => 'Intégration sociale, accès aux emplois de base', 'en' => 'Social integration, access to basic jobs'],
-                'prerequis' => ['fr' => 'Aucun', 'en' => 'None'],
-                'prix' => 150000.00,
-                'duree' => '3 mois',
-                'category_id' => 1,
-                'is_featured' => true
-            ],
-            [
-                'titre' => ['fr' => 'Anglais Professionnel (B1-B2)', 'en' => 'Professional English (B1-B2)'],
-                'slug' => 'anglais-pro',
-                'description_courte' => ['fr' => 'Boostez votre employabilité avec l\'anglais des affaires.', 'en' => 'Boost your employability with business English.'],
-                'description_complete' => ['fr' => 'Ne laissez plus la langue être une barrière. Apprenez à rédiger des emails professionnels, participer à des réunions internationales et négocier en anglais. Vocabulaire spécifique au monde de l\'entreprise.', 'en' => 'Don\'t let language be a barrier anymore. Learn to write professional emails, participate in international meetings, and negotiate in English. Vocabulary specific to the corporate world.'],
-                'debouches' => ['fr' => 'Multinationales, ONG, Tourisme', 'en' => 'Multinationals, NGOs, Tourism'],
-                'prerequis' => ['fr' => 'Niveau A2 (Bases)', 'en' => 'Level A2 (Basics)'],
-                'prix' => 180000.00,
-                'duree' => '4 mois',
-                'category_id' => 1
-            ],
-            [
-                'titre' => ['fr' => 'Préparation TOEFL & TOEIC', 'en' => 'TOEFL & TOEIC Prep'],
-                'slug' => 'toefl-toeic',
-                'description_courte' => ['fr' => 'Objectif score maximum pour vos projets internationaux.', 'en' => 'Maximum score goal for your international projects.'],
-                'description_complete' => ['fr' => 'Entraînement intensif sur des sujets d\'examen réels. Stratégies de gestion du temps, pièges à éviter et examens blancs réguliers pour garantir votre admission en université étrangère ou votre recrutement.', 'en' => 'Intensive training on real exam topics. Time management strategies, pitfalls to avoid, and regular mock exams to guarantee your admission to a foreign university or your recruitment.'],
-                'debouches' => ['fr' => 'Études à l\'étranger, Carrière internationale', 'en' => 'Studies abroad, International career'],
-                'prerequis' => ['fr' => 'Niveau B1', 'en' => 'Level B1'],
-                'prix' => 220000.00,
-                'duree' => '3 mois',
-                'category_id' => 1,
-                'is_featured' => true
-            ],
-            [
-                'titre' => ['fr' => 'Allemand pour Études (Start Deutsch)', 'en' => 'German for Studies (Start Deutsch)'],
-                'slug' => 'allemand-a1-b1',
-                'description_courte' => ['fr' => 'Préparez votre départ pour l\'Allemagne.', 'en' => 'Prepare your departure for Germany.'],
-                'description_complete' => ['fr' => 'Cours structuré pour atteindre rapidement le niveau requis pour les visas étudiants ou le regroupement familial (A1 à B1).Focus sur la grammaire et la compréhension écrite.', 'en' => 'Structured course to quickly reach the level required for student visas or family reunification (A1 to B1). Focus on grammar and reading comprehension.'],
-                'debouches' => ['fr' => 'Université en Allemagne, Au Pair', 'en' => 'University in Germany, Au Pair'],
-                'prerequis' => ['fr' => 'Motivation', 'en' => 'Motivation'],
-                'prix' => 160000.00,
-                'duree' => '4 mois',
-                'category_id' => 1
-            ],
-            [
-                'titre' => ['fr' => 'Chinois des Affaires', 'en' => 'Business Chinese'],
-                'slug' => 'chinois-business',
-                'description_courte' => ['fr' => 'Commercer avec la Chine efficacement.', 'en' => 'Trade with China effectively.'],
-                'description_complete' => ['fr' => 'Initiation au Mandarin et à la culture des affaires chinoise. Apprenez les codes de politesse, le vocabulaire de l\'import-export et les bases de la négociation.', 'en' => 'Introduction to Mandarin and Chinese business culture. Learn politeness codes, import-export vocabulary, and negotiation basics.'],
-                'debouches' => ['fr' => 'Import-Export, Interprétariat', 'en' => 'Import-Export, Interpreting'],
-                'prerequis' => ['fr' => 'Aucun', 'en' => 'None'],
-                'prix' => 180000.00,
-                'duree' => '5 mois',
-                'category_id' => 1
-            ],
+            // ===== CATÉGORIE 1: LES LANGUES =====
+            ['titre' => ['fr' => 'Français A1-A2', 'en' => 'French A1-A2'], 'slug' => 'francais-a1-a2', 'description_courte' => ['fr' => 'Niveau débutant - Bases de la communication', 'en' => 'Beginner level - Communication basics'], 'description_complete' => ['fr' => 'Apprenez les fondamentaux du français pour communiquer au quotidien. Ce niveau vous permet de vous présenter, comprendre des conversations simples et interagir dans des situations courantes.', 'en' => 'Learn French fundamentals for daily communication. This level allows you to introduce yourself, understand simple conversations and interact in common situations.'], 'debouches' => ['fr' => 'Accès au niveau B1-B2, emplois de base', 'en' => 'Access to B1-B2 level, basic jobs'], 'prerequis' => ['fr' => 'Aucun', 'en' => 'None'], 'prix' => 150000, 'duree' => '3 mois', 'category_id' => 1, 'is_featured' => true],
+            ['titre' => ['fr' => 'Français B1-B2', 'en' => 'French B1-B2'], 'slug' => 'francais-b1-b2', 'description_courte' => ['fr' => 'Niveau intermédiaire - Communication professionnelle', 'en' => 'Intermediate - Professional communication'], 'description_complete' => ['fr' => 'Perfectionnez votre français pour le monde professionnel. Maîtrisez les structures complexes, enrichissez votre vocabulaire et communiquez avec aisance dans un contexte professionnel.', 'en' => 'Perfect your French for the professional world. Master complex structures, enrich your vocabulary and communicate easily in a professional context.'], 'debouches' => ['fr' => 'Postes administratifs, enseignement, traduction', 'en' => 'Administrative positions, teaching, translation'], 'prerequis' => ['fr' => 'Niveau A2 validé', 'en' => 'A2 level validated'], 'prix' => 180000, 'duree' => '4 mois', 'category_id' => 1],
+            ['titre' => ['fr' => 'Français C1-C2', 'en' => 'French C1-C2'], 'slug' => 'francais-c1-c2', 'description_courte' => ['fr' => 'Niveau avancé - Maîtrise parfaite', 'en' => 'Advanced - Perfect mastery'], 'description_complete' => ['fr' => 'Atteignez l\'excellence en français. Compréhension fine des nuances, expression sophistiquée et maîtrise parfaite pour les contextes académiques et professionnels de haut niveau.', 'en' => 'Achieve excellence in French. Fine understanding of nuances, sophisticated expression and perfect mastery for high-level academic and professional contexts.'], 'debouches' => ['fr' => 'Enseignement supérieur, traduction professionnelle', 'en' => 'Higher education, professional translation'], 'prerequis' => ['fr' => 'Niveau B2 validé', 'en' => 'B2 level validated'], 'prix' => 200000, 'duree' => '5 mois', 'category_id' => 1],
+            ['titre' => ['fr' => 'Anglais A1-A2', 'en' => 'English A1-A2'], 'slug' => 'anglais-a1-a2', 'description_courte' => ['fr' => 'Anglais débutant', 'en' => 'Beginner English'], 'description_complete' => ['fr' => 'Démarrez votre apprentissage de l\'anglais avec les bases essentielles. Vocabulaire quotidien, grammaire simple et communication de base pour voyager et travailler.', 'en' => 'Start learning English with the essential basics. Daily vocabulary, simple grammar and basic communication for travel and work.'], 'debouches' => ['fr' => 'Tourisme, hôtellerie, commerce international', 'en' => 'Tourism, hospitality, international trade'], 'prerequis' => ['fr' => 'Aucun', 'en' => 'None'], 'prix' => 150000, 'duree' => '3 mois', 'category_id' => 1, 'is_featured' => true],
+            ['titre' => ['fr' => 'Anglais B1-B2', 'en' => 'English B1-B2'], 'slug' => 'anglais-b1-b2', 'description_courte' => ['fr' => 'Anglais professionnel', 'en' => 'Professional English'], 'description_complete' => ['fr' => 'Développez vos compétences en anglais professionnel. Réunions, présentations, emails et négociations dans un environnement international.', 'en' => 'Develop your professional English skills. Meetings, presentations, emails and negotiations in an international environment.'], 'debouches' => ['fr' => 'Multinationales, ONG, import-export', 'en' => 'Multinationals, NGOs, import-export'], 'prerequis' => ['fr' => 'Niveau A2', 'en' => 'A2 level'], 'prix' => 180000, 'duree' => '4 mois', 'category_id' => 1],
+            ['titre' => ['fr' => 'Préparation TOEFL/TOEIC/IELTS', 'en' => 'TOEFL/TOEIC/IELTS Prep'], 'slug' => 'toefl-toeic-ielts', 'description_courte' => ['fr' => 'Certifications internationales', 'en' => 'International certifications'], 'description_complete' => ['fr' => 'Préparez-vous efficacement aux tests internationaux d\'anglais. Stratégies d\'examen, tests blancs et coaching personnalisé pour maximiser votre score.', 'en' => 'Prepare effectively for international English tests. Exam strategies, mock tests and personalized coaching to maximize your score.'], 'debouches' => ['fr' => 'Études à l\'étranger, immigration, emplois internationaux', 'en' => 'Study abroad, immigration, international jobs'], 'prerequis' => ['fr' => 'Niveau B1 minimum', 'en' => 'B1 level minimum'], 'prix' => 220000, 'duree' => '3 mois', 'category_id' => 1, 'is_featured' => true],
+            ['titre' => ['fr' => 'Espagnol A1-B2', 'en' => 'Spanish A1-B2'], 'slug' => 'espagnol', 'description_courte' => ['fr' => 'Espagnol tous niveaux', 'en' => 'Spanish all levels'], 'description_complete' => ['fr' => 'Maîtrisez l\'espagnol du niveau débutant à avancé. Formation progressive adaptée à vos objectifs professionnels ou personnels.', 'en' => 'Master Spanish from beginner to advanced level. Progressive training adapted to your professional or personal goals.'], 'debouches' => ['fr' => 'Commerce international, tourisme', 'en' => 'International trade, tourism'], 'prerequis' => ['fr' => 'Selon niveau', 'en' => 'According to level'], 'prix' => 160000, 'duree' => '3-5 mois', 'category_id' => 1],
+            ['titre' => ['fr' => 'Allemand A1-C1', 'en' => 'German A1-C1'], 'slug' => 'allemand', 'description_courte' => ['fr' => 'Allemand tous niveaux', 'en' => 'German all levels'], 'description_complete' => ['fr' => 'Apprenez l\'allemand pour vos études ou votre carrière. Formation structurée du niveau débutant à avancé.', 'en' => 'Learn German for your studies or career. Structured training from beginner to advanced level.'], 'debouches' => ['fr' => 'Études en Allemagne, entreprises allemandes', 'en' => 'Studies in Germany, German companies'], 'prerequis' => ['fr' => 'Selon niveau', 'en' => 'According to level'], 'prix' => 160000, 'duree' => '3-5 mois', 'category_id' => 1],
+            ['titre' => ['fr' => 'Italien A1-C2', 'en' => 'Italian A1-C2'], 'slug' => 'italien', 'description_courte' => ['fr' => 'Italien tous niveaux', 'en' => 'Italian all levels'], 'description_complete' => ['fr' => 'Découvrez la langue et la culture italiennes. Formation complète pour tous les niveaux.', 'en' => 'Discover the Italian language and culture. Complete training for all levels.'], 'debouches' => ['fr' => 'Tourisme, mode, commerce', 'en' => 'Tourism, fashion, trade'], 'prerequis' => ['fr' => 'Selon niveau', 'en' => 'According to level'], 'prix' => 160000, 'duree' => '3-5 mois', 'category_id' => 1],
+            ['titre' => ['fr' => 'Chinois A1-C1', 'en' => 'Chinese A1-C1'], 'slug' => 'chinois', 'description_courte' => ['fr' => 'Mandarin tous niveaux', 'en' => 'Mandarin all levels'], 'description_complete' => ['fr' => 'Maîtrisez le mandarin pour le commerce international. Apprentissage des caractères, prononciation et culture chinoise.', 'en' => 'Master Mandarin for international trade. Learning characters, pronunciation and Chinese culture.'], 'debouches' => ['fr' => 'Commerce avec la Chine, interprétariat', 'en' => 'Trade with China, interpreting'], 'prerequis' => ['fr' => 'Selon niveau', 'en' => 'According to level'], 'prix' => 180000, 'duree' => '4-6 mois', 'category_id' => 1],
 
-            // ===== CATÉGORIE 2: PARAMÉDICAL ET BIOMÉDICAL (ID 2) =====
-            [
-                'titre' => ['fr' => 'Vendeur en Pharmacie', 'en' => 'Pharmacy Sales Assistant'],
-                'slug' => 'vendeur-pharmacie',
-                'description_courte' => ['fr' => 'Devenez le bras droit du pharmacien.', 'en' => 'Become the pharmacist\'s right hand.'],
-                'description_complete' => ['fr' => 'Formation pratique : apprenez à lire les ordonnances, conseiller les patients, gérer les stocks de médicaments et utiliser les logiciels d\'officine. Diplôme reconnu pour une insertion rapide.', 'en' => 'Practical training: learn to read prescriptions, advise patients, manage drug stocks, and use pharmacy software. Recognized diploma for rapid insertion.'],
-                'debouches' => ['fr' => 'Pharmacies, Dépôts de médicaments', 'en' => 'Pharmacies, Drug depots'],
-                'prerequis' => ['fr' => 'Niveau Bac', 'en' => 'Bac Level'],
-                'prix' => 350000.00,
-                'duree' => '12 mois',
-                'category_id' => 2,
-                'is_featured' => true
-            ],
-            [
-                'titre' => ['fr' => 'Délégué Médical', 'en' => 'Medical Representative'],
-                'slug' => 'delegue-medical',
-                'description_courte' => ['fr' => 'Promotion des produits de santé.', 'en' => 'Promotion of health products.'],
-                'description_complete' => ['fr' => 'Alliez science et commerce. Formez-vous aux techniques de vente, à la pharmacologie et à la communication pour convaincre les médecins et pharmaciens.', 'en' => 'Combine science and commerce. Train in sales techniques, pharmacology, and communication to convince doctors and pharmacists.'],
-                'debouches' => ['fr' => 'Laboratoires, Grossistes répartiteurs', 'en' => 'Laboratories, Wholesalers'],
-                'prerequis' => ['fr' => 'Bac Scientifique ou Santé', 'en' => 'Science or Health Bac'],
-                'prix' => 300000.00,
-                'duree' => '9 mois',
-                'category_id' => 2
-            ],
-            [
-                'titre' => ['fr' => 'Auxiliaire de Vie', 'en' => 'Caregiver'],
-                'slug' => 'auxiliaire-vie',
-                'description_courte' => ['fr' => 'Accompagnement des personnes fragiles.', 'en' => 'Support for vulnerable people.'],
-                'description_complete' => ['fr' => 'Apprenez les gestes qui sauvent et qui soulagent. Soins d\'hygiène, aide aux repas, soutien psychologique pour personnes âgées ou malades. Un métier humain et très demandé.', 'en' => 'Learn gestures that save and soothe. Hygiene care, meal assistance, psychological support for the elderly or sick. A human and highly demanded profession.'],
-                'debouches' => ['fr' => 'EHPAD, Soins à domicile', 'en' => 'Nursing homes, Home care'],
-                'prerequis' => ['fr' => 'BEPC/CAP', 'en' => 'GCE O-Level'],
-                'prix' => 280000.00,
-                'duree' => '12 mois',
-                'category_id' => 2,
-                'is_featured' => true
-            ],
-            [
-                'titre' => ['fr' => 'Maintenance Biomédicale', 'en' => 'Biomedical Maintenance'],
-                'slug' => 'maintenance-bio',
-                'description_courte' => ['fr' => 'Réparer les équipements qui sauvent des vies.', 'en' => 'Repair life-saving equipment.'],
-                'description_complete' => ['fr' => 'Expertise technique rare. Installation et maintenance de scanners, échographes, respirateurs. Devenez indispensable dans les hôpitaux modernes.', 'en' => 'Rare technical expertise. Installation and maintenance of scanners, ultrasound machines, ventilators. Become indispensable in modern hospitals.'],
-                'debouches' => ['fr' => 'Services techniques hôpitaux, Fournisseurs', 'en' => 'Hospital technical services, Suppliers'],
-                'prerequis' => ['fr' => 'Bac F2/F3/C/D', 'en' => 'Technical Bac'],
-                'prix' => 320000.00,
-                'duree' => '12 mois',
-                'category_id' => 2
-            ],
-            [
-                'titre' => ['fr' => 'Technicien de Laboratoire', 'en' => 'Lab Technician'],
-                'slug' => 'technicien-labo',
-                'description_courte' => ['fr' => 'L\'analyse au service du diagnostic.', 'en' => 'Analysis at the service of diagnosis.'],
-                'description_complete' => ['fr' => 'Maîtrisez les techniques de prélèvement et d\'analyse biologique (sang, urines, etc.). Rigueur et précision pour aider les médecins à établir le bon diagnostic.', 'en' => 'Master sampling and biological analysis techniques (blood, urine, etc.). Rigor and precision to help doctors establish the correct diagnosis.'],
-                'debouches' => ['fr' => 'Laboratoires d\'analyses médicales', 'en' => 'Medical analysis laboratories'],
-                'prerequis' => ['fr' => 'Bac Scientifique (C, D)', 'en' => 'Science Bac (C, D)'],
-                'prix' => 260000.00,
-                'duree' => '9 mois',
-                'category_id' => 2
-            ],
+            // ===== CATÉGORIE 2: PARAMÉDICAL =====
+            ['titre' => ['fr' => 'Vendeur en Pharmacie', 'en' => 'Pharmacy Salesperson'], 'slug' => 'vendeur-pharmacie', 'description_courte' => ['fr' => 'Diplôme National d\'État - 12 mois', 'en' => 'National State Diploma - 12 months'], 'description_complete' => ['fr' => 'Formation diplômante reconnue par l\'État. Devenez expert en conseil pharmaceutique, gestion des stocks et service client en officine. Stage pratique inclus.', 'en' => 'State-recognized diploma training. Become an expert in pharmaceutical advice, stock management and customer service in pharmacies. Practical internship included.'], 'debouches' => ['fr' => 'Pharmacies, dépôts pharmaceutiques, parapharmacies', 'en' => 'Pharmacies, pharmaceutical depots, parapharmacies'], 'prerequis' => ['fr' => 'Baccalauréat', 'en' => 'Baccalaureate'], 'prix' => 350000, 'duree' => '12 mois', 'category_id' => 2, 'is_featured' => true],
+            ['titre' => ['fr' => 'Délégué Médical', 'en' => 'Medical Delegate'], 'slug' => 'delegue-medical', 'description_courte' => ['fr' => 'Diplôme National d\'État', 'en' => 'National State Diploma'], 'description_complete' => ['fr' => 'Devenez le lien entre les laboratoires pharmaceutiques et les professionnels de santé. Formation en pharmacologie, techniques de vente médicale et communication professionnelle.', 'en' => 'Become the link between pharmaceutical laboratories and healthcare professionals. Training in pharmacology, medical sales techniques and professional communication.'], 'debouches' => ['fr' => 'Laboratoires pharmaceutiques, visiteur médical', 'en' => 'Pharmaceutical laboratories, medical representative'], 'prerequis' => ['fr' => 'Bac scientifique ou santé', 'en' => 'Science or health baccalaureate'], 'prix' => 300000, 'duree' => '9-12 mois', 'category_id' => 2],
+            ['titre' => ['fr' => 'Auxiliaire de Vie', 'en' => 'Care Giver'], 'slug' => 'auxiliaire-vie', 'description_courte' => ['fr' => 'Diplôme National d\'État - 12 mois', 'en' => 'National State Diploma - 12 months'], 'description_complete' => ['fr' => 'Formez-vous à l\'accompagnement des personnes âgées et handicapées. Soins d\'hygiène, aide à la mobilité, soutien psychologique et premiers secours.', 'en' => 'Train to support the elderly and disabled. Hygiene care, mobility assistance, psychological support and first aid.'], 'debouches' => ['fr' => 'EHPAD, services à domicile, hôpitaux', 'en' => 'Nursing homes, home services, hospitals'], 'prerequis' => ['fr' => 'BEPC/CAP minimum', 'en' => 'BEPC/CAP minimum'], 'prix' => 280000, 'duree' => '12 mois', 'category_id' => 2, 'is_featured' => true],
+            ['titre' => ['fr' => 'Maintenance Biomédicale', 'en' => 'Biomedical Maintenance'], 'slug' => 'maintenance-biomedicale', 'description_courte' => ['fr' => 'Diplôme National d\'État - 12 mois', 'en' => 'National State Diploma - 12 months'], 'description_complete' => ['fr' => 'Expertise technique en maintenance des équipements médicaux. Installation, réparation et entretien des appareils biomédicaux (échographes, respirateurs, etc.).', 'en' => 'Technical expertise in medical equipment maintenance. Installation, repair and maintenance of biomedical devices (ultrasound, ventilators, etc.).'], 'debouches' => ['fr' => 'Services biomédicaux hospitaliers, fournisseurs d\'équipements', 'en' => 'Hospital biomedical services, equipment suppliers'], 'prerequis' => ['fr' => 'Bac technique (F2/F3/C/D)', 'en' => 'Technical baccalaureate'], 'prix' => 320000, 'duree' => '12 mois', 'category_id' => 2],
 
-            // ===== CATÉGORIE 3: L'HUMANITAIRE (ID 3) =====
-            [
-                'titre' => ['fr' => 'Gestion de Projets Humanitaires', 'en' => 'Humanitarian Project Mgmt'],
-                'slug' => 'projet-humanitaire',
-                'description_courte' => ['fr' => 'Piloter l\'aide d\'urgence.', 'en' => 'Manage emergency aid.'],
-                'description_complete' => ['fr' => 'De l\'écriture du projet à son évaluation. Apprenez à monter des dossiers de financement, gérer un budget et coordonner des équipes sur le terrain. Pour les futurs cadres des ONG.', 'en' => 'From project writing to evaluation. Learn to prepare funding proposals, manage a budget, and coordinate teams in the field. For future NGO executives.'],
-                'debouches' => ['fr' => 'Coordinateur ONG, Chef de mission', 'en' => 'NGO Coordinator, Head of Mission'],
-                'prerequis' => ['fr' => 'Licence min.', 'en' => 'Bachelor min.'],
-                'prix' => 190000.00,
-                'duree' => '3 mois',
-                'category_id' => 3,
-                'is_featured' => true
-            ],
-            [
-                'titre' => ['fr' => 'Logistique Humanitaire', 'en' => 'Humanitarian Logistics'],
-                'slug' => 'logistique-huma',
-                'description_courte' => ['fr' => 'L\'épine dorsale de l\'intervention.', 'en' => 'The backbone of intervention.'],
-                'description_complete' => ['fr' => 'Comment acheminer des vivres et médicaments en zone isolée ? Gestion de flotte, 4x4, télécoms, chaîne du froid et approvisionnement. Formation 100% terrain.', 'en' => 'How to transport food and medicine to isolated areas? Fleet management, 4x4, telecoms, cold chain, and procurement. 100% field training.'],
-                'debouches' => ['fr' => 'Logisticien base/terrain', 'en' => 'Base/Field Logistician'],
-                'prerequis' => ['fr' => 'Bac +2', 'en' => 'Associate Degree'],
-                'prix' => 170000.00,
-                'duree' => '3 mois',
-                'category_id' => 3
-            ],
-            [
-                'titre' => ['fr' => 'WASH (Eau & Assainissement)', 'en' => 'WASH Specialist'],
-                'slug' => 'wash',
-                'description_courte' => ['fr' => 'L\'eau c\'est la vie.', 'en' => 'Water is life.'],
-                'description_complete' => ['fr' => 'Techniques de potabilisation, construction de latrines d\'urgence, promotion de l\'hygiène. Devenez technicien spécialisé dans la prévention des maladies hydriques.', 'en' => 'Purification techniques, emergency latrine construction, hygiene promotion. Become a specialized technician in waterborne disease prevention.'],
-                'debouches' => ['fr' => 'Technicien WASH, Superviseur', 'en' => 'WASH Technician, Supervisor'],
-                'prerequis' => ['fr' => 'Bac Technique', 'en' => 'Technical Bac'],
-                'prix' => 160000.00,
-                'duree' => '2 mois',
-                'category_id' => 3
-            ],
-            [
-                'titre' => ['fr' => 'Santé Mentale & Soutien Psychosocial', 'en' => 'MHPSS'],
-                'slug' => 'sante-mentale',
-                'description_courte' => ['fr' => 'Soigner les traumatismes invisibles.', 'en' => 'Heal invisible traumas.'],
-                'description_complete' => ['fr' => 'Intervention en zone de conflit ou de catastrophe. Premiers secours psychologiques, gestion du stress post-traumatique et accompagnement des victimes.', 'en' => 'Intervention in conflict or disaster zones. Psychological first aid, post-traumatic stress management, and victim support.'],
-                'debouches' => ['fr' => 'Psychologue humanitaire, Assistant social', 'en' => 'Humanitarian Psychologist, Social Worker'],
-                'prerequis' => ['fr' => 'Licence Psycho/Socio', 'en' => 'Bachelor Psych/Soc'],
-                'prix' => 180000.00,
-                'duree' => '2.5 mois',
-                'category_id' => 3
-            ],
-            [
-                'titre' => ['fr' => 'Nutrition en Situation d\'Urgence', 'en' => 'Emergency Nutrition'],
-                'slug' => 'nutrition-urgence',
-                'description_courte' => ['fr' => 'Combattre la malnutrition.', 'en' => 'Fight malnutrition.'],
-                'description_complete' => ['fr' => 'Dépistage de la malnutrition aiguë, prise en charge nutritionnelle (CRENAS/CRENI), programmes d\'alimentation thérapeutique.', 'en' => 'Screening for acute malnutrition, nutritional management (CRENAS/CRENI), therapeutic feeding programs.'],
-                'debouches' => ['fr' => 'Nutritionniste projet, Assistant nutri', 'en' => 'Project Nutritionist, Nutri Assistant'],
-                'prerequis' => ['fr' => 'Formation santé', 'en' => 'Health training'],
-                'prix' => 175000.00,
-                'duree' => '2.5 mois',
-                'category_id' => 3
-            ],
+            // ===== CATÉGORIE 3: HUMANITAIRE =====
+            ['titre' => ['fr' => 'Bases de l\'Humanitaire', 'en' => 'Fundamentals of Humanitarian'], 'slug' => 'bases-humanitaire', 'description_courte' => ['fr' => 'Certificat de compétences - En ligne', 'en' => 'Skills Certificate - Online'], 'description_complete' => ['fr' => 'Introduction complète aux principes humanitaires et au fonctionnement des ONG. Idéal pour débuter une carrière dans le secteur humanitaire.', 'en' => 'Complete introduction to humanitarian principles and NGO operations. Ideal to start a career in the humanitarian sector.'], 'debouches' => ['fr' => 'ONG nationales et internationales', 'en' => 'National and international NGOs'], 'prerequis' => ['fr' => 'Baccalauréat', 'en' => 'Baccalaureate'], 'prix' => 150000, 'duree' => '2 mois', 'category_id' => 3],
+            ['titre' => ['fr' => 'Épidémiologie de Terrain', 'en' => 'Field Epidemiology'], 'slug' => 'epidemiologie-terrain', 'description_courte' => ['fr' => 'Certificat - Urgences sanitaires', 'en' => 'Certificate - Health emergencies'], 'description_complete' => ['fr' => 'Formation spécialisée en investigation épidémiologique et gestion des urgences sanitaires. Surveillance, détection et riposte aux épidémies.', 'en' => 'Specialized training in epidemiological investigation and health emergency management. Surveillance, detection and epidemic response.'], 'debouches' => ['fr' => 'OMS, ONG santé, ministères', 'en' => 'WHO, health NGOs, ministries'], 'prerequis' => ['fr' => 'Formation en santé', 'en' => 'Health background'], 'prix' => 200000, 'duree' => '3 mois', 'category_id' => 3, 'is_featured' => true],
+            ['titre' => ['fr' => 'Logistique Humanitaire', 'en' => 'Humanitarian Logistics'], 'slug' => 'logistique-humanitaire', 'description_courte' => ['fr' => 'Certificat de compétences - En ligne', 'en' => 'Skills Certificate - Online'], 'description_complete' => ['fr' => 'Maîtrisez la gestion logistique en contexte humanitaire. Supply chain, gestion de flotte, approvisionnement et distribution d\'aide d\'urgence.', 'en' => 'Master logistics management in humanitarian context. Supply chain, fleet management, procurement and emergency aid distribution.'], 'debouches' => ['fr' => 'Logisticien ONG, gestionnaire de stocks', 'en' => 'NGO logistician, warehouse manager'], 'prerequis' => ['fr' => 'Bac +2 ou expérience', 'en' => 'Associate degree or experience'], 'prix' => 170000, 'duree' => '2-3 mois', 'category_id' => 3],
+            ['titre' => ['fr' => 'Gestion de Projets Humanitaires', 'en' => 'Humanitarian Project Management'], 'slug' => 'gestion-projets-humanitaires', 'description_courte' => ['fr' => 'Certificat de compétences - En ligne', 'en' => 'Skills Certificate - Online'], 'description_complete' => ['fr' => 'Cycle complet de gestion de projets humanitaires : conception, budgétisation, mise en œuvre, suivi-évaluation et rapportage aux bailleurs.', 'en' => 'Complete humanitarian project management cycle: design, budgeting, implementation, monitoring-evaluation and donor reporting.'], 'debouches' => ['fr' => 'Chef de projet, coordinateur ONG', 'en' => 'Project manager, NGO coordinator'], 'prerequis' => ['fr' => 'Licence minimum', 'en' => 'Bachelor minimum'], 'prix' => 190000, 'duree' => '3 mois', 'category_id' => 3, 'is_featured' => true],
+            ['titre' => ['fr' => 'WASH Humanitaire', 'en' => 'WaSH in Humanitarian Context'], 'slug' => 'wash-humanitaire', 'description_courte' => ['fr' => 'Eau, Hygiène, Assainissement', 'en' => 'Water, Sanitation, Hygiene'], 'description_complete' => ['fr' => 'Techniques de potabilisation, construction de latrines d\'urgence et promotion de l\'hygiène en contexte humanitaire.', 'en' => 'Water purification techniques, emergency latrine construction and hygiene promotion in humanitarian context.'], 'debouches' => ['fr' => 'Technicien WASH, promoteur hygiène', 'en' => 'WASH technician, hygiene promoter'], 'prerequis' => ['fr' => 'Bac technique ou santé', 'en' => 'Technical or health bac'], 'prix' => 160000, 'duree' => '2 mois', 'category_id' => 3],
+            ['titre' => ['fr' => 'Nutrition Humanitaire', 'en' => 'Nutrition in Humanitarian Context'], 'slug' => 'nutrition-humanitaire', 'description_courte' => ['fr' => 'Certificat de compétences - En ligne', 'en' => 'Skills Certificate - Online'], 'description_complete' => ['fr' => 'Dépistage et prise en charge de la malnutrition aiguë. Programmes d\'alimentation thérapeutique et prévention nutritionnelle.', 'en' => 'Screening and management of acute malnutrition. Therapeutic feeding programs and nutritional prevention.'], 'debouches' => ['fr' => 'Nutritionniste projet, assistant nutrition', 'en' => 'Project nutritionist, nutrition assistant'], 'prerequis' => ['fr' => 'Formation santé/nutrition', 'en' => 'Health/nutrition background'], 'prix' => 175000, 'duree' => '2-3 mois', 'category_id' => 3],
 
-            // ===== CATÉGORIE 4: NUMÉRIQUE EN SANTÉ (ID 4) =====
-            [
-                'titre' => ['fr' => 'Data Analyst Santé', 'en' => 'Health Data Analyst'],
-                'slug' => 'data-sante',
-                'description_courte' => ['fr' => 'Faire parler les données médicales.', 'en' => 'Make medical data speak.'],
-                'description_complete' => ['fr' => 'Maîtrisez les outils (DHIS2, Excel Avancé, PowerBI) pour collecter et analyser les staistiques sanitaires. Profil très recherché par les ministères et les grandes ONG.', 'en' => 'Master tools (DHIS2, Advanced Excel, PowerBI) to collect and analyze health statistics. Highly sought-after profile by ministries and major NGOs.'],
-                'debouches' => ['fr' => 'Data Manager, Statisticien', 'en' => 'Data Manager, Statistician'],
-                'prerequis' => ['fr' => 'Aisance informatique', 'en' => 'Computer literacy'],
-                'prix' => 240000.00,
-                'duree' => '4 mois',
-                'category_id' => 4,
-                'is_featured' => true
-            ],
-            [
-                'titre' => ['fr' => 'SIG - Cartographie Sanitaire', 'en' => 'GIS Health Mapping'],
-                'slug' => 'sig-sante',
-                'description_courte' => ['fr' => 'Visualiser les enjeux de santé.', 'en' => 'Visualize health issues.'],
-                'description_complete' => ['fr' => 'Apprenez à créer des cartes pour suivre des épidémies ou planifier l\'implantation de centres de santé avec QGIS et GPS.', 'en' => 'Learn to create maps to track epidemics or plan the location of health centers with QGIS and GPS.'],
-                'debouches' => ['fr' => 'Chargé d\'études géographiques', 'en' => 'Geographic Studies Officer'],
-                'prerequis' => ['fr' => 'Bac', 'en' => 'Bac'],
-                'prix' => 200000.00,
-                'duree' => '3 mois',
-                'category_id' => 4
-            ],
-            [
-                'titre' => ['fr' => 'e-Santé & Télémédecine', 'en' => 'e-Health'],
-                'slug' => 'e-sante',
-                'description_courte' => ['fr' => 'La santé à l\'ère du numérique.', 'en' => 'Health in the digital age.'],
-                'description_complete' => ['fr' => 'Comprendre les enjeux de la santé digitale : dossier patient informatisé, téléconsultation, mHealth (santé mobile).', 'en' => 'Understand the challenges of digital health: electronic patient record, teleconsultation, mHealth (mobile health).'],
-                'debouches' => ['fr' => 'Consultant e-Santé', 'en' => 'e-Health Consultant'],
-                'prerequis' => ['fr' => 'Informatique/Santé', 'en' => 'IT/Health'],
-                'prix' => 220000.00,
-                'duree' => '3 mois',
-                'category_id' => 4
-            ],
+            // ===== CATÉGORIE 4: NUMÉRIQUE EN SANTÉ =====
+            ['titre' => ['fr' => 'Data Analyst en Santé', 'en' => 'Health Data Analyst'], 'slug' => 'data-analyst-sante', 'description_courte' => ['fr' => 'Diplôme National - 12 mois', 'en' => 'National Diploma - 12 months'], 'description_complete' => ['fr' => 'Formation complète en analyse de données sanitaires. Maîtrisez Excel, SPSS, DHIS2, Kobo Collect, ODK, EpiInfo, R, Python et PowerBI pour transformer les données en décisions.', 'en' => 'Complete training in health data analysis. Master Excel, SPSS, DHIS2, Kobo Collect, ODK, EpiInfo, R, Python and PowerBI to transform data into decisions.'], 'debouches' => ['fr' => 'Data manager, statisticien santé, chargé M&E', 'en' => 'Data manager, health statistician, M&E officer'], 'prerequis' => ['fr' => 'Bac scientifique ou économique', 'en' => 'Science or economics bac'], 'prix' => 350000, 'duree' => '12 mois', 'category_id' => 4, 'is_featured' => true],
+            ['titre' => ['fr' => 'Cartographie SIG en Santé', 'en' => 'GIS Health Mapping'], 'slug' => 'cartographie-sig-sante', 'description_courte' => ['fr' => 'Certificat - QGIS, ArcGIS', 'en' => 'Certificate - QGIS, ArcGIS'], 'description_complete' => ['fr' => 'Utilisez les systèmes d\'information géographique pour la santé publique. Cartographie des épidémies, planification sanitaire et analyse spatiale avec QGIS et ArcGIS.', 'en' => 'Use geographic information systems for public health. Epidemic mapping, health planning and spatial analysis with QGIS and ArcGIS.'], 'debouches' => ['fr' => 'Cartographe santé, analyste spatial', 'en' => 'Health cartographer, spatial analyst'], 'prerequis' => ['fr' => 'Aisance informatique', 'en' => 'Computer literacy'], 'prix' => 200000, 'duree' => '3 mois', 'category_id' => 4],
+            ['titre' => ['fr' => 'IA pour Professionnels de Santé', 'en' => 'AI for Health Professionals'], 'slug' => 'ia-sante-cliniciens', 'description_courte' => ['fr' => 'Intelligence Artificielle appliquée', 'en' => 'Applied Artificial Intelligence'], 'description_complete' => ['fr' => 'Découvrez les applications de l\'IA en santé clinique et publique. Machine learning, diagnostic assisté et prédiction épidémiologique.', 'en' => 'Discover AI applications in clinical and public health. Machine learning, assisted diagnosis and epidemiological prediction.'], 'debouches' => ['fr' => 'Consultant e-santé, data scientist santé', 'en' => 'e-health consultant, health data scientist'], 'prerequis' => ['fr' => 'Formation santé ou informatique', 'en' => 'Health or IT background'], 'prix' => 260000, 'duree' => '4 mois', 'category_id' => 4],
 
-            // ===== CATÉGORIE 5: MANAGEMENT & RECHERCHE (ID 5) =====
-            [
-                'titre' => ['fr' => 'Assistant de Recherche', 'en' => 'Research Assistant'],
-                'slug' => 'assistant-recherche',
-                'description_courte' => ['fr' => 'Au cœur de l\'enquête scientifique.', 'en' => 'At the heart of scientific inquiry.'],
-                'description_complete' => ['fr' => 'Formation aux méthodologies d\'enquête : rédaction de protocoles, collecte de données sur le terrain (ODK, Kobo), éthique de la recherche.', 'en' => 'Training in survey methodologies: protocol writing, field data collection (ODK, Kobo), research ethics.'],
-                'debouches' => ['fr' => 'Enquêteur, Assistant de recherche', 'en' => 'Surveyor, Research Assistant'],
-                'prerequis' => ['fr' => 'Licence Sciences Sociales/Santé', 'en' => 'Social Sciences/Health Bachelor'],
-                'prix' => 210000.00,
-                'duree' => '3 mois',
-                'category_id' => 5
-            ],
-            [
-                'titre' => ['fr' => 'Suivi & Évaluation (S&E)', 'en' => 'Monitoring & Evaluation (M&E)'],
-                'slug' => 'suivi-eval',
-                'description_courte' => ['fr' => 'Mesurer la performance.', 'en' => 'Measure performance.'],
-                'description_complete' => ['fr' => 'Devenez l\'œil expert des projets. Définition d\'indicateurs, tableaux de bord de suivi, rapports de performance pour les bailleurs.', 'en' => 'Become the expert eye of projects. Indicator definition, monitoring dashboards, performance reports for donors.'],
-                'debouches' => ['fr' => 'Chargé de S&E', 'en' => 'M&E Officer'],
-                'prerequis' => ['fr' => 'Licence/Master', 'en' => 'Bachelor/Master'],
-                'prix' => 200000.00,
-                'duree' => '3 mois',
-                'category_id' => 5,
-                'is_featured' => true
-            ],
+            // ===== CATÉGORIE 5: MANAGEMENT & RECHERCHE =====
+            ['titre' => ['fr' => 'Protocole de Recherche en Santé', 'en' => 'Health Research Protocol'], 'slug' => 'protocole-recherche', 'description_courte' => ['fr' => 'Certificat - Méthodologie', 'en' => 'Certificate - Methodology'], 'description_complete' => ['fr' => 'Apprenez à concevoir un protocole de recherche scientifique. Question de recherche, revue de littérature, méthodologie, éthique et rédaction académique.', 'en' => 'Learn to design a scientific research protocol. Research question, literature review, methodology, ethics and academic writing.'], 'debouches' => ['fr' => 'Chercheur, assistant de recherche, doctorant', 'en' => 'Researcher, research assistant, PhD student'], 'prerequis' => ['fr' => 'Licence/Master', 'en' => 'Bachelor/Master'], 'prix' => 210000, 'duree' => '3 mois', 'category_id' => 5, 'is_featured' => true],
+            ['titre' => ['fr' => 'Enquête CAP', 'en' => 'KAP Survey'], 'slug' => 'enquete-cap', 'description_courte' => ['fr' => 'Connaissances, Attitudes, Pratiques', 'en' => 'Knowledge, Attitudes, Practices'], 'description_complete' => ['fr' => 'Maîtrisez la conception et la conduite d\'enquêtes CAP. Questionnaires, échantillonnage, collecte de données et analyse comportementale.', 'en' => 'Master the design and conduct of KAP surveys. Questionnaires, sampling, data collection and behavioral analysis.'], 'debouches' => ['fr' => 'Chargé d\'études, consultant santé communautaire', 'en' => 'Research officer, community health consultant'], 'prerequis' => ['fr' => 'Bac +2 minimum', 'en' => 'Associate degree minimum'], 'prix' => 190000, 'duree' => '2-3 mois', 'category_id' => 5],
+            ['titre' => ['fr' => 'Suivi-Évaluation', 'en' => 'Monitoring & Evaluation'], 'slug' => 'suivi-evaluation', 'description_courte' => ['fr' => 'M&E et Redevabilité', 'en' => 'M&E and Accountability'], 'description_complete' => ['fr' => 'Formation complète en suivi-évaluation de projets. Indicateurs, collecte de données, analyse de performance et rapportage aux bailleurs.', 'en' => 'Complete training in project monitoring and evaluation. Indicators, data collection, performance analysis and donor reporting.'], 'debouches' => ['fr' => 'Responsable S&E, auditeur de projets', 'en' => 'M&E manager, project auditor'], 'prerequis' => ['fr' => 'Expérience en gestion de projet', 'en' => 'Project management experience'], 'prix' => 200000, 'duree' => '3 mois', 'category_id' => 5],
+            ['titre' => ['fr' => 'Évaluation Système de Santé', 'en' => 'Health System Evaluation'], 'slug' => 'evaluation-systeme-sante', 'description_courte' => ['fr' => 'Certificat de compétences', 'en' => 'Skills Certificate'], 'description_complete' => ['fr' => 'Apprenez à évaluer les systèmes de santé. Performance, équité, efficacité et qualité des services de santé.', 'en' => 'Learn to evaluate health systems. Performance, equity, efficiency and quality of health services.'], 'debouches' => ['fr' => 'Consultant santé, évaluateur de programmes', 'en' => 'Health consultant, program evaluator'], 'prerequis' => ['fr' => 'Formation en santé publique', 'en' => 'Public health background'], 'prix' => 210000, 'duree' => '3 mois', 'category_id' => 5],
         ];
 
         foreach ($formations as $formation) {

@@ -367,37 +367,59 @@
                                 }}
                             </p>
 
-                            <!-- Débouchés & Prérequis -->
+                            <!-- Débouchés Professionnels -->
                             <div
-                                class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8"
+                                v-if="selectedFormation.debouches"
+                                class="mb-8"
                             >
                                 <div
-                                    v-if="selectedFormation.debouches"
-                                    class="bg-blue-50 p-6 rounded-2xl border border-blue-100"
+                                    class="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-3xl border-2 border-blue-200"
                                 >
                                     <h4
-                                        class="text-lg font-bold text-blue-900 mb-3 flex items-center gap-2"
+                                        class="text-2xl font-bold text-blue-900 mb-4 flex items-center gap-3"
                                     >
-                                        <i class="fas fa-briefcase"></i>
-                                        Débouchés
+                                        <div
+                                            class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center"
+                                        >
+                                            <i
+                                                class="fas fa-briefcase text-white text-xl"
+                                            ></i>
+                                        </div>
+                                        Vos Opportunités de Carrière
                                     </h4>
-                                    <p class="text-gray-700">
+                                    <p
+                                        class="text-gray-800 text-lg leading-relaxed"
+                                    >
                                         {{
                                             getText(selectedFormation.debouches)
                                         }}
                                     </p>
                                 </div>
+                            </div>
+
+                            <!-- Prérequis -->
+                            <div
+                                v-if="selectedFormation.prerequis"
+                                class="mb-8"
+                            >
                                 <div
-                                    v-if="selectedFormation.prerequis"
-                                    class="bg-amber-50 p-6 rounded-2xl border border-amber-100"
+                                    class="bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-3xl border-2 border-amber-200"
                                 >
                                     <h4
-                                        class="text-lg font-bold text-amber-900 mb-3 flex items-center gap-2"
+                                        class="text-2xl font-bold text-amber-900 mb-4 flex items-center gap-3"
                                     >
-                                        <i class="fas fa-list-check"></i>
-                                        Prérequis
+                                        <div
+                                            class="w-12 h-12 bg-amber-600 rounded-xl flex items-center justify-center"
+                                        >
+                                            <i
+                                                class="fas fa-graduation-cap text-white text-xl"
+                                            ></i>
+                                        </div>
+                                        Conditions d'Admission
                                     </h4>
-                                    <p class="text-gray-700">
+                                    <p
+                                        class="text-gray-800 text-lg leading-relaxed"
+                                    >
                                         {{
                                             getText(selectedFormation.prerequis)
                                         }}
@@ -405,34 +427,97 @@
                                 </div>
                             </div>
 
-                            <!-- Modules List -->
-                            <div
-                                v-if="selectedFormation.modules?.length"
-                                class="mb-8"
-                            >
-                                <h4
-                                    class="text-lg font-bold text-gray-900 mb-4 border-b pb-2"
+                            <!-- Pourquoi Choisir Cette Formation -->
+                            <div class="mb-8">
+                                <div
+                                    class="bg-gradient-to-br from-green-50 to-emerald-50 p-8 rounded-3xl border-2 border-green-200"
                                 >
-                                    Programme Académique
-                                </h4>
-                                <ul class="space-y-3">
-                                    <li
-                                        v-for="(
-                                            module, idx
-                                        ) in selectedFormation.modules"
-                                        :key="idx"
-                                        class="flex gap-3 items-start"
+                                    <h4
+                                        class="text-2xl font-bold text-green-900 mb-6 flex items-center gap-3"
                                     >
-                                        <span
-                                            class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold mt-0.5"
-                                            >{{ idx + 1 }}</span
+                                        <div
+                                            class="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center"
                                         >
-                                        <span
-                                            class="text-gray-700 font-medium"
-                                            >{{ getText(module.titre) }}</span
-                                        >
-                                    </li>
-                                </ul>
+                                            <i
+                                                class="fas fa-star text-white text-xl"
+                                            ></i>
+                                        </div>
+                                        Pourquoi Choisir ACADECOL ?
+                                    </h4>
+                                    <div
+                                        class="grid grid-cols-1 md:grid-cols-2 gap-4"
+                                    >
+                                        <div class="flex items-start gap-3">
+                                            <i
+                                                class="fas fa-check-circle text-green-600 text-xl mt-1"
+                                            ></i>
+                                            <div>
+                                                <p
+                                                    class="font-bold text-gray-900"
+                                                >
+                                                    Formation Certifiée
+                                                </p>
+                                                <p
+                                                    class="text-gray-700 text-sm"
+                                                >
+                                                    Diplômes reconnus par l'État
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3">
+                                            <i
+                                                class="fas fa-check-circle text-green-600 text-xl mt-1"
+                                            ></i>
+                                            <div>
+                                                <p
+                                                    class="font-bold text-gray-900"
+                                                >
+                                                    Formateurs Experts
+                                                </p>
+                                                <p
+                                                    class="text-gray-700 text-sm"
+                                                >
+                                                    Professionnels en activité
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3">
+                                            <i
+                                                class="fas fa-check-circle text-green-600 text-xl mt-1"
+                                            ></i>
+                                            <div>
+                                                <p
+                                                    class="font-bold text-gray-900"
+                                                >
+                                                    Stage Pratique
+                                                </p>
+                                                <p
+                                                    class="text-gray-700 text-sm"
+                                                >
+                                                    Expérience terrain garantie
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3">
+                                            <i
+                                                class="fas fa-check-circle text-green-600 text-xl mt-1"
+                                            ></i>
+                                            <div>
+                                                <p
+                                                    class="font-bold text-gray-900"
+                                                >
+                                                    Accompagnement Emploi
+                                                </p>
+                                                <p
+                                                    class="text-gray-700 text-sm"
+                                                >
+                                                    Aide à l'insertion
+                                                    professionnelle
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- CTA -->
