@@ -10,11 +10,34 @@ use Illuminate\Support\Str;
 
 class PreRegistrationController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
+        // Si déjà connecté (session ou cookie), rediriger vers show
+        if ($request->session()->has('student_id')) {
+            return redirect()->route('pre-registration.show');
+        }
+        
+        $cookieValue = \Illuminate\Support\Facades\Cookie::get('student_access');
+        if ($cookieValue) {
+            try {
+                $studentId = \Illuminate\Support\Facades\Crypt::decryptString($cookieValue);
+                if (PreRegistration::find($studentId)) {
+                    session(['student_id' => $studentId]);
+                    return redirect()->route('pre-registration.show');
+                }
+            } catch (\Exception $e) {
+                // Cookie invalide
+            }
+        }
+
         return Inertia::render('PreRegistration/Create', [
             'formations' => Formation::select('id', 'titre')->get()
         ]);
+    }
+    
+    public function logout(Request $request) {
+        $request->session()->forget('student_id');
+        return redirect()->route('pre-registration.create')->withCookie(\Illuminate\Support\Facades\Cookie::forget('student_access'));
     }
 
     public function store(Request $request)
@@ -44,16 +67,24 @@ class PreRegistrationController extends Controller
 
         $preRegistration = PreRegistration::create($validated);
 
-        // Connexion automatique "session étudiante"
+        // Connexion session + Cookie persistant (30 jours)
         session(['student_id' => $preRegistration->id]);
+        $cookie = cookie('student_access', \Illuminate\Support\Facades\Crypt::encryptString($preRegistration->id), 60 * 24 * 30);
 
         return redirect()->route('pre-registration.show')
-            ->with('success', 'Votre pré-inscription a été enregistrée avec succès !');
+            ->with('success', 'Votre pré-inscription a été enregistrée avec succès !')
+            ->withCookie($cookie);
     }
 
     public function loginForm()
     {
-        return Inertia::render('PreRegistration/Login');
+        // Si déjà connecté
+        if (session()->has('student_id')) {
+            return redirect()->route('pre-registration.show');
+        }
+        // ... (check cookie logic si je veux, mais create le fait aussi)
+        
+        return redirect()->route('pre-registration.create');
     }
 
     public function login(Request $request)
@@ -71,21 +102,33 @@ class PreRegistrationController extends Controller
         }
 
         session(['student_id' => $preRegistration->id]);
+        $cookie = cookie('student_access', \Illuminate\Support\Facades\Crypt::encryptString($preRegistration->id), 60 * 24 * 30);
 
-        return redirect()->route('pre-registration.show');
+        return redirect()->route('pre-registration.show')->withCookie($cookie);
     }
 
     public function show()
     {
+        // Tentative de récupération depuis cookie si session vide
         if (!session()->has('student_id')) {
-            return redirect()->route('pre-registration.login');
+            $cookieValue = \Illuminate\Support\Facades\Cookie::get('student_access');
+            if ($cookieValue) {
+                try {
+                    $studentId = \Illuminate\Support\Facades\Crypt::decryptString($cookieValue);
+                    session(['student_id' => $studentId]);
+                } catch (\Exception $e) {
+                     return redirect()->route('pre-registration.login');
+                }
+            } else {
+                return redirect()->route('pre-registration.login');
+            }
         }
 
         $preRegistration = PreRegistration::with('formation')->find(session('student_id'));
 
         if (!$preRegistration) {
             session()->forget('student_id');
-            return redirect()->route('pre-registration.login');
+            return redirect()->route('pre-registration.login')->withCookie(cookie()->forget('student_access'));
         }
 
         return Inertia::render('PreRegistration/View', [

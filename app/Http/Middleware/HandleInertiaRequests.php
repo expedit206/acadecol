@@ -33,6 +33,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'is_student' => $request->session()->has('student_id') || \Illuminate\Support\Facades\Cookie::get('student_access'),
             ],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),

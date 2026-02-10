@@ -29,6 +29,7 @@ Route::controller(App\Http\Controllers\PreRegistrationController::class)->group(
     // Consultation dossier et mise à jour
     Route::get('/mon-dossier', 'show')->name('pre-registration.show');
     Route::put('/mon-dossier/{preRegistration}', 'update')->name('pre-registration.update');
+    Route::post('/mon-dossier/deconnexion', 'logout')->name('pre-registration.logout');
 });
 
 

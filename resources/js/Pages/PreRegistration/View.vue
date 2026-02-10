@@ -66,9 +66,10 @@
                         >
                             N° {{ preRegistration.registration_number }}
                         </div>
-                        <div class="flex items-center">
-                            <span class="mr-2 text-gray-600 font-medium"
-                                >Statut du dossier :</span
+                        <div class="flex items-center space-x-4">
+                            <span
+                                class="mr-2 text-gray-600 font-medium hidden sm:inline"
+                                >Statut :</span
                             >
                             <span
                                 :class="
@@ -78,6 +79,12 @@
                             >
                                 {{ getStatusLabel(preRegistration.status) }}
                             </span>
+                            <button
+                                @click="logout"
+                                class="text-red-500 hover:text-red-700 text-sm font-medium underline flex items-center print:hidden"
+                            >
+                                <i class="fas fa-sign-out-alt mr-1"></i> Sortir
+                            </button>
                         </div>
                         <div v-if="canEdit" class="print:hidden">
                             <button
@@ -516,7 +523,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { useForm, Link } from "@inertiajs/vue3";
+import { useForm, Link, router } from "@inertiajs/vue3";
 import PublicLayout from "@/Layouts/PublicLayout.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
@@ -530,6 +537,10 @@ const props = defineProps({
 
 const isEditing = ref(false);
 const canEdit = computed(() => props.preRegistration.status === "pending");
+
+const logout = () => {
+    router.post(route("pre-registration.logout"));
+};
 
 const form = useForm({
     formation_id: props.preRegistration.formation_id,

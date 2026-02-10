@@ -154,13 +154,15 @@
                             <i class="fas fa-cog mr-2"></i>Administration
                         </Link>
                     </template>
-                    <template v-else>
+                    <template v-else-if="$page.props.auth.is_student">
                         <Link
-                            :href="route('pre-registration.login')"
-                            class="block px-4 py-2 text-blue-600 font-semibold hover:bg-blue-50 rounded"
+                            :href="route('pre-registration.show')"
+                            class="block px-4 py-2 text-blue-600 font-bold hover:bg-blue-50 rounded"
                         >
-                            <i class="fas fa-user-circle mr-2"></i>Mon Dossier
+                            <i class="fas fa-user-check mr-2"></i>Mon Dossier
                         </Link>
+                    </template>
+                    <template v-else>
                         <Link
                             :href="route('pre-registration.create')"
                             class="block px-4 py-2 text-blue-600 font-bold hover:bg-blue-50 rounded"

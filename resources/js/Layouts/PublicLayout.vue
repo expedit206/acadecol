@@ -6,20 +6,23 @@
         />
         <PublicHeader>
             <template #auth-links>
-                <Link
-                    v-if="auth.user"
-                    :href="route('admin.dashboard')"
-                    class="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 transition font-bold"
-                >
-                    <i class="fas fa-cog mr-2"></i>Administration
-                </Link>
-                <template v-else>
+                <template v-if="auth.user">
                     <Link
-                        :href="route('pre-registration.login')"
-                        class="px-3 md:px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition shadow-sm font-semibold mr-2 hidden sm:inline-block"
+                        :href="route('admin.dashboard')"
+                        class="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 transition font-bold"
                     >
-                        Mon Dossier
+                        <i class="fas fa-cog mr-2"></i>Administration
                     </Link>
+                </template>
+                <template v-else-if="auth.is_student">
+                    <Link
+                        :href="route('pre-registration.show')"
+                        class="px-3 md:px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition shadow-md font-semibold"
+                    >
+                        <i class="fas fa-user-check mr-2"></i>Mon Dossier
+                    </Link>
+                </template>
+                <template v-else>
                     <Link
                         :href="route('pre-registration.create')"
                         class="px-3 md:px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition shadow-md font-semibold"
