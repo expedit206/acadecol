@@ -27,4 +27,16 @@ Route::middleware('auth')->group(function () {
         ->name('pre-registration.success');
 });
 
+// Admin Routes
+Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return Inertia::render('Admin/Dashboard');
+    })->name('dashboard');
+    
+    Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
+    Route::resource('formations', App\Http\Controllers\Admin\FormationController::class);
+    Route::post('formations/{formation}/toggle-featured', [App\Http\Controllers\Admin\FormationController::class, 'toggleFeatured'])
+        ->name('formations.toggle-featured');
+});
+
 require __DIR__.'/auth.php';
