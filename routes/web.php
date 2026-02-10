@@ -30,7 +30,13 @@ Route::middleware('auth')->group(function () {
 // Admin Routes
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
     Route::get('/', function () {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/Dashboard', [
+            'stats' => [
+                'formations' => App\Models\Formation::count(),
+                'categories' => App\Models\Category::count(),
+                'users' => App\Models\User::count(),
+            ]
+        ]);
     })->name('dashboard');
     
     Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
