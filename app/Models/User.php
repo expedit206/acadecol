@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements \Filament\Models\Contracts\FilamentUser
+class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -44,11 +44,6 @@ class User extends Authenticatable implements \Filament\Models\Contracts\Filamen
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function canAccessPanel(\Filament\Panel $panel): bool
-    {
-        return $this->email === 'admin@acadecol.cm';
     }
 
     public function preRegistration()
