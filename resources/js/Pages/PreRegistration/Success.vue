@@ -12,10 +12,10 @@
                 </h1>
                 <p class="text-gray-600 mb-8 border-b pb-4">
                     Votre demande a bien été enregistrée.
-                    <span v-if="$page.props.flash.registration_number">
+                    <span v-if="$page.props.flash?.registration_number">
                         Numéro :
                         <strong>{{
-                            $page.props.flash.registration_number
+                            $page.props.flash?.registration_number
                         }}</strong>
                     </span>
                 </p>

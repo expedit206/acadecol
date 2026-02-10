@@ -77,12 +77,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4 flex items-center justify-between">
-                <Link
-                    :href="route('register')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none"
-                >
-                    Pas encore de compte ? S'inscrire
-                </Link>
+                <div></div>
 
                 <div class="flex items-center">
                     <Link

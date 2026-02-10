@@ -4,11 +4,11 @@
             <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
                 <!-- Flash Warning -->
                 <div
-                    v-if="$page.props.flash.warning"
+                    v-if="$page.props.flash?.warning"
                     class="mb-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded shadow-sm"
                 >
                     <p class="font-bold">Attention</p>
-                    <p>{{ $page.props.flash.warning }}</p>
+                    <p>{{ $page.props.flash?.warning }}</p>
                     <Link
                         :href="route('pre-registration.status')"
                         class="underline font-semibold mt-2 inline-block"
