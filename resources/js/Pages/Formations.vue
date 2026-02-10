@@ -1,7 +1,9 @@
 <template>
     <PublicLayout>
         <!-- Hero Section -->
-        <section class="relative bg-gray-900 text-white py-24 overflow-hidden">
+        <section
+            class="relative bg-gray-900 text-white py-10 md:py-24 overflow-hidden"
+        >
             <div
                 class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center"
             ></div>
@@ -9,7 +11,7 @@
                 class="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-purple-900/90"
             ></div>
             <div class="container mx-auto px-4 relative z-10 text-center">
-                <h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
+                <h1 class="text-3xl md:text-6xl font-bold mb-6 tracking-tight">
                     Nos Programmes de Formation
                 </h1>
                 <p
@@ -21,48 +23,64 @@
             </div>
         </section>
 
-        <!-- Navigation Tabs (Sticky) -->
+        <!-- Navigation Tabs/Dropdown (Sticky) -->
+        <!-- Navigation Pills (Sticky) -->
         <section
             class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all duration-300"
         >
-            <div class="container mx-auto px-4">
+            <div class="container mx-auto px-4 py-3">
                 <div
-                    class="flex overflow-x-auto pb-0 hide-scrollbar gap-2 py-4 justify-start md:justify-center"
+                    class="flex flex-wrap overflow-x-auto gap-3 hide-scrollbar pb-1 -mx-4 px-2 sm:mx-0 sm:px-0"
                 >
+                    <!-- 'Tous' Option -->
+                    <button
+                        @click="selectDomain(null)"
+                        :class="[
+                            'flex-shrink-0 px-5 py-2 rounded-full text-[5px] font-bold transition-all border whitespace-nowrap',
+                            selectedDomainId === null
+                                ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                                : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400 hover:text-blue-600',
+                        ]"
+                    >
+                        Toutes les formations
+                    </button>
+
+                    <!-- Categories -->
                     <button
                         v-for="domain in domains"
                         :key="domain.id"
                         @click="selectDomain(domain.id)"
                         :class="[
-                            'flex items-center gap-3 px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 whitespace-nowrap mb-1',
+                            'flex-shrink-0 flex flex-wrap items-center gap-2 px-1 py-2 rounded-full text-[4px] font-bold transition-all border whitespace-nowrap',
                             selectedDomainId === domain.id
-                                ? `bg-gradient-to-r ${domain.color} text-white shadow-lg transform scale-105`
-                                : 'bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-gray-900 border border-gray-200',
+                                ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                                : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400 hover:text-blue-600',
                         ]"
                     >
-                        <!-- Use <i> for FontAwesome icons -->
-                        <i :class="[domain.iconClass, 'text-lg']"></i>
-                        <span>{{ domain.name }}</span>
+                        <i :class="domain.iconClass"></i>
+                        {{ domain.name }}
                     </button>
                 </div>
             </div>
         </section>
 
         <!-- Main Content -->
-        <section class="py-16 bg-gray-50 min-h-screen">
+        <section class="py-10 md:py-16 bg-gray-50 min-h-screen">
             <div class="container mx-auto px-4">
                 <!-- Domain Header -->
                 <div
                     v-if="selectedDomain"
-                    class="mb-12 text-center animate-fade-in-up"
+                    class="mb-8 text-center animate-fade-in-up"
                 >
                     <div
-                        :class="`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br ${selectedDomain.color} text-white text-4xl mb-6 shadow-xl transform rotate-3`"
+                        :class="`inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br ${selectedDomain.color} text-white text-3xl md:text-4xl mb-6 shadow-xl transform rotate-3`"
                     >
                         <!-- Header Icon -->
                         <i :class="selectedDomain.iconClass"></i>
                     </div>
-                    <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    <h2
+                        class="text-2xl md:text-4xl font-bold text-gray-900 mb-4"
+                    >
                         {{ selectedDomain.name }}
                     </h2>
                     <p class="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -79,30 +97,62 @@
                         v-for="formation in filteredFormations"
                         :key="formation.id"
                         @click="openDetails(formation)"
-                        class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer border border-gray-100 flex flex-col h-full"
+                        class="group bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 flex flex-col h-full transform hover:-translate-y-1"
                     >
-                        <!-- Card Header -->
-                        <div
-                            :class="`h-2 bg-gradient-to-r ${selectedDomain.color}`"
-                        ></div>
-                        <div class="p-8 flex-grow">
-                            <div class="flex justify-between items-start mb-4">
+                        <!-- Image Section -->
+                        <div class="relative h-48 overflow-hidden">
+                            <img
+                                :src="
+                                    getCategoryImage(
+                                        getDomain(formation.category_id)?.name,
+                                    )
+                                "
+                                :alt="
+                                    getDomain(formation.category_id)?.name ||
+                                    'Formation'
+                                "
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+                            ></div>
+
+                            <!-- Badges -->
+                            <div
+                                class="absolute top-4 right-4 flex flex-col gap-2 items-end"
+                            >
                                 <span
                                     v-if="formation.is_featured"
-                                    class="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-bold uppercase tracking-wider rounded-full"
-                                    >Populaire</span
+                                    class="px-3 py-1 bg-amber-500 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg"
                                 >
-                                <span v-else></span>
-                                <span class="text-gray-400 text-sm"
-                                    ><i class="far fa-clock mr-1"></i>
-                                    {{
-                                        formation.duree || "Durée variable"
-                                    }}</span
+                                    Populaire
+                                </span>
+                            </div>
+
+                            <!-- Duration Badge -->
+                            <div class="absolute bottom-4 left-4">
+                                <span
+                                    class="px-3 py-1 bg-black/40 backdrop-blur-md text-white border border-white/20 text-xs font-semibold rounded-lg flex items-center gap-1"
                                 >
+                                    <i class="far fa-clock"></i>
+                                    {{ formation.duree || "Durée variable" }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="p-6 flex-grow flex flex-col">
+                            <!-- Category Tag -->
+                            <div class="mb-3">
+                                <span
+                                    :class="`text-xs font-bold uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r ${selectedDomain?.color}`"
+                                >
+                                    {{ getDomain(formation.category_id)?.name }}
+                                </span>
                             </div>
 
                             <h3
-                                class="text-2xl font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors"
+                                class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2"
                             >
                                 {{ getText(formation.titre) }}
                             </h3>
@@ -113,32 +163,23 @@
                                     "Cliquez pour voir les détails."
                                 }}
                             </p>
-
-                            <div class="flex items-center gap-2 mb-2">
-                                <div
-                                    class="bg-blue-50 text-blue-700 px-3 py-1 rounded-md text-xs font-medium"
-                                >
-                                    <i class="fas fa-certificate mr-1"></i>
-                                    Certifiant
-                                </div>
-                            </div>
                         </div>
 
                         <!-- Card Footer -->
                         <div
-                            class="px-8 py-6 bg-gray-50 border-t border-gray-100 mt-auto flex items-center justify-between group-hover:bg-blue-50/50 transition-colors"
+                            class="px-6 py-4 bg-gray-50 border-t border-gray-100 mt-auto flex items-center justify-between group-hover:bg-blue-50/30 transition-colors"
                         >
                             <span class="text-gray-900 font-bold text-lg">
                                 {{
                                     formation.prix
                                         ? formatPrice(formation.prix)
-                                        : "Nous contacter"
+                                        : "Sur devis"
                                 }}
                             </span>
                             <span
-                                class="inline-flex items-center text-blue-600 font-semibold group-hover:translate-x-1 transition-transform"
+                                class="inline-flex items-center text-blue-600 text-sm font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform"
                             >
-                                Détails <i class="fas fa-arrow-right ml-2"></i>
+                                Voir <i class="fas fa-arrow-right ml-2"></i>
                             </span>
                         </div>
                     </div>
@@ -181,7 +222,8 @@
                 >
                     <!-- Left Side (Visual + Key Info) -->
                     <div
-                        :class="`md:w-1/3 p-8 text-white bg-gradient-to-br ${selectedDomain.color} relative overflow-hidden flex flex-col justify-between`"
+                        v-if="selectedFormation"
+                        :class="`md:w-1/3 p-8 text-white bg-gradient-to-br ${getDomain(selectedFormation.category_id)?.color || 'from-blue-600 to-indigo-700'} relative overflow-hidden flex flex-col justify-between`"
                     >
                         <div
                             class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"
@@ -194,7 +236,12 @@
                             <div
                                 class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-3xl mb-6"
                             >
-                                <i :class="selectedDomain.iconClass"></i>
+                                <i
+                                    :class="
+                                        getDomain(selectedFormation.category_id)
+                                            ?.iconClass
+                                    "
+                                ></i>
                             </div>
                             <h2 class="text-3xl font-bold leading-tight mb-2">
                                 {{ getText(selectedFormation.titre) }}
@@ -202,7 +249,10 @@
                             <p
                                 class="text-white/80 text-sm font-medium uppercase tracking-wider mb-8"
                             >
-                                {{ selectedDomain.name }}
+                                {{
+                                    getDomain(selectedFormation.category_id)
+                                        ?.name
+                                }}
                             </p>
 
                             <div class="space-y-4">
@@ -263,9 +313,11 @@
                                         </p>
                                         <p class="font-semibold">
                                             {{
-                                                selectedDomain.description.includes(
-                                                    "En ligne",
-                                                )
+                                                (
+                                                    getDomain(
+                                                        selectedFormation.category_id,
+                                                    )?.description || ""
+                                                ).includes("En ligne")
                                                     ? "En ligne / Hybride"
                                                     : "Présentiel"
                                             }}
@@ -314,6 +366,44 @@
                                     )
                                 }}
                             </p>
+
+                            <!-- Débouchés & Prérequis -->
+                            <div
+                                class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8"
+                            >
+                                <div
+                                    v-if="selectedFormation.debouches"
+                                    class="bg-blue-50 p-6 rounded-2xl border border-blue-100"
+                                >
+                                    <h4
+                                        class="text-lg font-bold text-blue-900 mb-3 flex items-center gap-2"
+                                    >
+                                        <i class="fas fa-briefcase"></i>
+                                        Débouchés
+                                    </h4>
+                                    <p class="text-gray-700">
+                                        {{
+                                            getText(selectedFormation.debouches)
+                                        }}
+                                    </p>
+                                </div>
+                                <div
+                                    v-if="selectedFormation.prerequis"
+                                    class="bg-amber-50 p-6 rounded-2xl border border-amber-100"
+                                >
+                                    <h4
+                                        class="text-lg font-bold text-amber-900 mb-3 flex items-center gap-2"
+                                    >
+                                        <i class="fas fa-list-check"></i>
+                                        Prérequis
+                                    </h4>
+                                    <p class="text-gray-700">
+                                        {{
+                                            getText(selectedFormation.prerequis)
+                                        }}
+                                    </p>
+                                </div>
+                            </div>
 
                             <!-- Modules List -->
                             <div
@@ -384,7 +474,7 @@ const props = defineProps({
 
 const selectedDomainId = ref(null);
 const selectedFormation = ref(null);
-
+console.log(props.categories);
 // Transform data for UI
 const domains = computed(() => {
     return props.categories.map((cat, index) => {
@@ -407,25 +497,53 @@ const domains = computed(() => {
 });
 
 const selectedDomain = computed(() => {
-    return (
-        domains.value.find((d) => d.id === selectedDomainId.value) ||
-        domains.value[0]
-    );
+    if (selectedDomainId.value === null) return null;
+    return domains.value.find((d) => d.id === selectedDomainId.value);
 });
 
+const getDomain = (id) => {
+    return domains.value.find((d) => d.id === id);
+};
+
 const filteredFormations = computed(() => {
-    if (!selectedDomainId.value) return [];
+    if (!selectedDomainId.value) return props.formations; // Show all if no category selected
     return props.formations.filter(
         (f) => f.category_id === selectedDomainId.value,
     );
 });
 
-// Set default domain on load
-onMounted(() => {
-    if (domains.value.length > 0 && !selectedDomainId.value) {
-        selectedDomainId.value = domains.value[0].id;
-    }
-});
+// Removed onMounted force-select
+
+const isOpen = ref(false);
+
+const toggleDropdown = () => {
+    isOpen.value = !isOpen.value;
+};
+
+const selectDomainAndClose = (id) => {
+    selectDomain(id);
+    isOpen.value = false;
+};
+
+// Image Helper
+function getCategoryImage(categoryName) {
+    const images = {
+        "Les Langues":
+            "https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+        "Paramédicale et Biomédical":
+            "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+        "L'Humanitaire":
+            "https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+        "Numérique en Santé":
+            "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+        "Management & Recherche Opérationnelle en Santé":
+            "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    };
+    return (
+        images[categoryName] ||
+        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+    );
+}
 
 function selectDomain(id) {
     selectedDomainId.value = id;

@@ -25,16 +25,35 @@ class PublicController extends Controller
         ]);
     }
 
-    public function formations()
+    public function formations(Request $request)
     {
-        $formations = Formation::with([
+        $query = Formation::with([
             'category',
             'details',
             'modules' => function ($query) {
                 $query->orderBy('ordre');
             }
-        ])
-            ->orderBy('id')
+        ]);
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('titre', 'like', "%{$search}%")
+                  ->orWhere('description_courte', 'like', "%{$search}%")
+                  ->orWhere('slug', 'like', "%{$search}%")
+                  ->orWhere('description_complete', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->has('cat')) {
+            $slug = $request->input('cat');
+            $category = Category::where('slug', $slug)->first();
+            if ($category) {
+                $query->where('category_id', $category->id);
+            }
+        }
+
+        $formations = $query->orderBy('id')
             ->get()
             ->map(function ($formation) {
                 return [

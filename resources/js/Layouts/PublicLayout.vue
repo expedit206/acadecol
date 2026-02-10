@@ -1,5 +1,6 @@
 <template>
-    <div class="min-h-screen bg-gray-50 flex flex-col">
+    <div class="min-h-screen bg-gray-50 flex flex-col text-sm">
+        <TopBanner />
         <PublicHeader>
             <template #auth-links>
                 <Link
@@ -10,17 +11,17 @@
                     Mon Compte
                 </Link>
                 <template v-else>
-                    <Link
+                    <!-- <Link
                         href="/login"
-                        class="px-4 py-2 text-gray-600 hover:text-gray-900 transition"
+                        class="hidden md:flex px-4 py-2 text-gray-600 hover:text-gray-900 transition"
                     >
                         Connexion
-                    </Link>
+                    </Link> -->
                     <Link
                         href="/register"
-                        class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition"
+                        class="px-2 md:px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition"
                     >
-                        Préinscription
+                        Se Préinscrire
                     </Link>
                 </template>
             </template>
@@ -40,6 +41,7 @@
 import { usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
 import PublicHeader from "@/Components/PublicHeader.vue";
+import TopBanner from "@/Components/TopBanner.vue";
 import PublicFooter from "@/Components/PublicFooter.vue";
 import { Link } from "@inertiajs/vue3";
 

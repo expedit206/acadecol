@@ -342,6 +342,7 @@ const formatDate = (dateString) => {
         margin: 0 !important;
         padding: 0 !important;
         -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
 
     #receipt {
