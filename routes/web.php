@@ -17,6 +17,19 @@ Route::controller(PublicController::class)->group(function () {
     Route::get('/actualites', 'news')->name('news');
 });
 
+// Pré-inscriptions Publiques
+Route::controller(App\Http\Controllers\PreRegistrationController::class)->group(function () {
+    Route::get('/pre-inscription', 'create')->name('pre-registration.create');
+    Route::post('/pre-inscription', 'store')->name('pre-registration.store');
+    Route::get('/ma-fiche', 'status')->name('pre-registration.status');
+    Route::post('/ma-fiche/check', 'check')->name('pre-registration.check');
+    Route::put('/ma-fiche/{preRegistration}', 'update')->name('pre-registration.update');
+});
+
+Route::get('/pre-inscription-reussie', function () {
+    return Inertia\Inertia::render('PreRegistration/Success');
+})->name('pre-registration.success');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,13 +41,14 @@ Route::middleware('auth')->group(function () {
 });
 
 // Admin Routes
+// Admin Routes
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return Inertia::render('Admin/Dashboard', [
             'stats' => [
                 'formations' => App\Models\Formation::count(),
                 'categories' => App\Models\Category::count(),
-                'users' => App\Models\User::count(),
+                'pre_registrations' => App\Models\PreRegistration::count(),
             ]
         ]);
     })->name('dashboard');
@@ -43,6 +57,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('formations', App\Http\Controllers\Admin\FormationController::class);
     Route::post('formations/{formation}/toggle-featured', [App\Http\Controllers\Admin\FormationController::class, 'toggleFeatured'])
         ->name('formations.toggle-featured');
+    
+    Route::resource('pre-registrations', App\Http\Controllers\Admin\PreRegistrationController::class)
+        ->only(['index', 'show', 'update']);
 });
 
 require __DIR__.'/auth.php';

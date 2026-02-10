@@ -13,27 +13,29 @@
                     <img
                         src="/img/logofr.jpeg"
                         alt="ACADECOL Logo FR"
-                        class="h-16 w-auto object-contain"
+                        class="h-16 w-auto object-contain cursor-pointer"
+                        @dblclick="$emit('leftLogoDblClick')"
                     />
 
                     <div class="text-center flex-1 space-y-1">
-                    <!-- Coat of Arms -->
-                  
-                    <h1
-                        class="text-[3px] font-extrabold text-gray-900 uppercase leading-snug tracking-wide"
-                    >
-                        Institut de Formation Professionnelle – ACADECOL
-                    </h1>
-                    <h2
-                        class="text-[3px] md:text-xs font-bold text-gray-800 uppercase leading-snug tracking-wide"
-                    >
-                        Vocational Training Institute – A.A.L.S.D
-                    </h2>
+                        <!-- Coat of Arms -->
+
+                        <h1
+                            class="text-[3px] font-extrabold text-gray-900 uppercase leading-snug tracking-wide"
+                        >
+                            Institut de Formation Professionnelle – ACADECOL
+                        </h1>
+                        <h2
+                            class="text-[3px] md:text-xs font-bold text-gray-800 uppercase leading-snug tracking-wide"
+                        >
+                            Vocational Training Institute – A.A.L.S.D
+                        </h2>
                     </div>
                     <img
                         src="/img/logoen.jpeg"
                         alt="ACADECOL Logo EN"
-                        class="h-16 w-auto object-contain"
+                        class="h-16 w-auto object-contain cursor-pointer"
+                        @dblclick="$emit('rightLogoDblClick')"
                     />
                 </div>
 
@@ -42,21 +44,22 @@
                     <img
                         src="/img/logofr.jpeg"
                         alt="ACADECOL Logo FR"
-                        class="h-20 w-auto md:h-20 object-contain"
+                        class="h-20 w-auto md:h-20 object-contain cursor-pointer"
+                        @dblclick="$emit('leftLogoDblClick')"
                     />
                 </div>
 
                 <!-- Center Text -->
                 <div class="text-center flex-1 space-y-1">
                     <!-- Coat of Arms -->
-                  
+
                     <h1
-                        class="hidden md:block  text-[3px] md:text-xs font-extrabold text-gray-900 uppercase leading-snug tracking-wide"
+                        class="hidden md:block text-[3px] md:text-xs font-extrabold text-gray-900 uppercase leading-snug tracking-wide"
                     >
                         Institut de Formation Professionnelle – ACADECOL
                     </h1>
                     <h2
-                        class=" hidden md:block     text-[3px] md:text-xs font-bold text-gray-800 uppercase leading-snug tracking-wide"
+                        class="hidden md:block text-[3px] md:text-xs font-bold text-gray-800 uppercase leading-snug tracking-wide"
                     >
                         Vocational Training Institute – A.A.L.S.D
                     </h2>
@@ -83,7 +86,8 @@
                     <img
                         src="/img/logoen.jpeg"
                         alt="ACADECOL Logo EN"
-                        class="h-20 w-auto md:h-20 object-contain"
+                        class="h-20 w-auto md:h-20 object-contain cursor-pointer"
+                        @dblclick="$emit('rightLogoDblClick')"
                     />
                 </div>
             </div>
@@ -92,7 +96,7 @@
 </template>
 
 <script setup>
-// No props needed for this static banner
+defineEmits(["leftLogoDblClick", "rightLogoDblClick"]);
 </script>
 
 <style scoped>

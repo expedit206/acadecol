@@ -11,9 +11,11 @@ class PreRegistration extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
         'formation_id',
         'registration_number',
+        'last_name',
+        'first_name',
+        'email',
         'phone',
         'address',
         'birth_date',
@@ -23,11 +25,6 @@ class PreRegistration extends Model
         'message',
         'status',
     ];
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 
     public function formation(): BelongsTo
     {
