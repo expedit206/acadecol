@@ -207,6 +207,14 @@
                 <div
                     class="relative bg-white rounded-t-3xl md:rounded-3xl shadow-2xl w-full max-w-4xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto flex flex-col md:flex-row overflow-hidden"
                 >
+                    <!-- Close Button Mobile (Top Right) -->
+                    <button
+                        @click="closeDetails"
+                        class="md:hidden absolute top-4 right-4 z-50 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all"
+                    >
+                        <i class="fas fa-times text-gray-700 text-lg"></i>
+                    </button>
+
                     <!-- Left Side (Visual + Key Info) -->
                     <div
                         v-if="selectedFormation"
@@ -222,12 +230,12 @@
                         <div class="relative z-10">
                             <!-- Image de la formation -->
                             <div
-                                class="w-full aspect-video md:aspect-square rounded-2xl overflow-hidden mb-4 md:mb-6 shadow-xl border-4 border-white/20"
+                                class="w-full aspect-video md:aspect-square rounded-2xl overflow-hidden mb-4 md:mb-6 shadow-xl border-4 border-white/20 bg-white/10"
                             >
                                 <img
                                     :src="getFormationImage(selectedFormation)"
                                     :alt="getText(selectedFormation.titre)"
-                                    class="w-full h-full object-cover"
+                                    class="w-full h-full object-contain"
                                     onerror="this.src = '/img/school1.jpg'"
                                 />
                             </div>
@@ -455,8 +463,8 @@
                                 class="mt-8 pt-8 border-t border-gray-100 flex flex-col sm:flex-row gap-4"
                             >
                                 <Link
-                                    href="/contact"
-                                    class="flex-1 text-center px-8 py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-gray-800 hover:shadow-lg transition transform hover:-translate-y-1"
+                                    href="/preinscription"
+                                    class="flex-1 text-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 hover:shadow-lg transition transform hover:-translate-y-1"
                                 >
                                     <i class="fas fa-paper-plane mr-2"></i>
                                     Candidater maintenant

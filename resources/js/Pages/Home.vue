@@ -292,7 +292,7 @@ onMounted(() => {
                             <p class="text">
                                 L'Institut de Formation Professionnelle
                                 ACADECOL, sis à Bafoussam (Entrée Ecole
-                                Normale), a pour objectif de développer les
+                                Normale), a     objectif de développer les
                                 compétences des Africains actifs et des diplômés
                                 pour faciliter leur insertion professionnelle.
                             </p>
@@ -802,7 +802,7 @@ onMounted(() => {
 
     /* Spacing */
     --container-max: 1280px;
-    --section-padding: 0rem 1rem;
+        --section-padding: 1rem 1rem;
 
     /* Utilities */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -818,7 +818,7 @@ onMounted(() => {
 
 @media (min-width: 768px) {
     .home-container {
-        --section-padding: 5rem 1rem;
+        --section-padding: 2rem 1rem;
     }
 }
 
@@ -1121,7 +1121,7 @@ h6 {
 
 .section-title {
     font-size: clamp(1.8rem, 4vw, 2.5rem);
-    margin: 1rem 0 1.5rem;
+    margin: .5rem 0 1.5rem;
 }
 
 .about-content p {
@@ -1212,7 +1212,7 @@ h6 {
 
 .formations-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 1rem;
 }
 
 .section-desc {
