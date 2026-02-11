@@ -395,6 +395,54 @@
                             </div>
                         </div>
 
+                        <!-- Image Upload -->
+                        <div class="border-t pt-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">
+                                Image de couverture
+                            </h3>
+                            <div class="flex items-start gap-6">
+                                <div
+                                    v-if="previewUrl"
+                                    class="w-48 h-32 rounded-lg border-2 border-dashed border-blue-300 overflow-hidden bg-gray-50 flex items-center justify-center"
+                                >
+                                    <img
+                                        :src="previewUrl"
+                                        class="w-full h-full object-cover"
+                                    />
+                                </div>
+                                <div
+                                    v-else
+                                    class="w-48 h-32 rounded-lg border-2 border-dashed border-gray-300 overflow-hidden bg-gray-50 flex flex-col items-center justify-center text-gray-400"
+                                >
+                                    <i class="fas fa-image text-3xl mb-2"></i>
+                                    <span class="text-xs text-center px-2"
+                                        >Aucun fichier sélectionné</span
+                                    >
+                                </div>
+                                <div class="flex-grow">
+                                    <label
+                                        class="block text-sm font-medium text-gray-700 mb-2"
+                                        >Choisir une image</label
+                                    >
+                                    <input
+                                        type="file"
+                                        @input="onFileChange"
+                                        accept="image/*"
+                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                    />
+                                    <p class="mt-2 text-xs text-gray-500">
+                                        JPG, PNG, WebP acceptés. Max 2Mo.
+                                    </p>
+                                    <p
+                                        v-if="form.errors.image"
+                                        class="mt-1 text-sm text-red-600"
+                                    >
+                                        {{ form.errors.image }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Buttons -->
                         <div
                             class="flex items-center justify-end gap-4 pt-6 border-t"
@@ -430,10 +478,13 @@
 <script setup>
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { Link, useForm } from "@inertiajs/vue3";
+import { ref } from "vue";
 
 defineProps({
     categories: Array,
 });
+
+const previewUrl = ref(null);
 
 const form = useForm({
     category_id: "",
@@ -446,7 +497,16 @@ const form = useForm({
     prix: null,
     duree: "",
     is_featured: false,
+    image: null,
 });
+
+const onFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        form.image = file;
+        previewUrl.value = URL.createObjectURL(file);
+    }
+};
 
 const submit = () => {
     form.post(route("admin.formations.store"));

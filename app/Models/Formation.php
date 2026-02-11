@@ -44,7 +44,12 @@ class Formation extends Model
 
     public function image()
     {
-        return $this->morphOne(Image::class, 'imageable');
+        return $this->morphOne(Image::class, 'imageable')->where('is_cover', true);
+    }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 
     public function getModulesCountAttribute()

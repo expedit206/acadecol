@@ -12,7 +12,7 @@ class FormationController extends Controller
 {
     public function index()
     {
-        $formations = Formation::with('category')
+        $formations = Formation::with(['category', 'image'])
             ->withCount(['modules', 'details'])
             ->latest()
             ->paginate(20);
@@ -48,10 +48,19 @@ class FormationController extends Controller
             'prix' => 'nullable|numeric',
             'duree' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
-            'is_featured' => 'boolean'
+            'is_featured' => 'boolean',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
-        Formation::create($validated);
+        $formation = Formation::create(\Illuminate\Support\Arr::except($validated, ['image']));
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('formations', 'public');
+            $formation->image()->create([
+                'path' => 'storage/' . $path,
+                'is_cover' => true
+            ]);
+        }
 
         return redirect()->route('admin.formations.index')
             ->with('success', 'Formation créée avec succès');
@@ -60,7 +69,7 @@ class FormationController extends Controller
     public function edit(Formation $formation)
     {
         $categories = Category::orderBy('ordre_affichage')->get();
-        $formation->load(['modules', 'details', 'category']);
+        $formation->load(['modules', 'details', 'category', 'image']);
 
         return Inertia::render('Admin/Formations/Edit', [
             'formation' => $formation,
@@ -85,10 +94,25 @@ class FormationController extends Controller
             'prix' => 'nullable|numeric',
             'duree' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
-            'is_featured' => 'boolean'
+            'is_featured' => 'boolean',
+            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
-        $formation->update($validated);
+        $formation->update(\Illuminate\Support\Arr::except($validated, ['image_file']));
+
+        if ($request->hasFile('image_file')) {
+            // Optionnel: Supprimer l'ancienne image physique si elle existe
+            if ($formation->image) {
+                // On pourrait utiliser Storage::disk('public')->delete(...) ici si on gérait strictement les chemins
+                $formation->image->delete();
+            }
+
+            $path = $request->file('image_file')->store('formations', 'public');
+            $formation->image()->create([
+                'path' => 'storage/' . $path,
+                'is_cover' => true
+            ]);
+        }
 
         return redirect()->route('admin.formations.index')
             ->with('success', 'Formation mise à jour avec succès');

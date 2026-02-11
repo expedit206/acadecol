@@ -2,7 +2,7 @@
     <PublicLayout>
         <!-- Hero Section -->
         <section
-            class="relative bg-gray-900 text-white py-10 md:py-24 overflow-hidden"
+            class="relative bg-gray-900 text-white py-5 md:py-10 overflow-hidden"
         >
             <div
                 class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center"
@@ -11,11 +11,11 @@
                 class="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-purple-900/90"
             ></div>
             <div class="container mx-auto px-4 relative z-10 text-center">
-                <h1 class="text-3xl md:text-6xl font-bold mb-6 tracking-tight">
+                <h1 class="text-xl md:text-4xl font-bold mb-3 tracking-tight">
                     Nos Programmes de Formation
                 </h1>
                 <p
-                    class="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed"
+                    class="text-sm md:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed"
                 >
                     Des cursus certifiés par l'État pour propulser votre
                     carrière dans les secteurs d'avenir.
@@ -29,8 +29,27 @@
             class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all duration-300"
         >
             <div class="container mx-auto px-4 py-3">
+                <!-- Mobile: Dropdown Select -->
+                <div class="lg:hidden">
+                    <select
+                        v-model="selectedDomainId"
+                        @change="selectDomain(selectedDomainId)"
+                        class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 bg-white text-sm font-semibold text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    >
+                        <option :value="null">🎓 Toutes les formations</option>
+                        <option
+                            v-for="domain in domains"
+                            :key="domain.id"
+                            :value="domain.id"
+                        >
+                            {{ domain.name }}
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Desktop: Pills Navigation -->
                 <div
-                    class="flex flex-wrap overflow-x-auto gap-3 hide-scrollbar pb-1 -mx-4 px-2 sm:mx-0 sm:px-0"
+                    class="hidden lg:flex overflow-x-auto gap-3 hide-scrollbar pb-1"
                 >
                     <!-- 'Tous' Option -->
                     <button
@@ -51,7 +70,7 @@
                         :key="domain.id"
                         @click="selectDomain(domain.id)"
                         :class="[
-                            'flex-shrink-0 flex flex-wrap items-center gap-2 px-1 py-2 rounded-full text-xs font-bold transition-all border whitespace-nowrap',
+                            'flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all border whitespace-nowrap',
                             selectedDomainId === domain.id
                                 ? 'bg-blue-600 text-white border-blue-600 shadow-md'
                                 : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400 hover:text-blue-600',
@@ -91,72 +110,46 @@
                 <!-- Formations Grid -->
                 <div
                     v-if="filteredFormations.length > 0"
-                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
                 >
                     <div
                         v-for="formation in filteredFormations"
                         :key="formation.id"
                         @click="openDetails(formation)"
-                        class="group bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 flex flex-col h-full transform hover:-translate-y-1"
+                        class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 flex flex-col h-full transform hover:-translate-y-1"
                     >
                         <!-- Image Section -->
-                        <div class="relative h-48 overflow-hidden">
+                        <div class="relative h-32 md:h-48 overflow-hidden">
                             <img
-                                :src="
-                                    getCategoryImage(
-                                        getDomain(formation.category_id)?.name,
-                                    )
-                                "
-                                :alt="
-                                    getDomain(formation.category_id)?.name ||
-                                    'Formation'
-                                "
+                                :src="getFormationImage(formation)"
+                                :alt="getText(formation.titre)"
                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                onerror="this.src = '/img/school1.jpg'"
                             />
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
                             ></div>
-
-                            <!-- Badges -->
-                            <div
-                                class="absolute top-4 right-4 flex flex-col gap-2 items-end"
-                            >
-                                <span
-                                    v-if="formation.is_featured"
-                                    class="px-3 py-1 bg-amber-500 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg"
-                                >
-                                    Populaire
-                                </span>
-                            </div>
-
-                            <!-- Duration Badge -->
-                            <div class="absolute bottom-4 left-4">
-                                <span
-                                    class="px-3 py-1 bg-black/40 backdrop-blur-md text-white border border-white/20 text-xs font-semibold rounded-lg flex items-center gap-1"
-                                >
-                                    <i class="far fa-clock"></i>
-                                    {{ formation.duree || "Durée variable" }}
-                                </span>
-                            </div>
                         </div>
 
                         <!-- Card Content -->
-                        <div class="p-6 flex-grow flex flex-col">
+                        <div class="p-1 md:p-3 flex-grow flex flex-col">
                             <!-- Category Tag -->
-                            <div class="mb-3">
+                            <div class="mb-1 md:mb-2">
                                 <span
-                                    :class="`text-xs font-bold uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r ${selectedDomain?.color}`"
+                                    :class="`text-xs md:text-sm font-bold uppercase tracking-wider text-blue-600 bg-clip-text bg-gradient-to-r ${selectedDomain?.color}`"
                                 >
                                     {{ getDomain(formation.category_id)?.name }}
                                 </span>
                             </div>
 
                             <h3
-                                class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2"
+                                class="text-sm md:text-xl font-bold text-gray-900 mb-1 md:mb-2 group-hover:text-blue-600 transition-colors line-clamp-2"
                             >
                                 {{ getText(formation.titre) }}
                             </h3>
-                            <p class="text-gray-500 text-sm mb-6 line-clamp-3">
+                            <p
+                                class="text-gray-500 text-xs md:text-sm mb-1 md:mb-2 line-clamp-2 md:line-clamp-3"
+                            >
                                 {{
                                     getText(formation.description_courte) ||
                                     getText(formation.description_complete) ||
@@ -167,19 +160,13 @@
 
                         <!-- Card Footer -->
                         <div
-                            class="px-6 py-4 bg-gray-50 border-t border-gray-100 mt-auto flex items-center justify-between group-hover:bg-blue-50/30 transition-colors"
+                            class="px-3 md:px-6 py-1 md:py-2 bg-gray-50 border-t border-gray-100 mt-auto flex items-center justify-center md:justify-end group-hover:bg-blue-50/30 transition-colors"
                         >
-                            <span class="text-gray-900 font-bold text-lg">
-                                {{
-                                    formation.prix
-                                        ? formatPrice(formation.prix)
-                                        : "Sur devis"
-                                }}
-                            </span>
                             <span
-                                class="inline-flex items-center text-blue-600 text-sm font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform"
+                                class="inline-flex items-center text-blue-600 text-xs md:text-sm font-semibold uppercase tracking-wider group-hover:translate-x-1 transition-transform"
                             >
-                                Voir <i class="fas fa-arrow-right ml-2"></i>
+                                Voir
+                                <i class="fas fa-arrow-right ml-1 md:ml-2"></i>
                             </span>
                         </div>
                     </div>
@@ -207,7 +194,7 @@
         <Transition name="modal">
             <div
                 v-if="selectedFormation"
-                class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+                class="fixed inset-0 z-50 flex items-end md:items-center justify-center md:p-6"
                 role="dialog"
             >
                 <!-- Backdrop -->
@@ -218,12 +205,12 @@
 
                 <!-- Modal Content -->
                 <div
-                    class="relative bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto flex flex-col md:flex-row overflow-hidden"
+                    class="relative bg-white rounded-t-3xl md:rounded-3xl shadow-2xl w-full max-w-4xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto flex flex-col md:flex-row overflow-hidden"
                 >
                     <!-- Left Side (Visual + Key Info) -->
                     <div
                         v-if="selectedFormation"
-                        :class="`md:w-1/3 p-8 text-white bg-gradient-to-br ${getDomain(selectedFormation.category_id)?.color || 'from-blue-600 to-indigo-700'} relative overflow-hidden flex flex-col justify-between`"
+                        :class="`md:w-1/3 p-4 md:p-8 text-white bg-gradient-to-br ${getDomain(selectedFormation.category_id)?.color || 'from-blue-600 to-indigo-700'} relative overflow-hidden flex flex-col justify-between`"
                     >
                         <div
                             class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"
@@ -233,104 +220,37 @@
                         ></div>
 
                         <div class="relative z-10">
+                            <!-- Image de la formation -->
                             <div
-                                class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-3xl mb-6"
+                                class="w-full aspect-video md:aspect-square rounded-2xl overflow-hidden mb-4 md:mb-6 shadow-xl border-4 border-white/20"
                             >
-                                <i
-                                    :class="
-                                        getDomain(selectedFormation.category_id)
-                                            ?.iconClass
-                                    "
-                                ></i>
+                                <img
+                                    :src="getFormationImage(selectedFormation)"
+                                    :alt="getText(selectedFormation.titre)"
+                                    class="w-full h-full object-cover"
+                                    onerror="this.src = '/img/school1.jpg'"
+                                />
                             </div>
-                            <h2 class="text-3xl font-bold leading-tight mb-2">
+
+                            <h2
+                                class="text-xl md:text-3xl font-bold leading-tight mb-2"
+                            >
                                 {{ getText(selectedFormation.titre) }}
                             </h2>
                             <p
-                                class="text-white/80 text-sm font-medium uppercase tracking-wider mb-8"
+                                class="text-white/80 text-xs md:text-sm font-medium uppercase tracking-wider mb-4 md:mb-8"
                             >
                                 {{
                                     getDomain(selectedFormation.category_id)
                                         ?.name
                                 }}
                             </p>
-
-                            <div class="space-y-4">
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"
-                                    >
-                                        <i class="fas fa-clock"></i>
-                                    </div>
-                                    <div>
-                                        <p
-                                            class="text-xs text-white/70 uppercase"
-                                        >
-                                            Durée
-                                        </p>
-                                        <p class="font-semibold">
-                                            {{
-                                                selectedFormation.duree ||
-                                                "Flexible"
-                                            }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"
-                                    >
-                                        <i class="fas fa-tag"></i>
-                                    </div>
-                                    <div>
-                                        <p
-                                            class="text-xs text-white/70 uppercase"
-                                        >
-                                            Coût
-                                        </p>
-                                        <p class="font-semibold">
-                                            {{
-                                                selectedFormation.prix
-                                                    ? formatPrice(
-                                                          selectedFormation.prix,
-                                                      )
-                                                    : "Sur demande"
-                                            }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"
-                                    >
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </div>
-                                    <div>
-                                        <p
-                                            class="text-xs text-white/70 uppercase"
-                                        >
-                                            Mode
-                                        </p>
-                                        <p class="font-semibold">
-                                            {{
-                                                (
-                                                    getDomain(
-                                                        selectedFormation.category_id,
-                                                    )?.description || ""
-                                                ).includes("En ligne")
-                                                    ? "En ligne / Hybride"
-                                                    : "Présentiel"
-                                            }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
-                        <div class="relative z-10 mt-8 md:mt-0">
+                        <div class="relative z-10 mt-4 md:mt-8">
                             <button
                                 @click="closeDetails"
-                                class="md:hidden w-full py-3 bg-white/20 hover:bg-white/30 rounded-xl font-bold backdrop-blur-md transition mb-2"
+                                class="md:hidden w-full py-3 bg-white/20 hover:bg-white/30 rounded-xl font-bold backdrop-blur-md transition text-sm"
                             >
                                 Fermer
                             </button>
@@ -338,7 +258,9 @@
                     </div>
 
                     <!-- Right Side (Details) -->
-                    <div class="md:w-2/3 p-8 lg:p-12 bg-white overflow-y-auto">
+                    <div
+                        class="md:w-2/3 p-4 md:p-8 lg:p-12 bg-white overflow-y-auto"
+                    >
                         <div class="flex justify-end mb-4 hidden md:block">
                             <button
                                 @click="closeDetails"
@@ -350,12 +272,12 @@
 
                         <div class="prose prose-blue max-w-none">
                             <h3
-                                class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2"
+                                class="text-lg md:text-2xl font-bold text-gray-900 mb-3 md:mb-4 flex items-center gap-2"
                             >
                                 À propos de la formation
                             </h3>
                             <p
-                                class="text-gray-600 leading-relaxed text-lg mb-8"
+                                class="text-gray-600 leading-relaxed text-sm md:text-lg mb-4 md:mb-8"
                             >
                                 {{
                                     getText(
@@ -370,25 +292,25 @@
                             <!-- Débouchés Professionnels -->
                             <div
                                 v-if="selectedFormation.debouches"
-                                class="mb-8"
+                                class="mb-4 md:mb-8"
                             >
                                 <div
-                                    class="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-3xl border-2 border-blue-200"
+                                    class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 md:p-8 rounded-2xl md:rounded-3xl border-2 border-blue-200"
                                 >
                                     <h4
-                                        class="text-2xl font-bold text-blue-900 mb-4 flex items-center gap-3"
+                                        class="text-base md:text-2xl font-bold text-blue-900 mb-3 md:mb-4 flex items-center gap-2 md:gap-3"
                                     >
                                         <div
-                                            class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center"
+                                            class="w-8 h-8 md:w-12 md:h-12 bg-blue-600 rounded-lg md:rounded-xl flex items-center justify-center"
                                         >
                                             <i
-                                                class="fas fa-briefcase text-white text-xl"
+                                                class="fas fa-briefcase text-white text-sm md:text-xl"
                                             ></i>
                                         </div>
                                         Vos Opportunités de Carrière
                                     </h4>
                                     <p
-                                        class="text-gray-800 text-lg leading-relaxed"
+                                        class="text-gray-800 text-sm md:text-lg leading-relaxed"
                                     >
                                         {{
                                             getText(selectedFormation.debouches)
@@ -400,25 +322,25 @@
                             <!-- Prérequis -->
                             <div
                                 v-if="selectedFormation.prerequis"
-                                class="mb-8"
+                                class="mb-4 md:mb-8"
                             >
                                 <div
-                                    class="bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-3xl border-2 border-amber-200"
+                                    class="bg-gradient-to-br from-amber-50 to-orange-50 p-4 md:p-8 rounded-2xl md:rounded-3xl border-2 border-amber-200"
                                 >
                                     <h4
-                                        class="text-2xl font-bold text-amber-900 mb-4 flex items-center gap-3"
+                                        class="text-base md:text-2xl font-bold text-amber-900 mb-3 md:mb-4 flex items-center gap-2 md:gap-3"
                                     >
                                         <div
-                                            class="w-12 h-12 bg-amber-600 rounded-xl flex items-center justify-center"
+                                            class="w-8 h-8 md:w-12 md:h-12 bg-amber-600 rounded-lg md:rounded-xl flex items-center justify-center"
                                         >
                                             <i
-                                                class="fas fa-graduation-cap text-white text-xl"
+                                                class="fas fa-graduation-cap text-white text-sm md:text-xl"
                                             ></i>
                                         </div>
                                         Conditions d'Admission
                                     </h4>
                                     <p
-                                        class="text-gray-800 text-lg leading-relaxed"
+                                        class="text-gray-800 text-sm md:text-lg leading-relaxed"
                                     >
                                         {{
                                             getText(selectedFormation.prerequis)
@@ -428,88 +350,96 @@
                             </div>
 
                             <!-- Pourquoi Choisir Cette Formation -->
-                            <div class="mb-8">
+                            <div class="mb-4 md:mb-8">
                                 <div
-                                    class="bg-gradient-to-br from-green-50 to-emerald-50 p-8 rounded-3xl border-2 border-green-200"
+                                    class="bg-gradient-to-br from-green-50 to-emerald-50 p-4 md:p-8 rounded-2xl md:rounded-3xl border-2 border-green-200"
                                 >
                                     <h4
-                                        class="text-2xl font-bold text-green-900 mb-6 flex items-center gap-3"
+                                        class="text-base md:text-2xl font-bold text-green-900 mb-4 md:mb-6 flex items-center gap-2 md:gap-3"
                                     >
                                         <div
-                                            class="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center"
+                                            class="w-8 h-8 md:w-12 md:h-12 bg-green-600 rounded-lg md:rounded-xl flex items-center justify-center"
                                         >
                                             <i
-                                                class="fas fa-star text-white text-xl"
+                                                class="fas fa-star text-white text-sm md:text-xl"
                                             ></i>
                                         </div>
                                         Pourquoi Choisir ACADECOL ?
                                     </h4>
                                     <div
-                                        class="grid grid-cols-1 md:grid-cols-2 gap-4"
+                                        class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4"
                                     >
-                                        <div class="flex items-start gap-3">
+                                        <div
+                                            class="flex items-start gap-2 md:gap-3"
+                                        >
                                             <i
-                                                class="fas fa-check-circle text-green-600 text-xl mt-1"
+                                                class="fas fa-check-circle text-green-600 text-base md:text-xl mt-1"
                                             ></i>
                                             <div>
                                                 <p
-                                                    class="font-bold text-gray-900"
+                                                    class="font-bold text-gray-900 text-sm md:text-base"
                                                 >
                                                     Formation Certifiée
                                                 </p>
                                                 <p
-                                                    class="text-gray-700 text-sm"
+                                                    class="text-gray-700 text-xs md:text-sm"
                                                 >
                                                     Diplômes reconnus par l'État
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="flex items-start gap-3">
+                                        <div
+                                            class="flex items-start gap-2 md:gap-3"
+                                        >
                                             <i
-                                                class="fas fa-check-circle text-green-600 text-xl mt-1"
+                                                class="fas fa-check-circle text-green-600 text-base md:text-xl mt-1"
                                             ></i>
                                             <div>
                                                 <p
-                                                    class="font-bold text-gray-900"
+                                                    class="font-bold text-gray-900 text-sm md:text-base"
                                                 >
                                                     Formateurs Experts
                                                 </p>
                                                 <p
-                                                    class="text-gray-700 text-sm"
+                                                    class="text-gray-700 text-xs md:text-sm"
                                                 >
                                                     Professionnels en activité
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="flex items-start gap-3">
+                                        <div
+                                            class="flex items-start gap-2 md:gap-3"
+                                        >
                                             <i
-                                                class="fas fa-check-circle text-green-600 text-xl mt-1"
+                                                class="fas fa-check-circle text-green-600 text-base md:text-xl mt-1"
                                             ></i>
                                             <div>
                                                 <p
-                                                    class="font-bold text-gray-900"
+                                                    class="font-bold text-gray-900 text-sm md:text-base"
                                                 >
                                                     Stage Pratique
                                                 </p>
                                                 <p
-                                                    class="text-gray-700 text-sm"
+                                                    class="text-gray-700 text-xs md:text-sm"
                                                 >
                                                     Expérience terrain garantie
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="flex items-start gap-3">
+                                        <div
+                                            class="flex items-start gap-2 md:gap-3"
+                                        >
                                             <i
-                                                class="fas fa-check-circle text-green-600 text-xl mt-1"
+                                                class="fas fa-check-circle text-green-600 text-base md:text-xl mt-1"
                                             ></i>
                                             <div>
                                                 <p
-                                                    class="font-bold text-gray-900"
+                                                    class="font-bold text-gray-900 text-sm md:text-base"
                                                 >
                                                     Accompagnement Emploi
                                                 </p>
                                                 <p
-                                                    class="text-gray-700 text-sm"
+                                                    class="text-gray-700 text-xs md:text-sm"
                                                 >
                                                     Aide à l'insertion
                                                     professionnelle
@@ -610,24 +540,26 @@ const selectDomainAndClose = (id) => {
     isOpen.value = false;
 };
 
-// Image Helper
+// Image Helpers
+function getFormationImage(formation) {
+    if (formation.image && formation.image.path) {
+        return `/${formation.image.path}`;
+    }
+    // Fallback based on category
+    const categoryName = getDomain(formation.category_id)?.name;
+    return getCategoryImage(categoryName);
+}
+
 function getCategoryImage(categoryName) {
     const images = {
-        "Les Langues":
-            "https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        "Paramédicale et Biomédical":
-            "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        "L'Humanitaire":
-            "https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        "Numérique en Santé":
-            "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+        "Les Langues": "/storage/formations/anglais.png",
+        "Paramédicale et Biomédical": "/storage/formations/pharmacie.png",
+        "L'Humanitaire": "/storage/formations/humanitaire.png",
+        "Numérique en Santé": "/storage/formations/data_analyst.png",
         "Management & Recherche Opérationnelle en Santé":
-            "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            "/storage/formations/data_analyst.png",
     };
-    return (
-        images[categoryName] ||
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-    );
+    return images[categoryName] || "/img/school1.jpg";
 }
 
 function selectDomain(id) {

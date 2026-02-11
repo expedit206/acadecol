@@ -13,7 +13,7 @@ class PublicController extends Controller
 {
     public function home()
     {
-        $formations = Formation::with('category')
+        $formations = Formation::with(['category', 'image'])
             ->orderBy('id', 'desc')
             ->get();
 
@@ -30,6 +30,7 @@ class PublicController extends Controller
         $query = Formation::with([
             'category',
             'details',
+            'image',
             'modules' => function ($query) {
                 $query->orderBy('ordre');
             }

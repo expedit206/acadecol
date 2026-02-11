@@ -76,6 +76,27 @@
                                     >
                                         <td class="px-6 py-4">
                                             <div class="flex items-center">
+                                                <div
+                                                    class="flex-shrink-0 h-10 w-16 mr-4 bg-gray-100 rounded overflow-hidden"
+                                                >
+                                                    <img
+                                                        v-if="formation.image"
+                                                        :src="`/${formation.image.path}`"
+                                                        class="h-full w-full object-cover"
+                                                        onerror="
+                                                            this.src =
+                                                                '/img/school1.jpg'
+                                                        "
+                                                    />
+                                                    <div
+                                                        v-else
+                                                        class="h-full w-full flex items-center justify-center text-gray-400"
+                                                    >
+                                                        <i
+                                                            class="fas fa-image"
+                                                        ></i>
+                                                    </div>
+                                                </div>
                                                 <div>
                                                     <div
                                                         class="text-sm font-medium text-gray-900"

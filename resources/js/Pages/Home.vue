@@ -37,6 +37,13 @@ function formatPrice(price) {
     }).format(price);
 }
 
+function getFormationImage(formation) {
+    if (formation.image && formation.image.path) {
+        return `/${formation.image.path}`;
+    }
+    return "/img/school1.jpg"; // Image par défaut
+}
+
 // --- Data Categorization ---
 
 // Helper to find category by loose name matching
@@ -114,12 +121,9 @@ const domains = computed(() => props.categories.map((c) => getText(c.nom)));
 
 // Images pour les catégories (Static fallback)
 const categoryImages = {
-    humanitarian:
-        "https://images.unsplash.com/photo-1532635241-17e820acc59f?w=1200&auto=format&fit=crop&q=60",
-    digitalHealth:
-        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=1200&auto=format&fit=crop&q=60",
-    managementResearch:
-        "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&auto=format&fit=crop&q=60",
+    humanitarian: "/storage/formations/humanitaire.png",
+    digitalHealth: "/storage/formations/data_analyst.png",
+    managementResearch: "/storage/formations/data_analyst.png",
 };
 
 // Flags mapping helper
@@ -157,7 +161,7 @@ onMounted(() => {
         <div class="home-container">
             <section
                 id="hom"
-                class=" py-5  my-5  relative  flex overflow-hidden pt-5 mt-5 "
+                class="py-5 my-5 relative flex overflow-hidden pt-5 mt-5"
             >
                 <!-- Background -->
                 <div class="absolute inset-0 z-0 py-5">
@@ -168,7 +172,6 @@ onMounted(() => {
                         onerror="this.src = '/img/hero.png'"
                     />
                     <div class="overlay"></div>
-
                 </div>
 
                 <!-- Content -->
@@ -188,7 +191,7 @@ onMounted(() => {
 
                             <!-- Title -->
                             <h1
-                                class=" text-md lg:text-2xl mb-4 font-bold leading-tight text-slate-900"
+                                class="text-md lg:text-2xl mb-4 font-bold leading-tight text-slate-900"
                             >
                                 Construisez votre
                                 <span
@@ -256,9 +259,6 @@ onMounted(() => {
                 </div>
             </section>
 
-
-
-           
             <!-- ABOUT SECTION -->
             <section id="about" class="section about">
                 <div class="container">
@@ -373,9 +373,7 @@ onMounted(() => {
                             >
                                 <div class="card-image">
                                     <img
-                                        :src="
-                                            diploma.image || '/img/school1.jpg'
-                                        "
+                                        :src="getFormationImage(diploma)"
                                         :alt="getText(diploma.titre)"
                                         onerror="this.src = '/img/school1.jpg'"
                                     />
@@ -804,7 +802,7 @@ onMounted(() => {
 
     /* Spacing */
     --container-max: 1280px;
-        --section-padding: 0rem 1rem;
+    --section-padding: 0rem 1rem;
 
     /* Utilities */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -941,8 +939,7 @@ h6 {
     /* align-items: center; */
     overflow: hidden;
     padding-bottom: rem;
-        padding-top: 20px;
-
+    padding-top: 20px;
 }
 
 .hero-bg {

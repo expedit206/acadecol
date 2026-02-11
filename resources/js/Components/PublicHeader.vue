@@ -65,7 +65,7 @@
                 >
                     Certifications
                 </NavLink>
-                <NavLink href="/a-propos" :active="isActive('/about')">
+                <NavLink href="/a-propos" :active="isActive('/a-propos')">
                     À Propos
                 </NavLink>
                 <NavLink href="/contact" :active="isActive('/contact')">

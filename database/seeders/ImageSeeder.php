@@ -11,39 +11,59 @@ class ImageSeeder extends Seeder
 {
     public function run(): void
     {
-        $formations = Formation::all();
-        
-        $imagePaths = [
-            '/images/formations/informatique-1.jpg',
-            '/images/formations/informatique-2.jpg',
-            '/images/formations/sante-1.jpg',
-            '/images/formations/sante-2.jpg',
-            '/images/formations/commerce-1.jpg',
-            '/images/formations/commerce-2.jpg',
-            '/images/formations/ingenierie-1.jpg',
-            '/images/formations/ingenierie-2.jpg',
-            '/images/formations/arts-1.jpg',
-            '/images/formations/arts-2.jpg',
-            '/images/formations/langues-1.jpg',
-            '/images/formations/langues-2.jpg',
-            '/images/formations/education-1.jpg',
-            '/images/formations/education-2.jpg',
-            '/images/formations/droit-1.jpg',
-            '/images/formations/droit-2.jpg',
+        // Mapping des images vers les slugs de formations
+        $imageMapping = [
+            // LANGUES - Drapeaux
+            'francais' => 'storage/formations/francais.png',
+            'anglais' => 'storage/formations/anglais.png',
+            'toefl-toeic-ielts' => 'storage/formations/anglais.png',
+            'espagnol' => 'storage/formations/espagnol.png',
+            'allemand' => 'storage/formations/allemand.png',
+            'italien' => 'storage/formations/italien.png',
+            'chinois' => 'storage/formations/chinois.png',
+            
+            // PARAMÉDICAL
+            'vendeur-pharmacie' => 'storage/formations/vendeu en pharmacie.jpg',
+            'delegue-medical' => 'storage/formations/delegue medical.jpg',
+            'auxiliaire-vie' => 'storage/formations/auxiliaire_vie.png',
+            'maintenance-biomedicale' => 'storage/formations/maintennace biomedical.jpg',
+            
+            // HUMANITAIRE
+            'bases-humanitaire' => 'storage/formations/humanitaire.png',
+            'epidemiologie-terrain' => 'storage/formations/epidemiologie.jpg',
+            'logistique-humanitaire' => 'storage/formations/logistique humanitaire.jpg',
+            'gestion-projets-humanitaires' => 'storage/formations/gestion de projets humanitaire.jpg',
+            'wash-humanitaire' => 'storage/formations/wash humanitaire.jpg',
+            'nutrition-humanitaire' => 'storage/formations/nutrition humanitaire.jpg',
+            
+            // NUMÉRIQUE EN SANTÉ
+            'data-analyst-sante' => 'storage/formations/data_analyst.png',
+            'cartographie-sig-sante' => 'storage/formations/cartographie sig sante.jpg',
+            'ia-sante-cliniciens' => 'storage/formations/ia professionel sante.jpg',
+            
+            // MANAGEMENT & RECHERCHE
+            'protocole-recherche' => 'storage/formations/protocol de recherche snate.jpg',
+            'enquete-cap' => 'storage/formations/enquete cap sante.jpg',
+            'suivi-evaluation' => 'storage/formations/suivi evaluation.jpg',
+            'evaluation-systeme-sante' => 'storage/formations/evaluation systeme de sante.jpg',
         ];
-        
-        foreach ($formations as $formation) {
-            // Créer 2 à 4 images par formation
-            $numImages = rand(2, 4);
-            for ($i = 0; $i < $numImages; $i++) {
-                $isCover = $i === 0; // La première image est la couverture
+
+        // Supprimer les anciennes images
+        Image::where('imageable_type', 'App\\Models\\Formation')->delete();
+
+        // Créer les nouvelles images
+        foreach ($imageMapping as $slug => $imagePath) {
+            $formation = Formation::where('slug', $slug)->first();
+            
+            if ($formation) {
                 Image::create([
                     'imageable_id' => $formation->id,
-                    'imageable_type' => 'App\Models\Formation',
-                    'path' => $imagePaths[array_rand($imagePaths)],
-                    'is_cover' => $isCover,
+                    'imageable_type' => 'App\\Models\\Formation',
+                    'path' => $imagePath,
+                    'is_cover' => true,
                 ]);
             }
         }
     }
 }
+

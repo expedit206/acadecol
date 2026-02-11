@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'path',
+        'is_cover',
+        'imageable_id',
+        'imageable_type',
+    ];
+
+    /**
+     * Get the parent imageable model (Formation, Category, etc.).
+     */
+    public function imageable()
+    {
+        return $this->morphTo();
+    }
 }
