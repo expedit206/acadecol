@@ -36,7 +36,7 @@
                     <button
                         @click="selectDomain(null)"
                         :class="[
-                            'flex-shrink-0 px-5 py-2 rounded-full text-[5px] font-bold transition-all border whitespace-nowrap',
+                            'flex-shrink-0 px-5 py-2 rounded-full text-xs font-bold transition-all border whitespace-nowrap',
                             selectedDomainId === null
                                 ? 'bg-blue-600 text-white border-blue-600 shadow-md'
                                 : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400 hover:text-blue-600',
@@ -51,7 +51,7 @@
                         :key="domain.id"
                         @click="selectDomain(domain.id)"
                         :class="[
-                            'flex-shrink-0 flex flex-wrap items-center gap-2 px-1 py-2 rounded-full text-[4px] font-bold transition-all border whitespace-nowrap',
+                            'flex-shrink-0 flex flex-wrap items-center gap-2 px-1 py-2 rounded-full text-xs font-bold transition-all border whitespace-nowrap',
                             selectedDomainId === domain.id
                                 ? 'bg-blue-600 text-white border-blue-600 shadow-md'
                                 : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400 hover:text-blue-600',

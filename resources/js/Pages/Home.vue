@@ -157,7 +157,7 @@ onMounted(() => {
         <div class="home-container">
             <section
                 id="hom"
-                class=" py-5  my-5  relative  flex overflow-hidden pt-5 mt-5 mb-10"
+                class=" py-5  my-5  relative  flex overflow-hidden pt-5 mt-5 "
             >
                 <!-- Background -->
                 <div class="absolute inset-0 z-0 py-5">
@@ -188,7 +188,7 @@ onMounted(() => {
 
                             <!-- Title -->
                             <h1
-                                class="text-2xl mb-4 font-bold leading-tight text-slate-900"
+                                class=" text-md lg:text-2xl mb-4 font-bold leading-tight text-slate-900"
                             >
                                 Construisez votre
                                 <span
@@ -208,11 +208,11 @@ onMounted(() => {
 
                             <!-- CTA -->
                             <div
-                                class="flex flex-col md:flex-row gap-4 md:gap-6 mb-8 md:mb-12"
+                                class="flex flex-col md:flex-row gap-2 md:gap-6 mb-4 md:mb-6"
                             >
                                 <a
                                     href="#formations"
-                                    class="inline-flex items-center justify-center gap-2 px-5 py-3 md:px-6 rounded-full font-semibold bg-blue-600 text-white hover:bg-blue-700 transition hover:-translate-y-0.5 shadow hover:shadow-lg"
+                                    class="inline-flex items-center justify-center gap-2 px-5 py-2 md:px-6 rounded-full font-semibold bg-blue-600 text-white hover:bg-blue-700 transition hover:-translate-y-0.5 shadow hover:shadow-lg"
                                 >
                                     Découvrir nos formations
                                     <i class="fas fa-arrow-right"></i>
@@ -220,7 +220,7 @@ onMounted(() => {
 
                                 <a
                                     href="#about"
-                                    class="inline-flex items-center justify-center gap-2 px-5 py-3 md:px-6 rounded-full font-semibold border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition"
+                                    class="inline-flex items-center justify-center gap-2 px-5 py-2 md:px-6 rounded-full font-semibold border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition"
                                 >
                                     En savoir plus
                                 </a>
@@ -804,7 +804,7 @@ onMounted(() => {
 
     /* Spacing */
     --container-max: 1280px;
-    --section-padding: 0rem 1rem;
+        --section-padding: 0rem 1rem;
 
     /* Utilities */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

@@ -21,12 +21,12 @@
                         <!-- Coat of Arms -->
 
                         <h1
-                            class="text-[3px] font-extrabold text-gray-900 uppercase leading-snug tracking-wide"
+                            class="text-xs font-extrabold text-gray-900 uppercase leading-snug tracking-wide"
                         >
                             Institut de Formation Professionnelle – ACADECOL
                         </h1>
                         <h2
-                            class="text-[3px] md:text-xs font-bold text-gray-800 uppercase leading-snug tracking-wide"
+                            class="text-xs md:text-xs font-bold text-gray-800 uppercase leading-snug tracking-wide"
                         >
                             Vocational Training Institute – A.A.L.S.D
                         </h2>
@@ -54,12 +54,12 @@
                     <!-- Coat of Arms -->
 
                     <h1
-                        class="hidden md:block text-[3px] md:text-xs font-extrabold text-gray-900 uppercase leading-snug tracking-wide"
+                        class="hidden md:block text-xs md:text-xs font-extrabold text-gray-900 uppercase leading-snug tracking-wide"
                     >
                         Institut de Formation Professionnelle – ACADECOL
                     </h1>
                     <h2
-                        class="hidden md:block text-[3px] md:text-xs font-bold text-gray-800 uppercase leading-snug tracking-wide"
+                        class="hidden md:block text-xs md:text-xs font-bold text-gray-800 uppercase leading-snug tracking-wide"
                     >
                         Vocational Training Institute – A.A.L.S.D
                     </h2>
@@ -68,14 +68,14 @@
                         class="inline-block border-b-2 border-gray-900 pb-0.5 mt-1"
                     >
                         <p
-                            class="text-[3px] md:text-xs font-bold text-gray-700"
+                            class="text-xs md:text-xs font-bold text-gray-700"
                         >
                             Arrêté N° : 000644/MINEFOP/SG/DFOP/SDGSF/CSADC/CBAC
                         </p>
                     </div>
 
                     <p
-                        class="text-[5px] md:text-sm font-semibold text-gray-600 mt-1"
+                        class="text-sm md:text-sm font-semibold text-gray-600 mt-1"
                     >
                         Sis à Bafoussam, Entrée Ecole Normale.
                     </p>
