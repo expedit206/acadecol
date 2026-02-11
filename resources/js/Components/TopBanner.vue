@@ -21,12 +21,12 @@
                         <!-- Coat of Arms -->
 
                         <h1
-                            class="text-xs font-extrabold text-gray-900 uppercase leading-snug tracking-wide"
+                            class="text-[.5rem] font-extrabold text-gray-900 uppercase leading-snug tracking-wide"
                         >
                             Institut de Formation Professionnelle – ACADECOL
                         </h1>
                         <h2
-                            class="text-xs md:text-xs font-bold text-gray-800 uppercase leading-snug tracking-wide"
+                            class="text-[.5rem] md:text-xs font-bold text-gray-800 uppercase leading-snug tracking-wide"
                         >
                             Vocational Training Institute – A.A.L.S.D
                         </h2>
@@ -65,7 +65,7 @@
                     </h2>
 
                     <div
-                        class="inline-block border-b-2 border-gray-900 pb-0.5 mt-1"
+                        class="inline-block border-b-2 border-gray-900 pb-0.5 "
                     >
                         <p
                             class="text-xs md:text-xs font-bold text-gray-700"
@@ -75,7 +75,7 @@
                     </div>
 
                     <p
-                        class="text-sm md:text-sm font-semibold text-gray-600 mt-1"
+                        class="text-xs md:text-sm font-semibold text-gray-600"
                     >
                         Sis à Bafoussam, Entrée Ecole Normale.
                     </p>

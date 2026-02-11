@@ -11428,7 +11428,7 @@ var transformUrlAndData = (href, data, method2, forceFormData, queryStringArrayF
 };
 function mergeDataIntoQueryString(method2, href, data, qsArrayFormat = "brackets") {
   const hasDataForQueryString = method2 === "get" && !isFormData(data) && Object.keys(data).length > 0;
-  const hasHost = urlHasProtocol(href.toString());
+  const hasHost = urlHasProtocol(href?.toString());
   const hasAbsolutePath = hasHost || href.toString().startsWith("/") || href.toString() === "";
   const hasRelativePath = !hasAbsolutePath && !href.toString().startsWith("#") && !href.toString().startsWith("?");
   const hasRelativePathWithDotPrefix = /^[.]{1,2}([/]|$)/.test(href.toString());

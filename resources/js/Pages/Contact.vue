@@ -185,8 +185,8 @@
                             Comment s'inscrire ?
                         </h3>
                         <p class="text-gray-600">
-                            Vous pouvez vous inscrire directement sur notre site
-                            ou nous contacter par téléphone.
+                            Vous pouvez vous preinscrire directement sur notre site
+                            ou nous contacter par téléphone. et vous inscrit par la suite a l'école.
                         </p>
                     </div>
 

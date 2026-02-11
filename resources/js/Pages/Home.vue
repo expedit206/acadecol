@@ -601,11 +601,7 @@ onMounted(() => {
                                     class="btn btn-outline hover:text-white"
                                     >Demander plus d'informations</a
                                 >
-                                <a
-                                    href="#contact"
-                                    class="btn btn-white text-blue-600 bg-white hover:bg-gray-100"
-                                    >Télécharger la brochure</a
-                                >
+                               
                             </div>
                         </div>
                     </div>
@@ -1255,7 +1251,7 @@ h6 {
 
 .formations-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 2rem;
 }
 

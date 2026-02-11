@@ -8,6 +8,7 @@
             <template #auth-links>
                 <template v-if="auth.user">
                     <Link
+                        v-if="route('admin.dashboard')"
                         :href="route('admin.dashboard')"
                         class="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 transition font-bold"
                     >
@@ -16,6 +17,7 @@
                 </template>
                 <template v-else-if="auth.is_student">
                     <Link
+                        v-if="route('pre-registration.show')"
                         :href="route('pre-registration.show')"
                         class="px-3 md:px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition shadow-md font-semibold"
                     >
@@ -24,6 +26,7 @@
                 </template>
                 <template v-else>
                     <Link
+                        v-if="route('pre-registration.create')"
                         :href="route('pre-registration.create')"
                         class="px-3 md:px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition shadow-md font-semibold"
                     >

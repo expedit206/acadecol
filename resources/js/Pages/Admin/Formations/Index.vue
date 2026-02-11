@@ -237,19 +237,32 @@
                                 résultats
                             </div>
                             <div class="flex gap-2">
-                                <Link
+                                <template
                                     v-for="link in formations.links"
                                     :key="link.label"
-                                    :href="link.url"
-                                    :class="[
-                                        'px-4 py-2 border rounded-lg text-sm',
-                                        link.active
-                                            ? 'bg-blue-600 text-white border-blue-600'
-                                            : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50',
-                                    ]"
-                                    v-html="link.label"
-                                    :disabled="!link.url"
-                                />
+                                >
+                                    <!-- Link actif -->
+                                    <Link
+                                        v-if="link.url"
+                                        :href="link.url"
+                                        :class="[
+                                            'px-4 py-2 border rounded-lg text-sm transition',
+                                            link.active
+                                                ? 'bg-blue-600 text-white border-blue-600'
+                                                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50',
+                                        ]"
+                                        v-html="link.label"
+                                    />
+                                    <!-- Lien désactivé (Previous/Next sans URL) -->
+                                    <span
+                                        v-else
+                                        :class="[
+                                            'px-4 py-2 border rounded-lg text-sm cursor-not-allowed opacity-50',
+                                            'bg-gray-100 text-gray-400 border-gray-200',
+                                        ]"
+                                        v-html="link.label"
+                                    />
+                                </template>
                             </div>
                         </div>
                     </div>

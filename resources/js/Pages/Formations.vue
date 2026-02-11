@@ -110,7 +110,7 @@
                 <!-- Formations Grid -->
                 <div
                     v-if="filteredFormations.length > 0"
-                    class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+                    class="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-4 md:gap-6"
                 >
                     <div
                         v-for="formation in filteredFormations"

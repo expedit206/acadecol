@@ -44,17 +44,9 @@ const form = useForm({
     english_level: "",
     other_languages: "",
 
-    // Motivations et objectifs
-    motivation: "",
-    career_goals: "",
-    prior_knowledge: "",
-
     // Disponibilité
     availability: "",
     preferred_schedule: "",
-
-    // Documents
-    cv_file: null,
 
     // Message optionnel
     message: "",
@@ -70,10 +62,6 @@ const submit = () => {
 
 const submitLogin = () => {
     loginForm.post(route("pre-registration.check"));
-};
-
-const handleFileUpload = (event) => {
-    form.cv_file = event.target.files[0];
 };
 </script>
 
@@ -856,86 +844,7 @@ const handleFileUpload = (event) => {
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- ========== SECTION 6: MOTIVATIONS & OBJECTIFS ========== -->
-                                <div
-                                    class="bg-rose-50 p-6 rounded-xl border-2 border-rose-200"
-                                >
-                                    <h2
-                                        class="text-xl font-bold text-rose-900 mb-4 flex items-center gap-2"
-                                    >
-                                        <i class="fas fa-star"></i>
-                                        Motivations & Objectifs
-                                    </h2>
-
-                                    <div class="space-y-4">
-                                        <!-- Motivation -->
-                                        <div>
-                                            <InputLabel
-                                                for="motivation"
-                                                value="Pourquoi souhaitez-vous suivre cette formation ? *"
-                                            />
-                                            <textarea
-                                                id="motivation"
-                                                v-model="form.motivation"
-                                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                                rows="4"
-                                                placeholder="Décrivez vos motivations pour cette formation..."
-                                                required
-                                            ></textarea>
-                                            <InputError
-                                                :message="
-                                                    form.errors.motivation
-                                                "
-                                                class="mt-2"
-                                            />
-                                        </div>
-
-                                        <!-- Objectifs -->
-                                        <div>
-                                            <InputLabel
-                                                for="career_goals"
-                                                value="Quels sont vos objectifs professionnels après cette formation ? *"
-                                            />
-                                            <textarea
-                                                id="career_goals"
-                                                v-model="form.career_goals"
-                                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                                rows="4"
-                                                placeholder="Expliquez vos projets professionnels..."
-                                                required
-                                            ></textarea>
-                                            <InputError
-                                                :message="
-                                                    form.errors.career_goals
-                                                "
-                                                class="mt-2"
-                                            />
-                                        </div>
-
-                                        <!-- Connaissances préalables -->
-                                        <div>
-                                            <InputLabel
-                                                for="prior_knowledge"
-                                                value="Avez-vous des connaissances préalables dans ce domaine ?"
-                                            />
-                                            <textarea
-                                                id="prior_knowledge"
-                                                v-model="form.prior_knowledge"
-                                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                                rows="3"
-                                                placeholder="Décrivez vos compétences ou expériences dans ce domaine..."
-                                            ></textarea>
-                                            <InputError
-                                                :message="
-                                                    form.errors.prior_knowledge
-                                                "
-                                                class="mt-2"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
+*
                                 <!-- ========== SECTION 7: DISPONIBILITÉ ========== -->
                                 <div
                                     class="bg-cyan-50 p-6 rounded-xl border-2 border-cyan-200"
@@ -1029,64 +938,6 @@ const handleFileUpload = (event) => {
                                                     class="mt-2"
                                                 />
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- ========== SECTION 8: DOCUMENTS (Optionnel) ========== -->
-                                <div
-                                    class="bg-indigo-50 p-6 rounded-xl border-2 border-indigo-200"
-                                >
-                                    <h2
-                                        class="text-xl font-bold text-indigo-900 mb-4 flex items-center gap-2"
-                                    >
-                                        <i class="fas fa-file-upload"></i>
-                                        Documents (Optionnel)
-                                    </h2>
-
-                                    <div class="space-y-4">
-                                        <!-- CV -->
-                                        <div>
-                                            <InputLabel
-                                                for="cv_file"
-                                                value="Télécharger votre CV (PDF, DOC, DOCX - Max 5MB)"
-                                            />
-                                            <input
-                                                id="cv_file"
-                                                type="file"
-                                                @change="handleFileUpload"
-                                                accept=".pdf,.doc,.docx"
-                                                class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
-                                            />
-                                            <p
-                                                class="text-xs text-gray-500 mt-1"
-                                            >
-                                                Formats acceptés : PDF, DOC,
-                                                DOCX
-                                            </p>
-                                            <InputError
-                                                :message="form.errors.cv_file"
-                                                class="mt-2"
-                                            />
-                                        </div>
-
-                                        <!-- Message additionnel -->
-                                        <div>
-                                            <InputLabel
-                                                for="message"
-                                                value="Message ou informations complémentaires"
-                                            />
-                                            <textarea
-                                                id="message"
-                                                v-model="form.message"
-                                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                                rows="3"
-                                                placeholder="Ajoutez toute information que vous jugez utile pour votre candidature..."
-                                            ></textarea>
-                                            <InputError
-                                                :message="form.errors.message"
-                                                class="mt-2"
-                                            />
                                         </div>
                                     </div>
                                 </div>

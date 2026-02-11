@@ -32,17 +32,9 @@ return new class extends Migration
             $table->string('english_level')->nullable()->after('french_level');
             $table->string('other_languages')->nullable()->after('english_level');
             
-            // Motivations et objectifs
-            $table->text('motivation')->nullable()->after('other_languages');
-            $table->text('career_goals')->nullable()->after('motivation');
-            $table->text('prior_knowledge')->nullable()->after('career_goals');
-            
             // Disponibilité
-            $table->string('availability')->nullable()->after('prior_knowledge');
+            $table->string('availability')->nullable()->after('other_languages');
             $table->string('preferred_schedule')->nullable()->after('availability');
-            
-            // Documents
-            $table->string('cv_file')->nullable()->after('preferred_schedule');
         });
     }
 
@@ -65,12 +57,8 @@ return new class extends Migration
                 'french_level',
                 'english_level',
                 'other_languages',
-                'motivation',
-                'career_goals',
-                'prior_knowledge',
                 'availability',
                 'preferred_schedule',
-                'cv_file',
             ]);
         });
     }

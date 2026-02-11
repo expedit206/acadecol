@@ -42,17 +42,9 @@ class PreRegistration extends Model
         'english_level',
         'other_languages',
         
-        // Motivations et objectifs
-        'motivation',
-        'career_goals',
-        'prior_knowledge',
-        
         // Disponibilité
         'availability',
         'preferred_schedule',
-        
-        // Documents
-        'cv_file',
         
         // Autres
         'message',
