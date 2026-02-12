@@ -156,32 +156,46 @@ onMounted(() => {
 
 <template>
     <PublicLayout>
-        <Head title="Accueil" />
+        <Head title="Accueil">
+            <meta
+                name="description"
+                content="Bienvenue à ACADECOL, l'Académie Africaine Bilingue. Découvrez nos formations professionnelles certifiées par l'État (MINEFOP) dans les domaines de la santé, du management, des langues et du numérique."
+            />
+            <meta
+                property="og:title"
+                content="Accueil - ACADECOL | Formations Professionnelles au Cameroun"
+            />
+            <meta
+                property="og:description"
+                content="Rejoignez ACADECOL pour des formations pratiques et certifiantes. Préparez votre avenir professionnel avec nos programmes reconnus."
+            />
+            <meta property="og:image" content="/img/school1.jpg" />
+        </Head>
 
         <div class="home-container">
             <section
                 id="hom"
-                class="py-5 my-5 relative flex overflow-hidden pt-5 mt-5"
+                class="py-5  relative flex overflow-hidden pt-2"
             >
                 <!-- Background -->
                 <div class="absolute inset-0 z-0 py-">
                     <img
                         src="/img/school1.jpg"
                         alt="Hero Background"
-                        class="w-full h-full object-cover"
+                        class="w-full h-100 object-cover"
                         onerror="this.src = '/img/hero.png'"
                     />
                     <div class="overlay"></div>
                 </div>
 
                 <!-- Content -->
-                <div class="relative z-10 w-full mt-8">
+                <div class="relative z-10 w-full mt-2">
                     <div class="max-w-7xl mx-auto px-4 md:px-6">
                         <div
                             class="max-w-full lg:max-w-[650px] opacity-0 translate-y-5 transition-all duration-700 reveal"
                         >
                             <!-- Badge -->
-                            <div class="mb-4">
+                            <div class="mb-2">
                                 <span
                                     class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wide rounded-full bg-blue-50 text-blue-600"
                                 >
@@ -191,7 +205,7 @@ onMounted(() => {
 
                             <!-- Title -->
                             <h1
-                                class="text-md lg:text-2xl mb-4 font-bold leading-tight text-slate-900"
+                                class="text-md lg:text-2xl mb-2 font-bold leading-tight text-slate-900"
                             >
                                 Construisez votre
                                 <span
@@ -203,7 +217,7 @@ onMounted(() => {
                             </h1>
 
                             <!-- Description -->
-                            <p class="text-slate-600 mb-8 leading-relaxed">
+                            <p class="text-slate-600 mb-2 leading-relaxed">
                                 L'Académie Africaine Bilingue développe vos
                                 compétences pour faciliter votre employabilité.
                                 Formations certifiées de 1 à 12 mois.
@@ -292,7 +306,7 @@ onMounted(() => {
                             <p class="text">
                                 L'Institut de Formation Professionnelle
                                 ACADECOL, sis à Bafoussam (Entrée Ecole
-                                Normale), a     objectif de développer les
+                                Normale), a objectif de développer les
                                 compétences des Africains actifs et des diplômés
                                 pour faciliter leur insertion professionnelle.
                             </p>
@@ -601,7 +615,6 @@ onMounted(() => {
                                     class="btn btn-outline hover:text-white"
                                     >Demander plus d'informations</a
                                 >
-                               
                             </div>
                         </div>
                     </div>
@@ -798,7 +811,7 @@ onMounted(() => {
 
     /* Spacing */
     --container-max: 1280px;
-        --section-padding: 1rem 1rem;
+    --section-padding: 1rem 1rem;
 
     /* Utilities */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1117,7 +1130,7 @@ h6 {
 
 .section-title {
     font-size: clamp(1.8rem, 4vw, 2.5rem);
-    margin: .5rem 0 1.5rem;
+    margin: 0.5rem 0 1.5rem;
 }
 
 .about-content p {

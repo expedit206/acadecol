@@ -1,5 +1,16 @@
 <template>
     <PublicLayout>
+        <Head title="Actualités">
+            <meta
+                name="description"
+                content="Restez informé des dernières nouvelles, événements et lancements de formations à ACADECOL."
+            />
+            <meta property="og:title" content="Actualités - ACADECOL" />
+            <meta
+                property="og:description"
+                content="Toutes les nouveautés de l'Académie Africaine Bilingue. Articles, événements et mises à jour."
+            />
+        </Head>
         <!-- Hero Section -->
         <section
             class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-10 md:py-16"
@@ -268,5 +279,6 @@
 </template>
 
 <script setup>
+import { Head } from "@inertiajs/vue3";
 import PublicLayout from "@/Layouts/PublicLayout.vue";
 </script>

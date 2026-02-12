@@ -239,7 +239,17 @@ const domains = {
 </script>
 
 <template>
-    <Head title="Certifications" />
+    <Head title="Certifications">
+        <meta
+            name="description"
+            content="Découvrez les certifications ACADECOL: Langues, Santé, Humanitaire, Numérique. Formations reconnues au Cameroun et à l'international."
+        />
+        <meta property="og:title" content="Nos Certifications - ACADECOL" />
+        <meta
+            property="og:description"
+            content="Diplômes d'État et certificats de compétences. Boostez votre CV avec nos formations certifiantes."
+        />
+    </Head>
     <PublicLayout>
         <!-- Hero Section -->
         <section

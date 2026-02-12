@@ -5,6 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title inertia>{{ config('app.name', 'ACADECOL') }}</title>
+        <meta name="description" content="ACADECOL - Académie Africaine Bilingue. Formations professionnelles certifiées par le MINEFOP au Cameroun.">
+        <meta name="keywords" content="formation professionnelle, cameroun, bafoussam, santé, paramédical, langues, informatique, gestion, minefop">
+        
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:title" content="ACADECOL - Construisez votre Avenir Professionnel">
+        <meta property="og:description" content="Formations certifiées de 1 à 12 mois. Diplômes reconnus par l'État. Stage pratique et insertion professionnelle.">
+        <meta property="og:image" content="{{ asset('/img/school1.jpg') }}">
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="{{ url()->current() }}">
+        <meta property="twitter:title" content="ACADECOL - Académie Africaine Bilingue">
+        <meta property="twitter:description" content="Formations certifiées de 1 à 12 mois. Diplômes reconnus par l'État. Stage pratique et insertion professionnelle.">
+        <meta property="twitter:image" content="{{ asset('/img/school1.jpg') }}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

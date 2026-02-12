@@ -1,5 +1,19 @@
 <template>
     <PublicLayout>
+        <Head title="Nous Contacter">
+            <meta
+                name="description"
+                content="Contactez ACADECOL à Bafoussam. Téléphone, WhatsApp, Email ou rendez-nous visite pour votre inscription."
+            />
+            <meta
+                property="og:title"
+                content="Contact - ACADECOL | Académie Africaine Bilingue"
+            />
+            <meta
+                property="og:description"
+                content="Besoin d'informations ? Notre équipe est à votre écoute. Contactez-nous pour en savoir plus sur nos formations."
+            />
+        </Head>
         <!-- Hero Section -->
         <section
             class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-16"
@@ -185,8 +199,9 @@
                             Comment s'inscrire ?
                         </h3>
                         <p class="text-gray-600">
-                            Vous pouvez vous preinscrire directement sur notre site
-                            ou nous contacter par téléphone. et vous inscrit par la suite a l'école.
+                            Vous pouvez vous preinscrire directement sur notre
+                            site ou nous contacter par téléphone. et vous
+                            inscrit par la suite a l'école.
                         </p>
                     </div>
 
@@ -217,6 +232,7 @@
 
 <script setup>
 import { ref } from "vue";
+import { Head } from "@inertiajs/vue3";
 import PublicLayout from "@/Layouts/PublicLayout.vue";
 
 const form = ref({
