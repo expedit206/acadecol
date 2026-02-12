@@ -513,7 +513,7 @@ onMounted(() => {
                             <img
                                 :src="categoryImages.humanitarian"
                                 alt="Formation Humanitaire"
-                                class="category-img h-40 md:h-52"
+                                class="category-img h-40 md:h-72"
                             />
                         </div>
 
@@ -548,7 +548,7 @@ onMounted(() => {
                             <img
                                 :src="categoryImages.digitalHealth"
                                 alt="Numérique Santé"
-                                class="category-img"
+                                class="category-img h-40 md:h-72"
                             />
                         </div>
 
@@ -584,7 +584,7 @@ onMounted(() => {
                             <img
                                 :src="categoryImages.managementResearch"
                                 alt="Management Recherche"
-                                class="category-img"
+                                class="category-img h-40 md:h-72"
                             />
                         </div>
 
