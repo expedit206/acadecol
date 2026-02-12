@@ -347,16 +347,16 @@ onMounted(() => {
             </section>
 
             <!-- FORMATIONS SECTION -->
-            <section id="formations" class="section formations">
+                <section id="formations" class="section formations">
                 <div class="container">
                     <!-- Header -->
                     <div class="formations-header reveal">
                         <span class="badge badge-primary">Nos Programmes</span>
-                        <h2 class="section-title">
+                        <h2 class=" !text-sm">
                             Des formations pour
                             <span class="gradient-text">tous les profils</span>
                         </h2>
-                        <p class="section-desc">
+                        <p class="section-desc !text-xs">
                             Nos cursus sont conçus pour répondre aux besoins
                             réels du marché de l'emploi en Afrique. Formations
                             courtes de 1 à 12 mois, axées sur la pratique
@@ -368,41 +368,41 @@ onMounted(() => {
                     <div class="formation-category reveal">
                         <div class="category-header">
                             <i
-                                class="fas fa-graduation-cap cat-icon text-3xl"
+                                class="fas fa-graduation-cap cat-icon text-xl"
                             ></i>
                             <div>
-                                <h3>Diplômes Nationaux d'État</h3>
-                                <p>
+                                <h3 class="!text-sm md:!text-md lg:!text-xl !font-semi-bold">Diplômes Nationaux d'État</h3>
+                                <p class="!text-xs">
                                     National State Diploma - Formation en
                                     présentiel de 12 mois
                                 </p>
                             </div>
                         </div>
 
-                        <div class="formations-grid">
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mx-auto">
                             <div
                                 v-for="diploma in diplomas"
                                 :key="diploma.id"
                                 class="formation-card"
                             >
-                                <div class="card-image">
+                                <div class="card-image h-24 md:h-40 lg:h-52">
                                     <img
                                         :src="getFormationImage(diploma)"
                                         :alt="getText(diploma.titre)"
                                         onerror="this.src = '/img/school1.jpg'"
                                     />
-                                    <span class="badge-overlay"
+                                    <span class="badge-overlay text-[.4rem]"
                                         >Diplôme d'État</span
                                     >
                                 </div>
-                                <div class="card-content">
-                                    <h4>{{ getText(diploma.titre) }}</h4>
-                                    <p class="subtitle">
+                                <div class="px-2 lg:px-3 py-2">
+                                    <h4 class="text-xs md:text-md">{{ getText(diploma.titre) }}</h4>
+                                    <p class="text-[.5rem] italic md:text-md ">
                                         {{
                                             getText(diploma.description_courte)
                                         }}
                                     </p>
-                                    <div class="card-meta">
+                                    <div class="">
                                         <span
                                             class="meta-item"
                                             v-if="diploma.details"
@@ -436,23 +436,23 @@ onMounted(() => {
                     <!-- Langues -->
                     <div class="formation-category reveal">
                         <div class="category-header">
-                            <i class="fas fa-globe cat-icon text-3xl"></i>
+                            <i class="fas fa-globe cat-icon text-md lg:!text-2xl"></i>
                             <div>
-                                <h3>
+                                <h3 class="!text-sm md:!text-md lg:!text-xl !font-semi-bold">
                                     Certificats de Compétences Linguistiques
                                 </h3>
-                                <p>
+                                <p class="!text-xs md:!text-sm lg:!text-md ">
                                     Linguistic Skills Certificate - 3 à 6 mois
                                     (Présentiel ou en ligne)
                                 </p>
                             </div>
                         </div>
 
-                        <div class="formations-grid">
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-2 md">
                             <div
                                 v-for="lang in languages"
                                 :key="lang.id"
-                                class="formation-card lang-card"
+                                class=""
                             >
                                 <div class="card-image flag-container">
                                     <div class="flag-wrapper">
@@ -460,13 +460,13 @@ onMounted(() => {
                                             getFlag(getText(lang.titre))
                                         }}</span>
                                     </div>
-                                    <span class="badge-overlay"
+                                    <span class="badge-overlay text-[.2rem]"
                                         >Certificat</span
                                     >
                                 </div>
-                                <div class="card-content">
+                                <div class="!text-sm md:!text-md lg:!text-xl !font-semi-bold pl-2 py-2">
                                     <h4>{{ getText(lang.titre) }}</h4>
-                                    <p class="subtitle">
+                                    <p class="!text-xs md:!text-sm lg:!text-lg italic !font-semi-bold text-[.3rem]  ">
                                         {{ getText(lang.description_courte) }}
                                     </p>
                                     <div
@@ -499,10 +499,10 @@ onMounted(() => {
                     <!-- Humanitaire -->
                     <div class="formation-category reveal">
                         <div class="category-header">
-                            <i class="fas fa-heartbeat cat-icon text-3xl"></i>
+                            <i class="fas fa-heartbeat cat-icon text-md lg:!text-2xl"></i>
                             <div>
-                                <h3>Certificats de Compétences Humanitaires</h3>
-                                <p>
+                                <h3 class="!text-sm md:!text-md lg:!text-xl !font-semi-bold">Certificats de Compétences Humanitaires</h3>
+                                <p class="!text-xs md:!text-sm lg:!text-md ">
                                     Humanitarian Skills Certificate - Formation
                                     en ligne
                                 </p>
@@ -513,7 +513,7 @@ onMounted(() => {
                             <img
                                 :src="categoryImages.humanitarian"
                                 alt="Formation Humanitaire"
-                                class="category-img"
+                                class="category-img h-40 md:h-52"
                             />
                         </div>
 
@@ -533,11 +533,11 @@ onMounted(() => {
                     <div class="formation-category reveal">
                         <div class="category-header">
                             <i
-                                class="fas fa-laptop-medical cat-icon text-3xl"
+                                class="fas fa-laptop-medical cat-icon text-md lg:!text-2xl"
                             ></i>
                             <div>
-                                <h3>Numérique Appliqué à la Santé Publique</h3>
-                                <p>
+                                <h3 class="!text-sm md:!text-md lg:!text-xl !font-semi-bold">Numérique Appliqué à la Santé Publique</h3>
+                                <p  class="!text-xs md:!text-sm lg:!text-md ">
                                     Digital Skills in Public Health - Présentiel
                                     ou en ligne
                                 </p>
@@ -567,13 +567,13 @@ onMounted(() => {
                     <!-- Management & Recherche -->
                     <div class="formation-category reveal">
                         <div class="category-header">
-                            <i class="fas fa-chart-line cat-icon text-3xl"></i>
+                            <i class="fas fa-chart-line cat-icon  text-md lg:!text-2xl"></i>
                             <div>
-                                <h3>
+                                <h3  class="!text-sm md:!text-md lg:!text-xl !font-semi-bold">
                                     Management & Recherche Opérationnelle en
                                     Santé
                                 </h3>
-                                <p>
+                                <p class="!text-xs md:!text-sm lg:!text-md ">
                                     Health Management and Operational Research -
                                     Présentiel et en ligne
                                 </p>
@@ -862,7 +862,7 @@ h6 {
 }
 
 .btn {
-    padding: 0.75rem 1.25rem;
+    padding: 0.75rem .7rem;
     border-radius: 50px;
     font-weight: 600;
     /* font-size: 0.9rem; */
@@ -878,7 +878,7 @@ h6 {
 
 @media (min-width: 768px) {
     .btn {
-        padding: 0.8rem 1.5rem;
+        padding: 0.8rem .7rem;
     }
 }
 
@@ -1129,7 +1129,7 @@ h6 {
 }
 
 .section-title {
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-size: clamp(1.2rem, 4vw, 2rem);
     margin: 0.5rem 0 1.5rem;
 }
 
@@ -1226,47 +1226,40 @@ h6 {
 
 .section-desc {
     max-width: 700px;
-    margin: 1rem auto;
+    margin: .4rem auto;
     color: var(--gray-600);
     font-size: 1.1rem;
     line-height: 1.7;
 }
 
 .formation-category {
-    margin-bottom: 5rem;
+    margin-bottom: 1rem;
 }
 
 .category-header {
     display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-    padding-bottom: 1.5rem;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
     border-bottom: 3px solid var(--primary);
 }
 
 .cat-icon {
     color: var(--primary);
     flex-shrink: 0;
+    
 }
 
 .category-header h3 {
     font-size: clamp(1.5rem, 3vw, 2rem);
     color: var(--dark);
-    margin-bottom: 0.5rem;
 }
 
 .category-header p {
     color: var(--gray-600);
-    font-size: 1rem;
-    margin: 0;
 }
 
-.formations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 2rem;
-}
 
 .formation-card {
     background: var(--white);
@@ -1283,7 +1276,6 @@ h6 {
 
 .card-image {
     position: relative;
-    height: 200px;
     overflow: hidden;
     background: linear-gradient(135deg, var(--primary-light), var(--gray-200));
 }
@@ -1327,14 +1319,13 @@ h6 {
 
 .badge-overlay {
     position: absolute;
-    top: 1rem;
+    top: .5rem;
     right: 1rem;
     background: var(--primary);
     color: var(--white);
-    padding: 0.4rem 0.8rem;
+    padding: 0.1rem 0.4rem;
     border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 200;
     text-transform: uppercase;
 }
 
@@ -1388,7 +1379,7 @@ h6 {
 }
 
 .category-image-wrapper {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: var(--shadow);
@@ -1396,22 +1387,21 @@ h6 {
 
 .category-img {
     width: 100%;
-    height: 300px;
     object-fit: cover;
 }
 
 .competences-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
+    gap: .7rem;
 }
 
 .competence-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center ;
     gap: 0.75rem;
     background: var(--white);
-    padding: 1rem 1.2rem;
+    padding: .5rem 1rem;
     border-radius: 10px;
     transition: var(--transition);
     box-shadow: var(--shadow-sm);
@@ -1440,22 +1430,22 @@ h6 {
 
 .cta-box {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
-    padding: 3rem 2rem;
+    padding: 1rem 2rem;
     border-radius: 25px;
     text-align: center;
     color: var(--white);
 }
 
 .cta-box h3 {
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    margin-bottom: 1rem;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: .6rem;
 }
 
 .cta-box p {
     max-width: 600px;
     margin: 0 auto 2rem;
     opacity: 0.95;
-    font-size: 1.1rem;
+    font-size: .8rem;
 }
 
 .cta-actions {
