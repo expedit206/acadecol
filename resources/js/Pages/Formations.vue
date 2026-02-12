@@ -84,90 +84,101 @@
         </section>
 
         <!-- Main Content -->
-        <section class="py-10 md:py-16 bg-gray-50 min-h-screen">
+        <section class="py-5 md:py-10 bg-gray-50 min-h-screen">
             <div class="container mx-auto px-4">
                 <!-- Domain Header -->
-                <div
-                    v-if="selectedDomain"
-                    class="mb-8 text-center animate-fade-in-up"
-                >
+
+                <!-- Formations Sections -->
+                <div v-if="groupedFormations.length > 0">
                     <div
-                        :class="`inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br ${selectedDomain.color} text-white text-3xl md:text-4xl mb-6 shadow-xl transform rotate-3`"
+                        v-for="group in groupedFormations"
+                        :key="group.id"
+                        class="mb-6 last:mb-0"
                     >
-                        <!-- Header Icon -->
-                        <i :class="selectedDomain.iconClass"></i>
-                    </div>
-                    <h2
-                        class="text-2xl md:text-4xl font-bold text-gray-900 mb-4"
-                    >
-                        {{ selectedDomain.name }}
-                    </h2>
-                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                        {{ selectedDomain.description }}
-                    </p>
-                </div>
-
-                <!-- Formations Grid -->
-                <div
-                    v-if="filteredFormations.length > 0"
-                    class="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-4 md:gap-6"
-                >
-                    <div
-                        v-for="formation in filteredFormations"
-                        :key="formation.id"
-                        @click="openDetails(formation)"
-                        class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 flex flex-col h-full transform hover:-translate-y-1"
-                    >
-                        <!-- Image Section -->
-                        <div class="relative h-32 md:h-48 overflow-hidden">
-                            <img
-                                :src="getFormationImage(formation)"
-                                :alt="getText(formation.titre)"
-                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                onerror="this.src = '/img/school1.jpg'"
-                            />
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
-                            ></div>
-                        </div>
-
-                        <!-- Card Content -->
-                        <div class="p-1 md:p-3 flex-grow flex flex-col">
-                            <!-- Category Tag -->
-                            <div class="mb-1 md:mb-2">
-                                <span
-                                    :class="`text-xs md:text-sm font-bold uppercase tracking-wider text-blue-600 bg-clip-text bg-gradient-to-r ${selectedDomain?.color}`"
-                                >
-                                    {{ getDomain(formation.category_id)?.name }}
-                                </span>
-                            </div>
-
-                            <h3
-                                class="text-sm md:text-xl font-bold text-gray-900 mb-1 md:mb-2 group-hover:text-blue-600 transition-colors line-clamp-2"
-                            >
-                                {{ getText(formation.titre) }}
-                            </h3>
-                            <p
-                                class="text-gray-500 text-xs md:text-sm mb-1 md:mb-2 line-clamp-2 md:line-clamp-3"
-                            >
-                                {{
-                                    getText(formation.description_courte) ||
-                                    getText(formation.description_complete) ||
-                                    "Cliquez pour voir les détails."
-                                }}
-                            </p>
-                        </div>
-
-                        <!-- Card Footer -->
+                        <!-- Section Header -->
                         <div
-                            class="px-3 md:px-6 py-1 md:py-2 bg-gray-50 border-t border-gray-100 mt-auto flex items-center justify-center md:justify-end group-hover:bg-blue-50/30 transition-colors"
+                            class="flex items-center gap-3 md:gap-4 mb-2 md:mb-4     border-b border-gray-200 pb-4"
                         >
-                            <span
-                                class="inline-flex items-center text-blue-600 text-xs md:text-sm font-semibold uppercase tracking-wider group-hover:translate-x-1 transition-transform"
+                            <div
+                                :class="`w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-gradent-to-br ${group.color} flex items-center justify-center text-white shadow-lg shrink-0`"
                             >
-                                Voir
-                                <i class="fas fa-arrow-right ml-1 md:ml-2"></i>
-                            </span>
+                              
+                                   <i class="fas fa-arrow-right text-black"></i>
+
+                            </div>
+                            <div>
+                                <h2
+                                    class="md:text-xl text-sm lg:text-3xl font-bold text-gray-900"
+                                >
+                                    {{ group.name }}
+                                </h2>
+                            
+                            </div>
+                        </div>
+
+                        <!-- Grid -->
+                        <div
+                            class="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-4 md:gap-6"
+                        >
+                            <div
+                                v-for="formation in group.items"
+                                :key="formation.id"
+                                @click="openDetails(formation)"
+                                class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 flex flex-col h-full transform hover:-translate-y-1"
+                            >
+                                <!-- Image Section -->
+                                <div
+                                    class="relative h-32 md:h-48 overflow-hidden"
+                                >
+                                    <img
+                                        :src="getFormationImage(formation)"
+                                        :alt="getText(formation.titre)"
+                                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        onerror="this.src = '/img/school1.jpg'"
+                                    />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+                                    ></div>
+                                </div>
+
+                                <!-- Card Content -->
+                                <div
+                                    class="px-1 pl-2 py-1 md:p-3 flex-grow flex flex-col pt-2"
+                                >
+                                    <h3
+                                        class="text-xs md:text-md font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2"
+                                    >
+                                        {{ getText(formation.titre) }}
+                                    </h3>
+                                    <p
+                                        class="text-gray-500 text-xs md:text-sm  line-clamp-2 md:line-clamp-3"
+                                    >
+                                        {{
+                                            getText(
+                                                formation.description_courte,
+                                            ) ||
+                                            getText(
+                                                formation.description_complete,
+                                            ) ||
+                                            "Cliquez pour voir les détails."
+                                        }}
+                                    </p>
+                                </div>
+
+                                <!-- Card Footer -->
+                                <div
+                                    class="px-3 mx-auto md:px-5 py-1 md:py-3 bg-gray-50 border-t border-gray-100 mt-auto flex items-center justify-end group-hover:bg-blue-50/30 transition-colors"
+                                >
+                                    <span
+                                        class="inline-flex items-center text-blue-600 text-xs md:text-sm font-semibold uppercase tracking-wider group-hover:translate-x-1 transition-transform"
+                                    >
+                                        Détails
+                                        <i
+                                            class="fas fa-arrow-right ml-1 md:ml-2"
+                                        ></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -519,20 +530,23 @@ const domains = computed(() => {
     });
 });
 
-const selectedDomain = computed(() => {
-    if (selectedDomainId.value === null) return null;
-    return domains.value.find((d) => d.id === selectedDomainId.value);
-});
-
 const getDomain = (id) => {
     return domains.value.find((d) => d.id === id);
 };
 
-const filteredFormations = computed(() => {
-    if (!selectedDomainId.value) return props.formations; // Show all if no category selected
-    return props.formations.filter(
-        (f) => f.category_id === selectedDomainId.value,
-    );
+const groupedFormations = computed(() => {
+    let cats = domains.value;
+
+    if (selectedDomainId.value) {
+        cats = cats.filter((d) => d.id === selectedDomainId.value);
+    }
+
+    return cats
+        .map((domain) => ({
+            ...domain,
+            items: props.formations.filter((f) => f.category_id === domain.id),
+        }))
+        .filter((g) => g.items.length > 0);
 });
 
 // Removed onMounted force-select

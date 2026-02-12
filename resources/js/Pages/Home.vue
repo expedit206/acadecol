@@ -164,7 +164,7 @@ onMounted(() => {
                 class="py-5 my-5 relative flex overflow-hidden pt-5 mt-5"
             >
                 <!-- Background -->
-                <div class="absolute inset-0 z-0 py-5">
+                <div class="absolute inset-0 z-0 py-">
                     <img
                         src="/img/school1.jpg"
                         alt="Hero Background"
