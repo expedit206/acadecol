@@ -26,7 +26,7 @@
         <!-- Navigation Tabs/Dropdown (Sticky) -->
         <!-- Navigation Pills (Sticky) -->
         <section
-            class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all duration-300"
+            class="sticky top-10 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all duration-300"
         >
             <div class="container mx-auto px-4 py-3">
                 <!-- Mobile: Dropdown Select -->
