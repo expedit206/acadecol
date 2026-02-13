@@ -28,7 +28,9 @@
                 </div>
 
                 <!-- Formations Table -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div
+                    class="hidden lg:block bg-white overflow-hidden shadow-sm sm:rounded-lg"
+                >
                     <div class="p-6">
                         <div class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200">
@@ -264,6 +266,161 @@
                                     />
                                 </template>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Cards -->
+                <div class="lg:hidden space-y-4 mt-6">
+                    <div
+                        v-for="formation in formations.data"
+                        :key="formation.id"
+                        class="bg-white overflow-hidden shadow-sm rounded-lg p-4"
+                    >
+                        <div class="flex gap-4 mb-4">
+                            <div
+                                class="flex-shrink-0 h-20 w-20 bg-gray-100 rounded-lg overflow-hidden"
+                            >
+                                <img
+                                    v-if="formation.image"
+                                    :src="`/${formation.image.path}`"
+                                    class="h-full w-full object-cover"
+                                    onerror="this.src = '/img/school1.jpg'"
+                                />
+                                <div
+                                    v-else
+                                    class="h-full w-full flex items-center justify-center text-gray-400"
+                                >
+                                    <i class="fas fa-image text-2xl"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-gray-900">
+                                    {{ formation.titre.fr }}
+                                </h3>
+                                <p class="text-xs text-gray-500 mb-1">
+                                    {{ formation.titre.en }}
+                                </p>
+                                <span
+                                    class="px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"
+                                >
+                                    {{ formation.category?.nom?.fr || "N/A" }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 text-sm mb-4">
+                            <div>
+                                <span class="text-gray-500 block">Prix:</span>
+                                <span class="font-medium">{{
+                                    formation.prix
+                                        ? formatPrice(formation.prix)
+                                        : "Gratuit"
+                                }}</span>
+                            </div>
+                            <div>
+                                <span class="text-gray-500 block">Durée:</span>
+                                <span class="font-medium">{{
+                                    formation.duree || "-"
+                                }}</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <button
+                                @click="toggleFeatured(formation)"
+                                :class="
+                                    formation.is_featured
+                                        ? 'bg-green-100 text-green-800'
+                                        : 'bg-gray-100 text-gray-800'
+                                "
+                                class="w-full justify-center px-3 py-2 inline-flex text-xs leading-5 font-semibold rounded-lg cursor-pointer hover:opacity-75 transition"
+                            >
+                                <i
+                                    :class="
+                                        formation.is_featured
+                                            ? 'fas fa-star'
+                                            : 'far fa-star'
+                                    "
+                                    class="mr-2"
+                                ></i>
+                                {{
+                                    formation.is_featured
+                                        ? "Formation mise en avant"
+                                        : "Définir comme standard"
+                                }}
+                            </button>
+                        </div>
+
+                        <div
+                            class="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-gray-100"
+                        >
+                            <Link
+                                :href="
+                                    route('admin.formations.edit', formation.id)
+                                "
+                                class="flex items-center justify-center px-4 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition text-sm font-medium"
+                            >
+                                <i class="fas fa-edit mr-2"></i> Modifier
+                            </Link>
+                            <button
+                                @click="deleteFormation(formation)"
+                                class="flex items-center justify-center px-4 py-2 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 transition text-sm font-medium"
+                            >
+                                <i class="fas fa-trash mr-2"></i> Supprimer
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Empty State -->
+                    <div
+                        v-if="formations.data.length === 0"
+                        class="text-center py-12 bg-white rounded-lg shadow"
+                    >
+                        <i
+                            class="fas fa-graduation-cap text-6xl text-gray-300 mb-4"
+                        ></i>
+                        <p class="text-gray-500 text-lg">
+                            Aucune formation trouvée
+                        </p>
+                        <Link
+                            :href="route('admin.formations.create')"
+                            class="inline-block mt-4 text-blue-600 hover:text-blue-800"
+                        >
+                            Créer la première formation
+                        </Link>
+                    </div>
+
+                    <!-- Mobile Pagination -->
+                    <div
+                        v-if="formations.data.length > 0"
+                        class="mt-6 flex items-center justify-between pt-4"
+                    >
+                        <div class="flex flex-wrap gap-2 justify-center w-full">
+                            <template
+                                v-for="link in formations.links"
+                                :key="link.label"
+                            >
+                                <Link
+                                    v-if="link.url"
+                                    :href="link.url"
+                                    :class="[
+                                        'px-3 py-1 border rounded-lg text-xs transition',
+                                        link.active
+                                            ? 'bg-blue-600 text-white border-blue-600'
+                                            : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50',
+                                    ]"
+                                    v-html="link.label"
+                                />
+                                <span
+                                    v-else
+                                    :class="[
+                                        'px-3 py-1 border rounded-lg text-xs cursor-not-allowed opacity-50',
+                                        'bg-gray-100 text-gray-400 border-gray-200',
+                                    ]"
+                                    v-html="link.label"
+                                />
+                            </template>
                         </div>
                     </div>
                 </div>

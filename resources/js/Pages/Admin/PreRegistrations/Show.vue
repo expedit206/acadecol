@@ -144,10 +144,131 @@
                                     class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
                                 >
                                     {{ preRegistration.last_school || "-" }}
+                                    <span
+                                        v-if="preRegistration.graduation_year"
+                                    >
+                                        (Année:
+                                        {{ preRegistration.graduation_year }})
+                                    </span>
                                 </dd>
                             </div>
+
+                            <!-- Situation Professionnelle -->
                             <div
                                 class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                            >
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Situation Professionnelle
+                                </dt>
+                                <dd
+                                    class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
+                                >
+                                    <div
+                                        v-if="
+                                            preRegistration.professional_status
+                                        "
+                                    >
+                                        <span class="font-semibold">{{
+                                            preRegistration.professional_status
+                                        }}</span>
+                                        <span
+                                            v-if="
+                                                preRegistration.current_position
+                                            "
+                                        >
+                                            -
+                                            {{
+                                                preRegistration.current_position
+                                            }}
+                                        </span>
+                                        <span
+                                            v-if="preRegistration.company_name"
+                                        >
+                                            chez
+                                            {{ preRegistration.company_name }}
+                                        </span>
+                                    </div>
+                                    <div
+                                        v-if="
+                                            preRegistration.years_of_experience
+                                        "
+                                        class="text-gray-500 text-xs mt-1"
+                                    >
+                                        Expérience:
+                                        {{
+                                            preRegistration.years_of_experience
+                                        }}
+                                    </div>
+                                    <span v-else class="text-gray-400 italic"
+                                        >Non renseigné</span
+                                    >
+                                </dd>
+                            </div>
+
+                            <!-- Langues -->
+                            <div
+                                class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                            >
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Langues
+                                </dt>
+                                <dd
+                                    class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
+                                >
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div>
+                                            Français:
+                                            <span class="font-medium">{{
+                                                preRegistration.french_level ||
+                                                "-"
+                                            }}</span>
+                                        </div>
+                                        <div>
+                                            Anglais:
+                                            <span class="font-medium">{{
+                                                preRegistration.english_level ||
+                                                "-"
+                                            }}</span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        v-if="preRegistration.other_languages"
+                                        class="mt-1 text-xs"
+                                    >
+                                        Autres:
+                                        {{ preRegistration.other_languages }}
+                                    </div>
+                                </dd>
+                            </div>
+
+                            <!-- Disponibilité -->
+                            <div
+                                class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                            >
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Disponibilité & Préférences
+                                </dt>
+                                <dd
+                                    class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
+                                >
+                                    <div>
+                                        Disponibilité:
+                                        {{
+                                            preRegistration.availability || "-"
+                                        }}
+                                    </div>
+                                    <div>
+                                        Horaire préféré:
+                                        {{
+                                            preRegistration.preferred_schedule ||
+                                            "-"
+                                        }}
+                                    </div>
+                                </dd>
+                            </div>
+
+                            <div
+                                class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                             >
                                 <dt class="text-sm font-medium text-gray-500">
                                     Message
@@ -167,21 +288,21 @@
 
                 <!-- Actions -->
                 <div
-                    class="bg-white shadow sm:rounded-lg p-6 flex justify-end gap-4"
+                    class="bg-white shadow sm:rounded-lg p-6 flex flex-col sm:flex-row justify-end gap-4"
                 >
                     <button
                         v-if="preRegistration.status !== 'validated'"
                         @click="updateStatus('validated')"
-                        class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+                        class="w-full sm:w-auto bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition flex justify-center items-center"
                     >
-                        Valider l'inscription
+                        <i class="fas fa-check mr-2"></i> Valider l'inscription
                     </button>
                     <button
                         v-if="preRegistration.status !== 'cancelled'"
                         @click="updateStatus('cancelled')"
-                        class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
+                        class="w-full sm:w-auto bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition flex justify-center items-center"
                     >
-                        Annuler / Rejeter
+                        <i class="fas fa-times mr-2"></i> Annuler / Rejeter
                     </button>
                 </div>
             </div>

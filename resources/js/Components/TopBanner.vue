@@ -64,20 +64,14 @@
                         Vocational Training Institute – A.A.L.S.D
                     </h2>
 
-                    <div
-                        class="inline-block border-b-2 border-gray-900 pb-0.5 "
-                    >
-                        <p
-                            class="text-xs md:text-xs font-bold text-gray-700"
-                        >
+                    <div class="inline-block border-b-2 border-gray-900 pb-0.5">
+                        <p class="text-xs md:text-xs font-bold text-gray-700">
                             Arrêté N° : 000644/MINEFOP/SG/DFOP/SDGSF/CSADC/CBAC
                         </p>
                     </div>
 
-                    <p
-                        class="text-xs md:text-sm font-semibold text-gray-600"
-                    >
-                        Sis à Bafoussam, Entrée Ecole Normale.
+                    <p class="text-xs md:text-sm font-semibold text-gray-600">
+                        Sis à Bafoussam, Face ancien général voyage.
                     </p>
                 </div>
 

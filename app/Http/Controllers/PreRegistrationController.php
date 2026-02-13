@@ -60,7 +60,17 @@ class PreRegistrationController extends Controller
             'gender' => 'required|in:M,F',
             'education_level' => 'required|string',
             'last_school' => 'nullable|string',
+            'graduation_year' => 'nullable|string|max:4',
             'major_field' => 'nullable|string',
+            'professional_status' => 'nullable|string',
+            'current_position' => 'nullable|string',
+            'company_name' => 'nullable|string',
+            'years_of_experience' => 'nullable|string',
+            'french_level' => 'nullable|string',
+            'english_level' => 'nullable|string',
+            'other_languages' => 'nullable|string',
+            'availability' => 'nullable|string',
+            'preferred_schedule' => 'nullable|string',
             'message' => 'nullable|string',
         ]);
 

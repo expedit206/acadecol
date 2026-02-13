@@ -411,7 +411,7 @@ const submitLogin = () => {
                                                         Doctorat / PhD
                                                     </option>
                                                     <option value="Autre">
-                                                        Autre
+                                                        Autre (Préciser)
                                                     </option>
                                                 </select>
                                                 <InputError

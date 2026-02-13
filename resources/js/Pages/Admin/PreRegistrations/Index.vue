@@ -231,6 +231,29 @@
                                 <i class="fas fa-eye mr-1"></i> Détails
                             </Link>
                         </div>
+
+                        <!-- Actions Mobile -->
+                        <div
+                            v-if="registration.status === 'pending'"
+                            class="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-gray-100"
+                        >
+                            <button
+                                @click="
+                                    updateStatus(registration.id, 'validated')
+                                "
+                                class="flex items-center justify-center px-4 py-2 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition text-sm font-medium"
+                            >
+                                <i class="fas fa-check mr-2"></i> Valider
+                            </button>
+                            <button
+                                @click="
+                                    updateStatus(registration.id, 'cancelled')
+                                "
+                                class="flex items-center justify-center px-4 py-2 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 transition text-sm font-medium"
+                            >
+                                <i class="fas fa-times mr-2"></i> Refuser
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Empty State Mobile -->
@@ -288,9 +311,21 @@
 
 <script setup>
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, router } from "@inertiajs/vue3";
 
 defineProps({
     preRegistrations: Object,
 });
+
+const updateStatus = (id, status) => {
+    if (
+        confirm(
+            "Êtes-vous sûr de vouloir changer le statut de cette pré-inscription ?",
+        )
+    ) {
+        router.patch(route("admin.pre-registrations.update", id), {
+            status: status,
+        });
+    }
+};
 </script>

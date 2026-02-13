@@ -19,7 +19,7 @@
 
                         <!-- Navigation Links -->
                         <div
-                            class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"
+                            class="hidden space-x-8 sm:-my-px sm:ml-10 lg:flex"
                         >
                             <NavLink
                                 :href="route('admin.dashboard')"
@@ -101,7 +101,7 @@
                     </div>
 
                     <!-- Hamburger -->
-                    <div class="-mr-2 flex items-center sm:hidden">
+                    <div class="-mr-2 flex items-center lg:hidden">
                         <button
                             @click="
                                 showingNavigationDropdown =
@@ -149,7 +149,7 @@
                     block: showingNavigationDropdown,
                     hidden: !showingNavigationDropdown,
                 }"
-                class="sm:hidden"
+                class="md:hidden"
             >
                 <div class="pt-2 pb-3 space-y-1">
                     <ResponsiveNavLink
