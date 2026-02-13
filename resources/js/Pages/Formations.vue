@@ -508,7 +508,6 @@ const props = defineProps({
 
 const selectedDomainId = ref(null);
 const selectedFormation = ref(null);
-console.log(props.categories);
 // Transform data for UI
 const domains = computed(() => {
     return props.categories.map((cat, index) => {
@@ -579,7 +578,7 @@ function getCategoryImage(categoryName) {
         "L'Humanitaire": "/storage/formations/humanitaire.png",
         "Numérique en Santé": "/storage/formations/data_analyst.png",
         "Management & Recherche Opérationnelle en Santé":
-            "/storage/formations/data_analyst.png",
+            "/storage/formations/evaluation systeme de sante.png",
     };
     return images[categoryName] || "/img/school1.jpg";
 }

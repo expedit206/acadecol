@@ -54,11 +54,13 @@ class PreRegistrationController extends Controller
             'first_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
-            'address' => 'required|string|max:255',
+            'whatsapp' => 'nullable|string|max:20',
             'birth_date' => 'required|date',
+            'birth_place' => 'required|string|max:255',
             'gender' => 'required|in:M,F',
             'education_level' => 'required|string',
             'last_school' => 'nullable|string',
+            'major_field' => 'nullable|string',
             'message' => 'nullable|string',
         ]);
 
@@ -152,8 +154,7 @@ class PreRegistrationController extends Controller
             'address' => 'required|string|max:255',
             'birth_date' => 'required|date',
             'gender' => 'required|in:M,F',
-            'education_level' => 'required|string',
-            'last_school' => 'nullable|string',
+            'gender' => 'required|in:M,F',
             'message' => 'nullable|string',
         ]);
 

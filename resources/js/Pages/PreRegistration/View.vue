@@ -79,12 +79,7 @@
                             >
                                 {{ getStatusLabel(preRegistration.status) }}
                             </span>
-                            <button
-                                @click="logout"
-                                class="text-red-500 hover:text-red-700 text-sm font-medium underline flex items-center print:hidden"
-                            >
-                                <i class="fas fa-sign-out-alt mr-1"></i> Sortir
-                            </button>
+                        
                         </div>
                         <div v-if="canEdit" class="print:hidden">
                             <button

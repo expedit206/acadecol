@@ -12,6 +12,7 @@ const props = defineProps({
 });
 
 const mode = ref("register"); // 'register' ou 'login'
+const customEducationLevel = ref("");
 
 const form = useForm({
     // Informations de base
@@ -21,11 +22,9 @@ const form = useForm({
     email: "",
     phone: "",
     whatsapp: "",
-    address: "",
     birth_date: "",
     gender: "M",
     birth_place: "",
-    nationality: "",
 
     // Parcours académique
     education_level: "",
@@ -57,7 +56,13 @@ const loginForm = useForm({
 });
 
 const submit = () => {
-    form.post(route("pre-registration.store"));
+    form.transform((data) => ({
+        ...data,
+        education_level:
+            data.education_level === "Autre"
+                ? customEducationLevel.value
+                : data.education_level,
+    })).post(route("pre-registration.store"));
 };
 
 const submitLogin = () => {
@@ -82,33 +87,7 @@ const submitLogin = () => {
 
                 <div class="bg-white overflow-hidden shadow-2xl rounded-2xl">
                     <!-- TABS -->
-                    <div class="flex border-b border-gray-200">
-                        <button
-                            @click="mode = 'register'"
-                            class="w-1/2 py-4 text-center font-bold text-lg transition-all duration-200 focus:outline-none"
-                            :class="
-                                mode === 'register'
-                                    ? 'text-blue-600 border-b-4 border-blue-600 bg-blue-50'
-                                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
-                            "
-                        >
-                            <i class="fas fa-edit mr-2"></i> Nouvelle Demande
-                        </button>
-                        <button
-                            @click="mode = 'login'"
-                            class="w-1/2 py-4 text-center font-bold text-lg transition-all duration-200 focus:outline-none"
-                            :class="
-                                mode === 'login'
-                                    ? 'text-blue-600 border-b-4 border-blue-600 bg-blue-50'
-                                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
-                            "
-                        >
-                            <i class="fas fa-user-check mr-2"></i> Déjà Inscrit
-                            ?
-                        </button>
-                    </div>
-
-                    <div class="p-6 sm:p-10 bg-white">
+                    <div class="px-6 sm:px-10 bg-white py-8">
                         <!-- MODE INSCRIPTION -->
                         <div v-show="mode === 'register'">
                             <div class="mb-8 text-center">
@@ -310,54 +289,6 @@ const submitLogin = () => {
                                         <div
                                             class="grid grid-cols-1 md:grid-cols-2 gap-4"
                                         >
-                                            <!-- Nationalité -->
-                                            <div>
-                                                <InputLabel
-                                                    for="nationality"
-                                                    value="Nationalité *"
-                                                />
-                                                <TextInput
-                                                    id="nationality"
-                                                    type="text"
-                                                    class="mt-1 block w-full"
-                                                    v-model="form.nationality"
-                                                    placeholder="Ex: Camerounaise"
-                                                    required
-                                                />
-                                                <InputError
-                                                    :message="
-                                                        form.errors.nationality
-                                                    "
-                                                    class="mt-2"
-                                                />
-                                            </div>
-
-                                            <!-- Adresse -->
-                                            <div>
-                                                <InputLabel
-                                                    for="address"
-                                                    value="Ville de résidence *"
-                                                />
-                                                <TextInput
-                                                    id="address"
-                                                    type="text"
-                                                    class="mt-1 block w-full"
-                                                    v-model="form.address"
-                                                    placeholder="Ex: Douala, Akwa"
-                                                    required
-                                                />
-                                                <InputError
-                                                    :message="
-                                                        form.errors.address
-                                                    "
-                                                    class="mt-2"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div
-                                            class="grid grid-cols-1 md:grid-cols-2 gap-4"
-                                        >
                                             <!-- Email -->
                                             <div>
                                                 <InputLabel
@@ -422,13 +353,13 @@ const submitLogin = () => {
 
                                 <!-- ========== SECTION 3: PARCOURS ACADÉMIQUE ========== -->
                                 <div
-                                    class="bg-green-50 p-6 rounded-xl border-2 border-green-200"
+                                    class="bg-green-50 p-6 rounded-xl border-2 border-green-200 mb-8"
                                 >
                                     <h2
                                         class="text-xl font-bold text-green-900 mb-4 flex items-center gap-2"
                                     >
                                         <i class="fas fa-graduation-cap"></i>
-                                        Parcours Académique
+                                        Niveau d'Étude
                                     </h2>
 
                                     <div class="space-y-4">
@@ -439,7 +370,7 @@ const submitLogin = () => {
                                             <div>
                                                 <InputLabel
                                                     for="education_level"
-                                                    value="Niveau d'étude actuel *"
+                                                    value="Dernier Diplôme Obtenu *"
                                                 />
                                                 <select
                                                     id="education_level"
@@ -492,56 +423,25 @@ const submitLogin = () => {
                                                 />
                                             </div>
 
-                                            <!-- Année d'obtention -->
-                                            <div>
+                                            <div
+                                                v-if="
+                                                    form.education_level ===
+                                                    'Autre'
+                                                "
+                                            >
                                                 <InputLabel
-                                                    for="graduation_year"
-                                                    value="Année d'obtention *"
+                                                    for="custom_education_level"
+                                                    value="Précisez votre niveau *"
                                                 />
                                                 <TextInput
-                                                    id="graduation_year"
-                                                    type="number"
-                                                    min="1960"
-                                                    max="2030"
-                                                    class="mt-1 block w-full"
-                                                    v-model="
-                                                        form.graduation_year
-                                                    "
-                                                    placeholder="Ex: 2020"
-                                                    required
-                                                />
-                                                <InputError
-                                                    :message="
-                                                        form.errors
-                                                            .graduation_year
-                                                    "
-                                                    class="mt-2"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div
-                                            class="grid grid-cols-1 md:grid-cols-2 gap-4"
-                                        >
-                                            <!-- Établissement -->
-                                            <div>
-                                                <InputLabel
-                                                    for="last_school"
-                                                    value="Dernier établissement fréquenté *"
-                                                />
-                                                <TextInput
-                                                    id="last_school"
+                                                    id="custom_education_level"
                                                     type="text"
                                                     class="mt-1 block w-full"
-                                                    v-model="form.last_school"
-                                                    placeholder="Ex: Université de Yaoundé I"
-                                                    required
-                                                />
-                                                <InputError
-                                                    :message="
-                                                        form.errors.last_school
+                                                    v-model="
+                                                        customEducationLevel
                                                     "
-                                                    class="mt-2"
+                                                    placeholder="Ex: Diplôme d'ingénieur"
+                                                    required
                                                 />
                                             </div>
 
@@ -549,14 +449,14 @@ const submitLogin = () => {
                                             <div>
                                                 <InputLabel
                                                     for="major_field"
-                                                    value="Domaine d'étude / Filière"
+                                                    value="Série / Filière (Optionnel)"
                                                 />
                                                 <TextInput
                                                     id="major_field"
                                                     type="text"
                                                     class="mt-1 block w-full"
                                                     v-model="form.major_field"
-                                                    placeholder="Ex: Gestion, Sciences, Littéraire..."
+                                                    placeholder="Ex: Scientifique, Littéraire, Gestion..."
                                                 />
                                                 <InputError
                                                     :message="
@@ -566,411 +466,56 @@ const submitLogin = () => {
                                                 />
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                                <!-- ========== SECTION 4: SITUATION PROFESSIONNELLE ========== -->
-                                <div
-                                    class="bg-purple-50 p-6 rounded-xl border-2 border-purple-200"
-                                >
-                                    <h2
-                                        class="text-xl font-bold text-purple-900 mb-4 flex items-center gap-2"
-                                    >
-                                        <i class="fas fa-briefcase"></i>
-                                        Situation Professionnelle
-                                    </h2>
-
-                                    <div class="space-y-4">
-                                        <!-- Statut professionnel -->
+                                        <!-- Établissement -->
                                         <div>
                                             <InputLabel
-                                                for="professional_status"
-                                                value="Statut actuel *"
-                                            />
-                                            <select
-                                                id="professional_status"
-                                                v-model="
-                                                    form.professional_status
-                                                "
-                                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                                required
-                                            >
-                                                <option value="">
-                                                    -- Sélectionnez --
-                                                </option>
-                                                <option value="Étudiant">
-                                                    Étudiant(e)
-                                                </option>
-                                                <option value="Salarié">
-                                                    Salarié(e)
-                                                </option>
-                                                <option value="Entrepreneur">
-                                                    Entrepreneur /
-                                                    Auto-entrepreneur
-                                                </option>
-                                                <option value="Sans emploi">
-                                                    Demandeur d'emploi
-                                                </option>
-                                                <option value="Fonctionnaire">
-                                                    Fonctionnaire
-                                                </option>
-                                                <option value="Stage">
-                                                    En stage
-                                                </option>
-                                                <option value="Autre">
-                                                    Autre
-                                                </option>
-                                            </select>
-                                            <InputError
-                                                :message="
-                                                    form.errors
-                                                        .professional_status
-                                                "
-                                                class="mt-2"
-                                            />
-                                        </div>
-
-                                        <div
-                                            class="grid grid-cols-1 md:grid-cols-2 gap-4"
-                                        >
-                                            <!-- Poste actuel -->
-                                            <div>
-                                                <InputLabel
-                                                    for="current_position"
-                                                    value="Poste / Fonction actuelle"
-                                                />
-                                                <TextInput
-                                                    id="current_position"
-                                                    type="text"
-                                                    class="mt-1 block w-full"
-                                                    v-model="
-                                                        form.current_position
-                                                    "
-                                                    placeholder="Ex: Assistant administratif"
-                                                />
-                                                <InputError
-                                                    :message="
-                                                        form.errors
-                                                            .current_position
-                                                    "
-                                                    class="mt-2"
-                                                />
-                                            </div>
-
-                                            <!-- Entreprise -->
-                                            <div>
-                                                <InputLabel
-                                                    for="company_name"
-                                                    value="Entreprise / Organisation"
-                                                />
-                                                <TextInput
-                                                    id="company_name"
-                                                    type="text"
-                                                    class="mt-1 block w-full"
-                                                    v-model="form.company_name"
-                                                    placeholder="Ex: MTN Cameroun"
-                                                />
-                                                <InputError
-                                                    :message="
-                                                        form.errors.company_name
-                                                    "
-                                                    class="mt-2"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <!-- Expérience -->
-                                        <div>
-                                            <InputLabel
-                                                for="years_of_experience"
-                                                value="Années d'expérience professionnelle"
-                                            />
-                                            <select
-                                                id="years_of_experience"
-                                                v-model="
-                                                    form.years_of_experience
-                                                "
-                                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                            >
-                                                <option value="">
-                                                    -- Sélectionnez --
-                                                </option>
-                                                <option value="0">
-                                                    Aucune expérience
-                                                </option>
-                                                <option value="1">
-                                                    Moins d'1 an
-                                                </option>
-                                                <option value="1-3">
-                                                    1 à 3 ans
-                                                </option>
-                                                <option value="3-5">
-                                                    3 à 5 ans
-                                                </option>
-                                                <option value="5-10">
-                                                    5 à 10 ans
-                                                </option>
-                                                <option value="10+">
-                                                    Plus de 10 ans
-                                                </option>
-                                            </select>
-                                            <InputError
-                                                :message="
-                                                    form.errors
-                                                        .years_of_experience
-                                                "
-                                                class="mt-2"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- ========== SECTION 5: COMPÉTENCES LINGUISTIQUES ========== -->
-                                <div
-                                    class="bg-amber-50 p-6 rounded-xl border-2 border-amber-200"
-                                >
-                                    <h2
-                                        class="text-xl font-bold text-amber-900 mb-4 flex items-center gap-2"
-                                    >
-                                        <i class="fas fa-language"></i>
-                                        Compétences Linguistiques
-                                    </h2>
-
-                                    <div class="space-y-4">
-                                        <div
-                                            class="grid grid-cols-1 md:grid-cols-2 gap-4"
-                                        >
-                                            <!-- Niveau Français -->
-                                            <div>
-                                                <InputLabel
-                                                    for="french_level"
-                                                    value="Niveau de Français *"
-                                                />
-                                                <select
-                                                    id="french_level"
-                                                    v-model="form.french_level"
-                                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                                    required
-                                                >
-                                                    <option value="">
-                                                        -- Sélectionnez --
-                                                    </option>
-                                                    <option value="Débutant">
-                                                        Débutant (A1-A2)
-                                                    </option>
-                                                    <option
-                                                        value="Intermédiaire"
-                                                    >
-                                                        Intermédiaire (B1-B2)
-                                                    </option>
-                                                    <option value="Avancé">
-                                                        Avancé (C1-C2)
-                                                    </option>
-                                                    <option
-                                                        value="Langue maternelle"
-                                                    >
-                                                        Langue maternelle
-                                                    </option>
-                                                </select>
-                                                <InputError
-                                                    :message="
-                                                        form.errors.french_level
-                                                    "
-                                                    class="mt-2"
-                                                />
-                                            </div>
-
-                                            <!-- Niveau Anglais -->
-                                            <div>
-                                                <InputLabel
-                                                    for="english_level"
-                                                    value="Niveau d'Anglais *"
-                                                />
-                                                <select
-                                                    id="english_level"
-                                                    v-model="form.english_level"
-                                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                                    required
-                                                >
-                                                    <option value="">
-                                                        -- Sélectionnez --
-                                                    </option>
-                                                    <option value="Débutant">
-                                                        Débutant (A1-A2)
-                                                    </option>
-                                                    <option
-                                                        value="Intermédiaire"
-                                                    >
-                                                        Intermédiaire (B1-B2)
-                                                    </option>
-                                                    <option value="Avancé">
-                                                        Avancé (C1-C2)
-                                                    </option>
-                                                    <option
-                                                        value="Langue maternelle"
-                                                    >
-                                                        Langue maternelle
-                                                    </option>
-                                                </select>
-                                                <InputError
-                                                    :message="
-                                                        form.errors
-                                                            .english_level
-                                                    "
-                                                    class="mt-2"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <!-- Autres langues -->
-                                        <div>
-                                            <InputLabel
-                                                for="other_languages"
-                                                value="Autres langues parlées (optionnel)"
+                                                for="last_school"
+                                                value="Dernier Établissement Fréquenté (Optionnel)"
                                             />
                                             <TextInput
-                                                id="other_languages"
+                                                id="last_school"
                                                 type="text"
                                                 class="mt-1 block w-full"
-                                                v-model="form.other_languages"
-                                                placeholder="Ex: Espagnol (Intermédiaire), Allemand (Débutant)"
+                                                v-model="form.last_school"
+                                                placeholder="Ex: Lycée de ..., Université de ..."
                                             />
                                             <InputError
                                                 :message="
-                                                    form.errors.other_languages
+                                                    form.errors.last_school
                                                 "
                                                 class="mt-2"
                                             />
                                         </div>
                                     </div>
                                 </div>
-*
-                                <!-- ========== SECTION 7: DISPONIBILITÉ ========== -->
-                                <div
-                                    class="bg-cyan-50 p-6 rounded-xl border-2 border-cyan-200"
+
+                                <PrimaryButton
+                                    class="w-full bg-blue-600 text-white hover:bg-blue-700 justify-center py-4 text-lg font-bold shadow-lg hover:shadow-xl transition transform hover:scale-105"
+                                    :class="{
+                                        'opacity-50 cursor-not-allowed':
+                                            form.processing,
+                                    }"
+                                    :disabled="form.processing"
                                 >
-                                    <h2
-                                        class="text-xl font-bold text-cyan-900 mb-4 flex items-center gap-2"
+                                    <i class="fas fa-paper-plane mr-2"></i>
+                                    {{
+                                        form.processing
+                                            ? "Envoi en cours..."
+                                            : "Envoyer ma candidature"
+                                    }}
+                                </PrimaryButton>
+
+                                <div class="mb-4 mt-2 text-center">
+                                    <button
+                                        type="button"
+                                        @click="mode = 'login'"
+                                        class="text-blue-600 font-bold hover:underline"
                                     >
-                                        <i class="fas fa-calendar-check"></i>
-                                        Disponibilité
-                                    </h2>
-
-                                    <div class="space-y-4">
-                                        <div
-                                            class="grid grid-cols-1 md:grid-cols-2 gap-4"
-                                        >
-                                            <!-- Disponibilité générale -->
-                                            <div>
-                                                <InputLabel
-                                                    for="availability"
-                                                    value="Disponibilité *"
-                                                />
-                                                <select
-                                                    id="availability"
-                                                    v-model="form.availability"
-                                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                                    required
-                                                >
-                                                    <option value="">
-                                                        -- Sélectionnez --
-                                                    </option>
-                                                    <option value="Temps plein">
-                                                        Temps plein (disponible
-                                                        toute la journée)
-                                                    </option>
-                                                    <option
-                                                        value="Temps partiel"
-                                                    >
-                                                        Temps partiel (quelques
-                                                        heures/jour)
-                                                    </option>
-                                                    <option value="Week-ends">
-                                                        Week-ends uniquement
-                                                    </option>
-                                                    <option value="Soirées">
-                                                        Soirées uniquement
-                                                        (après 17h)
-                                                    </option>
-                                                </select>
-                                                <InputError
-                                                    :message="
-                                                        form.errors.availability
-                                                    "
-                                                    class="mt-2"
-                                                />
-                                            </div>
-
-                                            <!-- Horaires préférés -->
-                                            <div>
-                                                <InputLabel
-                                                    for="preferred_schedule"
-                                                    value="Horaires préférés"
-                                                />
-                                                <select
-                                                    id="preferred_schedule"
-                                                    v-model="
-                                                        form.preferred_schedule
-                                                    "
-                                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                                >
-                                                    <option value="">
-                                                        -- Sélectionnez --
-                                                    </option>
-                                                    <option value="Matinée">
-                                                        Matinée (8h-12h)
-                                                    </option>
-                                                    <option value="Après-midi">
-                                                        Après-midi (14h-18h)
-                                                    </option>
-                                                    <option value="Soirée">
-                                                        Soirée (18h-21h)
-                                                    </option>
-                                                    <option value="Flexible">
-                                                        Flexible
-                                                    </option>
-                                                </select>
-                                                <InputError
-                                                    :message="
-                                                        form.errors
-                                                            .preferred_schedule
-                                                    "
-                                                    class="mt-2"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
+                                        Déjà pré-inscrit ? Connectez-vous ici
+                                    </button>
                                 </div>
-
-                                <!-- SUBMIT -->
-                                <div
-                                    class="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 rounded-xl text-white flex flex-col sm:flex-row items-center justify-between gap-4"
-                                >
-                                    <div>
-                                        <p class="font-bold text-lg">
-                                            Prêt à postuler ?
-                                        </p>
-                                        <p class="text-sm text-blue-100">
-                                            Vérifiez bien toutes vos
-                                            informations avant de soumettre
-                                        </p>
-                                    </div>
-                                    <PrimaryButton
-                                        class="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg font-bold shadow-lg hover:shadow-xl transition transform hover:scale-105"
-                                        :class="{
-                                            'opacity-50 cursor-not-allowed':
-                                                form.processing,
-                                        }"
-                                        :disabled="form.processing"
-                                    >
-                                        <i class="fas fa-paper-plane mr-2"></i>
-                                        {{
-                                            form.processing
-                                                ? "Envoi en cours..."
-                                                : "Envoyer ma candidature"
-                                        }}
-                                    </PrimaryButton>
-                                </div>
+                                <!-- </div> -->
                             </form>
                         </div>
 
@@ -1012,17 +557,26 @@ const submitLogin = () => {
                                     />
                                 </div>
 
-                                <div class="flex items-center justify-end">
+                                <div class="flex flex-col gap-4">
                                     <PrimaryButton
                                         :class="{
                                             'opacity-25': loginForm.processing,
                                         }"
                                         :disabled="loginForm.processing"
-                                        class="w-full text-center justify-center py-4 text-lg"
+                                        class="w-full text-center justify-center py-4 text-lg bg-blue-600 hover:bg-blue-700"
                                     >
                                         <i class="fas fa-search mr-2"></i> Voir
                                         ma fiche
                                     </PrimaryButton>
+
+                                    <button
+                                        type="button"
+                                        @click="mode = 'register'"
+                                        class="text-blue-600 font-bold hover:underline text-center"
+                                    >
+                                        Pas encore pré-inscrit ? Créer une
+                                        demande
+                                    </button>
                                 </div>
                             </form>
                         </div>

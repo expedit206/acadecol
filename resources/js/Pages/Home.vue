@@ -122,7 +122,7 @@ const domains = computed(() => props.categories.map((c) => getText(c.nom)));
 // Images pour les catégories (Static fallback)
 const categoryImages = {
     humanitarian: "/storage/formations/humanitaire.png",
-    digitalHealth: "/storage/formations/data_analyst.png",
+    digitalHealth: "/storage/formations/ia professionel sante.jpg",
     managementResearch: "/storage/formations/data_analyst.png",
 };
 

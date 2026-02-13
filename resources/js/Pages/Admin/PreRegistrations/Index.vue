@@ -20,8 +20,10 @@
                     </div>
                 </div>
 
-                <!-- Table -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <!-- Table (Desktop) -->
+                <div
+                    class="hidden md:block bg-white overflow-hidden shadow-sm sm:rounded-lg"
+                >
                     <div class="p-6">
                         <div class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200">
@@ -151,57 +153,132 @@
                                     </tr>
                                 </tbody>
                             </table>
-
-                            <!-- Empty State -->
-                            <div
-                                v-if="preRegistrations.data.length === 0"
-                                class="text-center py-12"
-                            >
-                                <i
-                                    class="fas fa-inbox text-6xl text-gray-300 mb-4"
-                                ></i>
-                                <p class="text-gray-500 text-lg">
-                                    Aucune pré-inscription reçue
-                                </p>
-                            </div>
-
-                            <!-- Pagination -->
-                            <div
-                                v-if="preRegistrations.data.length > 0"
-                                class="mt-6 flex items-center justify-between border-t pt-4"
-                            >
-                                <div class="text-sm text-gray-700">
-                                    Affichage de
-                                    <span class="font-medium">{{
-                                        preRegistrations.from
-                                    }}</span>
-                                    à
-                                    <span class="font-medium">{{
-                                        preRegistrations.to
-                                    }}</span>
-                                    sur
-                                    <span class="font-medium">{{
-                                        preRegistrations.total
-                                    }}</span>
-                                    résultats
-                                </div>
-                                <div class="flex gap-2">
-                                    <Link
-                                        v-for="link in preRegistrations.links"
-                                        :key="link.label"
-                                        :href="link.url"
-                                        :class="[
-                                            'px-4 py-2 border rounded-lg text-sm',
-                                            link.active
-                                                ? 'bg-blue-600 text-white border-blue-600'
-                                                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50',
-                                        ]"
-                                        v-html="link.label"
-                                        :disabled="!link.url"
-                                    />
-                                </div>
-                            </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Cards (Mobile) -->
+                <div class="md:hidden space-y-4">
+                    <div
+                        v-for="registration in preRegistrations.data"
+                        :key="registration.id"
+                        class="bg-white overflow-hidden shadow-sm rounded-lg p-4"
+                    >
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-bold text-lg text-gray-900">
+                                    {{ registration.first_name }}
+                                    {{ registration.last_name }}
+                                </h3>
+                                <div class="text-sm text-gray-500">
+                                    {{ registration.email }}
+                                </div>
+                                <div class="text-sm text-gray-500">
+                                    {{ registration.phone }}
+                                </div>
+                            </div>
+                            <span
+                                class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full"
+                                :class="{
+                                    'bg-yellow-100 text-yellow-800':
+                                        registration.status === 'pending',
+                                    'bg-green-100 text-green-800':
+                                        registration.status === 'validated',
+                                    'bg-red-100 text-red-800':
+                                        registration.status === 'cancelled',
+                                }"
+                            >
+                                {{
+                                    registration.status === "pending"
+                                        ? "En attente"
+                                        : registration.status === "validated"
+                                          ? "Validée"
+                                          : "Annulée"
+                                }}
+                            </span>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-sm font-medium text-gray-700 mb-1">
+                                Formation:
+                            </div>
+                            <span
+                                class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"
+                            >
+                                {{ registration.formation?.titre?.fr || "N/A" }}
+                            </span>
+                        </div>
+
+                        <div
+                            class="flex justify-between items-center border-t pt-4"
+                        >
+                            <div class="text-sm text-gray-500">
+                                {{
+                                    new Date(
+                                        registration.created_at,
+                                    ).toLocaleDateString("fr-FR")
+                                }}
+                            </div>
+                            <Link
+                                :href="
+                                    route(
+                                        'admin.pre-registrations.show',
+                                        registration.id,
+                                    )
+                                "
+                                class="text-blue-600 hover:text-blue-900 font-medium"
+                            >
+                                <i class="fas fa-eye mr-1"></i> Détails
+                            </Link>
+                        </div>
+                    </div>
+
+                    <!-- Empty State Mobile -->
+                    <div
+                        v-if="preRegistrations.data.length === 0"
+                        class="text-center py-12 bg-white rounded-lg shadow"
+                    >
+                        <i class="fas fa-inbox text-6xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500 text-lg">
+                            Aucune pré-inscription reçue
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div
+                    v-if="preRegistrations.data.length > 0"
+                    class="mt-6 flex flex-col sm:flex-row items-center justify-between border-t pt-4 gap-4"
+                >
+                    <div class="text-sm text-gray-700 text-center sm:text-left">
+                        Affichage de
+                        <span class="font-medium">{{
+                            preRegistrations.from
+                        }}</span>
+                        à
+                        <span class="font-medium">{{
+                            preRegistrations.to
+                        }}</span>
+                        sur
+                        <span class="font-medium">{{
+                            preRegistrations.total
+                        }}</span>
+                        résultats
+                    </div>
+                    <div class="flex gap-2 justify-center">
+                        <Link
+                            v-for="link in preRegistrations.links"
+                            :key="link.label"
+                            :href="link.url"
+                            :class="[
+                                'px-4 py-2 border rounded-lg text-sm',
+                                link.active
+                                    ? 'bg-blue-600 text-white border-blue-600'
+                                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50',
+                            ]"
+                            v-html="link.label"
+                            :disabled="!link.url"
+                        />
                     </div>
                 </div>
             </div>

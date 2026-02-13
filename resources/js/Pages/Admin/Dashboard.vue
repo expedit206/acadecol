@@ -61,7 +61,7 @@
                                             Pré-inscriptions
                                         </p>
                                         <p class="text-3xl font-bold mt-2">
-                                            {{ stats.users }}
+                                            {{ stats.pre_registrations }}
                                         </p>
                                     </div>
                                     <div class="bg-white/20 p-4 rounded-lg">
@@ -134,7 +134,7 @@ defineProps({
         default: () => ({
             formations: 0,
             categories: 0,
-            users: 0,
+            pre_registrations: 0,
         }),
     },
 });
