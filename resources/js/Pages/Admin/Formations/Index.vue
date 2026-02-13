@@ -1,15 +1,15 @@
 <template>
     <AdminLayout title="Formations">
-        <div class="py-12">
+        <div class="py-12 ">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <!-- Header -->
-                <div class="mb-6 flex justify-between items-center">
-                    <h1 class="text-3xl font-bold text-gray-900">
+                <div class="mb-6 flex justify-between items-center gap-3 px-3">
+                    <h1 class="text-xl md:text-3xl font-bold text-gray-900">
                         Gestion des Formations
                     </h1>
                     <Link
                         :href="route('admin.formations.create')"
-                        class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-lg"
+                        class="inline-flex items-center gap-2 bg-blue-600 text-white px-2 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-lg"
                     >
                         <i class="fas fa-plus"></i>
                         Nouvelle Formation
