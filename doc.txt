@@ -1,0 +1,4 @@
+gerer les preinscription coté admin et gerer le bilinguisme
+
+
+je voudrais que le site soit bilingue. on a deja fait une parti du travail dans la bd en enregistrant les données dans les deux langue  a toi de gerer le reste

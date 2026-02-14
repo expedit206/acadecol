@@ -42,6 +42,15 @@
                                 <i class="fas fa-graduation-cap mr-2"></i>
                                 Formations
                             </NavLink>
+                            <NavLink
+                                :href="route('admin.pre-registrations.index')"
+                                :active="
+                                    route().current('admin.pre-registrations.*')
+                                "
+                            >
+                                <i class="fas fa-clipboard-list mr-2"></i>
+                                Pré-inscriptions
+                            </NavLink>
                         </div>
                     </div>
 
@@ -152,7 +161,6 @@
                 class="md:hidden"
             >
                 <div class="pt-2 pb-3 space-y-1">
-                    
                     <ResponsiveNavLink
                         :href="route('admin.dashboard')"
                         :active="route().current('admin.dashboard')"
@@ -171,9 +179,12 @@
                     >
                         Formations
                     </ResponsiveNavLink>
-
-                    
-                    
+                    <ResponsiveNavLink
+                        :href="route('admin.pre-registrations.index')"
+                        :active="route().current('admin.pre-registrations.*')"
+                    >
+                        Pré-inscriptions
+                    </ResponsiveNavLink>
                 </div>
 
                 <!-- Responsive Settings Options -->
@@ -201,20 +212,16 @@
                     </div>
                 </div>
 
-
-                 <div class=" flex items-center ml-4 pb-6">
-                        <!-- Site Link -->
-                        <Link
-                            :href="route('home')"
-                            class="mr-4 text-gray-600 hover:text-gray-900"
-                        >
-                            <i class="fas fa-external-link-alt mr-2"></i>
-                            Voir le site
-                        </Link>
-
-                      
-                    </div>
-
+                <div class="flex items-center ml-4 pb-6">
+                    <!-- Site Link -->
+                    <Link
+                        :href="route('home')"
+                        class="mr-4 text-gray-600 hover:text-gray-900"
+                    >
+                        <i class="fas fa-external-link-alt mr-2"></i>
+                        Voir le site
+                    </Link>
+                </div>
             </div>
         </nav>
 

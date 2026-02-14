@@ -13,7 +13,7 @@ class PreRegistrationController extends Controller
     {
         $preRegistrations = PreRegistration::with('formation')
             ->latest()
-            ->paginate(20);
+            ->paginate(10);
 
         return Inertia::render('Admin/PreRegistrations/Index', [
             'preRegistrations' => $preRegistrations

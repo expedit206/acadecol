@@ -289,9 +289,15 @@
                         résultats
                     </div>
                     <div class="flex gap-2 justify-center">
-                        <Link
+
+
+                        <template
                             v-for="link in preRegistrations.links"
+                            
                             :key="link.label"
+                            >
+                            <Link 
+                            v-if="link.url"
                             :href="link.url"
                             :class="[
                                 'px-4 py-2 border rounded-lg text-sm',
@@ -302,6 +308,16 @@
                             v-html="link.label"
                             :disabled="!link.url"
                         />
+
+                          <span
+                                        v-else
+                                        :class="[
+                                            'px-4 py-2 border rounded-lg text-sm cursor-not-allowed opacity-50',
+                                            'bg-gray-100 text-gray-400 border-gray-200',
+                                        ]"
+                                        v-html="link.label"
+                                    />
+                                    </template>
                     </div>
                 </div>
             </div>
@@ -313,9 +329,11 @@
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { Link, router } from "@inertiajs/vue3";
 
-defineProps({
+const props = defineProps({
     preRegistrations: Object,
 });
+
+console.log(props.preRegistrations.data);
 
 const updateStatus = (id, status) => {
     if (
