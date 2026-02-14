@@ -15,7 +15,7 @@ class PreRegistrationController extends Controller
             ->latest()
             ->paginate(10);
 
-        return Inertia::render('Admin/PreRegistrations/Index', [
+         return Inertia::render('Admin/PreRegistrations/Index', [
             'preRegistrations' => $preRegistrations
         ]);
     }
