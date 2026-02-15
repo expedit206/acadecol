@@ -5,280 +5,246 @@
                 name="description"
                 content="Restez informé des dernières nouvelles, événements et lancements de formations à ACADECOL."
             />
-            <meta property="og:title" content="Actualités - ACADECOL" />
-            <meta
-                property="og:description"
-                content="Toutes les nouveautés de l'Académie Africaine Bilingue. Articles, événements et mises à jour."
-            />
         </Head>
-        <!-- Hero Section -->
-        <section
-            class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-10 md:py-16"
-        >
-            <div class="container mx-auto px-4">
-                <h1 class="text-3xl md:text-5xl font-bold mb-4">Actualités</h1>
-                <p class="text-xl text-blue-100">
-                    Les dernières nouvelles et mises à jour d'AcadEcol
-                </p>
-            </div>
-        </section>
 
-        <!-- News Grid -->
-        <section class="py-10 md:py-20 bg-gray-50">
+        <!-- Hero Section with Featured Article (First Item) -->
+        <section
+            v-if="news.data.length > 0"
+            class="pt-8 pb-4 md:pt-12 bg-gray-50"
+        >
             <div class="container mx-auto px-4">
                 <div
-                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    class="relative rounded-2xl overflow-hidden shadow-2xl bg-white group cursor-pointer transition-transform hover:scale-[1.01]"
                 >
-                    <!-- Article 1 -->
-                    <article
-                        class="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden"
-                    >
+                    <div class="md:flex h-full">
+                        <!-- Image Container -->
                         <div
-                            class="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-6xl"
+                            class="md:w-1/2 h-64 md:h-auto overflow-hidden relative"
                         >
-                            🎓
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span
-                                    class="text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-semibold"
-                                    >Nouveauté</span
-                                >
-                                <span class="text-xs text-gray-500"
-                                    >24 Jan 2026</span
-                                >
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-3">
-                                Lancement de 5 Nouvelles Formations
-                            </h3>
-                            <p class="text-gray-600 mb-4">
-                                Nous sommes heureux d'annoncer le lancement de 5
-                                formations innovantes en Data Science, Cloud
-                                Computing et Cybersécurité.
-                            </p>
-                            <a
-                                href="#"
-                                class="text-blue-600 font-semibold hover:text-blue-700"
-                                >En savoir plus →</a
+                            <img
+                                v-if="news.data[0].image"
+                                :src="'/' + news.data[0].image"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                :alt="news.data[0].title.fr"
+                            />
+                            <div
+                                v-else
+                                class="w-full h-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center"
                             >
+                                <span class="text-6xl">📰</span>
+                            </div>
+                            <!-- Date overlay for mobile -->
+                            <div
+                                class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-blue-600 shadow-sm md:hidden"
+                            >
+                                {{
+                                    new Date(
+                                        news.data[0].published_at,
+                                    ).toLocaleDateString()
+                                }}
+                            </div>
                         </div>
-                    </article>
 
-                    <!-- Article 2 -->
-                    <article
-                        class="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden"
-                    >
+                        <!-- Content Container -->
                         <div
-                            class="h-48 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-6xl"
+                            class="md:w-1/2 p-6 md:p-10 flex flex-col justify-center"
                         >
-                            🏆
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-2">
+                            <div class="hidden md:flex items-center gap-2 mb-4">
                                 <span
-                                    class="text-xs bg-green-100 text-green-600 px-3 py-1 rounded-full font-semibold"
-                                    >Succès</span
+                                    class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wide"
                                 >
-                                <span class="text-xs text-gray-500"
-                                    >20 Jan 2026</span
-                                >
+                                    À la une
+                                </span>
+                                <span class="text-gray-500 text-sm font-medium">
+                                    {{
+                                        new Date(
+                                            news.data[0].published_at,
+                                        ).toLocaleDateString(undefined, {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                        })
+                                    }}
+                                </span>
                             </div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-3">
-                                2000+ Apprenants Certifiés
-                            </h3>
-                            <p class="text-gray-600 mb-4">
-                                Nous franchissons le cap des 2000 apprenants
-                                certifiés ! Merci pour votre confiance et vos
-                                succès remarquables.
-                            </p>
-                            <a
-                                href="#"
-                                class="text-blue-600 font-semibold hover:text-blue-700"
-                                >En savoir plus →</a
-                            >
-                        </div>
-                    </article>
 
-                    <!-- Article 3 -->
-                    <article
-                        class="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden"
-                    >
-                        <div
-                            class="h-48 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-6xl"
-                        >
-                            💼
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span
-                                    class="text-xs bg-purple-100 text-purple-600 px-3 py-1 rounded-full font-semibold"
-                                    >Partenariat</span
-                                >
-                                <span class="text-xs text-gray-500"
-                                    >15 Jan 2026</span
-                                >
+                            <h1
+                                class="text-2xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight group-hover:text-blue-600 transition-colors"
+                            >
+                                {{ news.data[0].title.fr }}
+                            </h1>
+
+                            <p
+                                class="text-gray-600 mb-6 text-base md:text-lg line-clamp-3 md:line-clamp-4"
+                            >
+                                {{
+                                    news.data[0].content.fr.substring(0, 200)
+                                }}...
+                            </p>
+
+                            <div
+                                class="flex items-center text-blue-600 font-bold group-hover:translate-x-2 transition-transform"
+                            >
+                                Lire l'article complet
+                                <i class="fas fa-arrow-right ml-2"></i>
                             </div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-3">
-                                Nouveau Partenariat avec TechCorp
-                            </h3>
-                            <p class="text-gray-600 mb-4">
-                                Nous nous associons avec TechCorp pour créer des
-                                opportunités d'emploi pour nos apprenants en
-                                DevOps et Cloud.
-                            </p>
-                            <a
-                                href="#"
-                                class="text-blue-600 font-semibold hover:text-blue-700"
-                                >En savoir plus →</a
-                            >
                         </div>
-                    </article>
-
-                    <!-- Article 4 -->
-                    <article
-                        class="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden"
-                    >
-                        <div
-                            class="h-48 bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-6xl"
-                        >
-                            🎉
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span
-                                    class="text-xs bg-orange-100 text-orange-600 px-3 py-1 rounded-full font-semibold"
-                                    >Événement</span
-                                >
-                                <span class="text-xs text-gray-500"
-                                    >10 Jan 2026</span
-                                >
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-3">
-                                Webinaire Gratuit: Web Development 2026
-                            </h3>
-                            <p class="text-gray-600 mb-4">
-                                Rejoignez-nous pour un webinaire exclusif sur
-                                les tendances du développement web en 2026.
-                            </p>
-                            <a
-                                href="#"
-                                class="text-blue-600 font-semibold hover:text-blue-700"
-                                >En savoir plus →</a
-                            >
-                        </div>
-                    </article>
-
-                    <!-- Article 5 -->
-                    <article
-                        class="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden"
-                    >
-                        <div
-                            class="h-48 bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center text-6xl"
-                        >
-                            📱
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span
-                                    class="text-xs bg-red-100 text-red-600 px-3 py-1 rounded-full font-semibold"
-                                    >Annonce</span
-                                >
-                                <span class="text-xs text-gray-500"
-                                    >5 Jan 2026</span
-                                >
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-3">
-                                Application Mobile AcadEcol Disponible
-                            </h3>
-                            <p class="text-gray-600 mb-4">
-                                Téléchargez notre nouvelle application mobile
-                                pour accéder à vos cours où que vous soyez.
-                            </p>
-                            <a
-                                href="#"
-                                class="text-blue-600 font-semibold hover:text-blue-700"
-                                >En savoir plus →</a
-                            >
-                        </div>
-                    </article>
-
-                    <!-- Article 6 -->
-                    <article
-                        class="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden"
-                    >
-                        <div
-                            class="h-48 bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-6xl"
-                        >
-                            ✨
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span
-                                    class="text-xs bg-teal-100 text-teal-600 px-3 py-1 rounded-full font-semibold"
-                                    >Mise à jour</span
-                                >
-                                <span class="text-xs text-gray-500"
-                                    >1 Jan 2026</span
-                                >
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-3">
-                                Plateforme Améliorée avec AI
-                            </h3>
-                            <p class="text-gray-600 mb-4">
-                                Notre plateforme utilise maintenant l'IA pour
-                                personnaliser votre parcours d'apprentissage.
-                            </p>
-                            <a
-                                href="#"
-                                class="text-blue-600 font-semibold hover:text-blue-700"
-                                >En savoir plus →</a
-                            >
-                        </div>
-                    </article>
-                </div>
-
-                <!-- See More Button -->
-                <div class="text-center mt-12">
-                    <button
-                        class="px-8 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition"
-                    >
-                        Charger Plus d'Actualités
-                    </button>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Subscribe Section -->
-        <section
-            class="py-10 md:py-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white"
-        >
-            <div class="container mx-auto px-4 max-w-2xl">
-                <h2 class="text-2xl md:text-4xl font-bold text-center mb-6">
-                    Recevez les Actualités
+        <!-- Recent News Grid (Skipping the first one) -->
+        <section class="py-8 md:py-16 bg-gray-50 min-h-screen">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between mb-8">
+                    <h2
+                        class="text-2xl font-bold text-gray-900 border-l-4 border-blue-600 pl-4"
+                    >
+                        Récemment
+                    </h2>
+                </div>
+
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+                >
+                    <!-- Loop starting from index 1 -->
+                    <article
+                        v-for="item in news.data.slice(1)"
+                        :key="item.id"
+                        class="bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col h-full border border-gray-100"
+                    >
+                        <!-- Card Image -->
+                        <div class="h-48 overflow-hidden rounded-t-xl relative">
+                            <img
+                                v-if="item.image"
+                                :src="'/' + item.image"
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                :alt="item.title.fr"
+                            />
+                            <div
+                                v-else
+                                class="w-full h-full bg-gray-100 flex items-center justify-center"
+                            >
+                                <span class="text-4xl text-gray-300">🖼️</span>
+                            </div>
+                            <div
+                                class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4"
+                            >
+                                <span
+                                    class="text-white text-xs font-medium bg-black/30 px-2 py-1 rounded backdrop-blur-sm"
+                                >
+                                    {{
+                                        new Date(
+                                            item.published_at,
+                                        ).toLocaleDateString()
+                                    }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="p-5 flex flex-col flex-1">
+                            <h3
+                                class="text-lg font-bold text-gray-900 mb-3 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2"
+                            >
+                                {{ item.title.fr }}
+                            </h3>
+                            <p
+                                class="text-gray-500 text-sm mb-4 line-clamp-3 flex-1"
+                            >
+                                {{ item.content.fr.substring(0, 120) }}...
+                            </p>
+
+                            <div
+                                class="pt-4 border-t border-gray-50 flex items-center justify-between mt-auto"
+                            >
+                                <span
+                                    class="text-sm font-semibold text-blue-600 group-hover:underline"
+                                >
+                                    Lire la suite
+                                </span>
+                                <i
+                                    class="fas fa-chevron-right text-xs text-blue-400 group-hover:translate-x-1 transition-transform"
+                                ></i>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Pagination -->
+                <div
+                    class="mt-12 flex justify-center"
+                    v-if="news.current_page < news.last_page"
+                >
+                    <Link
+                        v-if="news.next_page_url"
+                        :href="news.next_page_url"
+                        class="px-8 py-3 bg-white text-blue-600 border-2 border-blue-100 font-bold rounded-full hover:bg-blue-600 hover:text-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                    >
+                        Afficher plus d'actualités
+                    </Link>
+                </div>
+
+                <div
+                    v-else-if="news.data.length === 0"
+                    class="text-center py-20"
+                >
+                    <div class="text-6xl mb-4">📭</div>
+                    <h3 class="text-xl font-bold text-gray-900">
+                        Aucune actualité pour le moment
+                    </h3>
+                    <p class="text-gray-500">
+                        Revenez bientôt pour des mises à jour !
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Minimalist -->
+        <section class="py-12 bg-blue-900 text-white relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 pattern-dots"></div>
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <i
+                    class="fas fa-envelope-open-text text-4xl mb-4 text-blue-300"
+                ></i>
+                <h2 class="text-2xl font-bold mb-2">
+                    Restez connecté avec AcadEcol
                 </h2>
-                <p class="text-center text-blue-100 mb-8">
-                    Inscrivez-vous à notre newsletter pour recevoir les
-                    dernières nouvelles et offres spéciales.
+                <p class="text-blue-200 mb-6 max-w-lg mx-auto text-sm">
+                    Recevez nos dernières actualités et offres de formation
+                    directement dans votre boîte mail.
                 </p>
 
-                <div class="flex flex-col sm:flex-row gap-2">
+                <form class="max-w-md mx-auto flex gap-2">
                     <input
                         type="email"
-                        placeholder="Votre email..."
-                        class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none"
+                        placeholder="votre@email.com"
+                        class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     />
                     <button
-                        class="px-8 py-3 bg-white text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition"
+                        class="bg-blue-500 hover:bg-blue-400 text-white px-6 py-3 rounded-lg font-bold transition"
                     >
-                        S'inscrire
+                        OK
                     </button>
-                </div>
+                </form>
             </div>
         </section>
     </PublicLayout>
 </template>
 
 <script setup>
-import { Head } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import PublicLayout from "@/Layouts/PublicLayout.vue";
+
+defineProps({
+    news: Object,
+});
 </script>
+
+<style scoped>
+.pattern-dots {
+    background-image: radial-gradient(currentColor 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+</style>

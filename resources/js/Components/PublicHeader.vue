@@ -59,11 +59,8 @@
                 <NavLink href="/formations" :active="isActive('/formations')">
                     Formations
                 </NavLink>
-                <NavLink
-                    href="/certifications"
-                    :active="isActive('/certifications')"
-                >
-                    Certifications
+                <NavLink href="/actualites" :active="isActive('/actualites')">
+                    Actualités
                 </NavLink>
                 <NavLink href="/a-propos" :active="isActive('/a-propos')">
                     À Propos
@@ -130,9 +127,9 @@
                     >Formations</Link
                 >
                 <Link
-                    href="/certifications"
+                    href="/actualites"
                     class="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded"
-                    >Certifications</Link
+                    >Actualités</Link
                 >
                 <Link
                     href="/a-propos"

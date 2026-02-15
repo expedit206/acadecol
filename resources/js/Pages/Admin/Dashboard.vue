@@ -72,7 +72,7 @@
                         </div>
 
                         <!-- Quick Actions -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div
                                 class="border-2 border-gray-200 rounded-xl p-6 hover:border-blue-500 transition-colors"
                             >
@@ -114,6 +114,31 @@
                                 >
                                     <i class="fas fa-arrow-right"></i>
                                     Gérer les catégories
+                                </Link>
+                            </div>
+
+                            <div
+                                class="border-2 border-gray-200 rounded-xl p-6 hover:border-purple-500 transition-colors"
+                            >
+                                <h3
+                                    class="text-xl font-bold mb-4 flex items-center gap-2"
+                                >
+                                    <i
+                                        class="fas fa-clipboard-list text-purple-600"
+                                    ></i>
+                                    Pré-inscriptions
+                                </h3>
+                                <p class="text-gray-600 mb-4">
+                                    Gérer les demandes de pré-inscription
+                                </p>
+                                <Link
+                                    :href="
+                                        route('admin.pre-registrations.index')
+                                    "
+                                    class="inline-flex items-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors"
+                                >
+                                    <i class="fas fa-arrow-right"></i>
+                                    Voir les demandes
                                 </Link>
                             </div>
                         </div>

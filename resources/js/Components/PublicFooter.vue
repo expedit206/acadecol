@@ -35,9 +35,9 @@
                         </li>
                         <li>
                             <Link
-                                href="/certifications"
+                                href="/actualites"
                                 class="text-gray-400 hover:text-white transition"
-                                >Certifications</Link
+                                >Actualités</Link
                             >
                         </li>
                         <li>
@@ -107,9 +107,9 @@
                         <li class="flex items-center gap-2">
                             <span>📱</span>
                             <a
-                                href="tel:+237677000000"
+                                href="tel:+237691056965"
                                 class="hover:text-white transition"
-                                >+237 6 77 00 00 00</a
+                                >+237 691 05 69 65</a
                             >
                         </li>
                     </ul>
@@ -123,23 +123,18 @@
                     <a
                         href="#"
                         class="text-gray-400 hover:text-white transition text-2xl"
-                        >f</a
-                    >
+                        ><i class="fab fa-facebook"></i
+                    ></a>
                     <a
                         href="#"
                         class="text-gray-400 hover:text-white transition text-2xl"
-                        >𝕏</a
-                    >
+                        ><i class="fab fa-twitter"></i
+                    ></a>
                     <a
                         href="#"
                         class="text-gray-400 hover:text-white transition text-2xl"
-                        >📷</a
-                    >
-                    <a
-                        href="#"
-                        class="text-gray-400 hover:text-white transition text-2xl"
-                        >in</a
-                    >
+                        ><i class="fab fa-instagram"></i
+                    ></a>
                 </div>
 
                 <!-- Copyright -->

@@ -81,13 +81,16 @@ class PublicController extends Controller
         return Inertia::render('Contact');
     }
 
-    public function certifications()
-    {
-        return Inertia::render('Certifications');
-    }
+
     
     public function news()
     {
-         return Inertia::render('News');
+        $news = \App\Models\News::published()
+            ->orderBy('published_at', 'desc')
+            ->paginate(9);
+
+         return Inertia::render('News', [
+             'news' => $news
+         ]);
     }
 }

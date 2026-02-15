@@ -31,6 +31,7 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
+            'locale' => app()->getLocale(),
             'auth' => [
                 'user' => $request->user(),
                 'is_student' => $request->session()->has('student_id') || \Illuminate\Support\Facades\Cookie::get('student_access'),

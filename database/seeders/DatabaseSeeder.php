@@ -26,7 +26,9 @@ class DatabaseSeeder extends Seeder
             FormationSeeder::class,
             ModuleSeeder::class,
             FormationDetailSeeder::class,
+            FormationDetailSeeder::class,
             ImageSeeder::class,
+            NewsSeeder::class,
         ]);
     }
 }

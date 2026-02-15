@@ -91,7 +91,18 @@
                                 <dd
                                     class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 font-bold"
                                 >
-                                    {{ preRegistration.formation?.titre?.fr }}
+                                    <div>
+                                        {{
+                                            preRegistration.formation?.titre?.fr
+                                        }}
+                                    </div>
+                                    <div
+                                        class="text-gray-500 font-normal italic"
+                                    >
+                                        {{
+                                            preRegistration.formation?.titre?.en
+                                        }}
+                                    </div>
                                 </dd>
                             </div>
                             <div

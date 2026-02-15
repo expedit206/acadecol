@@ -39,3 +39,14 @@ class PreRegistrationController extends Controller
         return back()->with('success', 'Statut mis à jour.');
     }
 }
+
+
+
+
+
+
+
+
+
+
+

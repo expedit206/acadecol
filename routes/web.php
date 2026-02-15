@@ -10,9 +10,17 @@ use App\Http\Controllers\PublicController;
 // Public Routes
 Route::controller(PublicController::class)->group(function () {
     Route::get('/', 'home')->name('home');
+    Route::get('/locale/{locale}', function ($locale) {
+        if (!in_array($locale, ['fr', 'en'])) {
+            abort(404);
+        }
+        session(['locale' => $locale]);
+        return redirect()->back();
+    })->name('locale.switch');
+
     Route::get('/a-propos', 'about')->name('about');
     Route::get('/formations', 'formations')->name('formations');
-    Route::get('/certifications', 'certifications')->name('certifications');
+
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/actualites', 'news')->name('news');
 });
@@ -58,6 +66,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     
     Route::resource('pre-registrations', App\Http\Controllers\Admin\PreRegistrationController::class)
         ->only(['index', 'show', 'update']);
+
+    Route::resource('news', App\Http\Controllers\Admin\NewsController::class);
 });
 
 require __DIR__.'/auth.php';

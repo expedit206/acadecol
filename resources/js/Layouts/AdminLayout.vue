@@ -51,6 +51,13 @@
                                 <i class="fas fa-clipboard-list mr-2"></i>
                                 Pré-inscriptions
                             </NavLink>
+                            <NavLink
+                                :href="route('admin.news.index')"
+                                :active="route().current('admin.news.*')"
+                            >
+                                <i class="fas fa-newspaper mr-2"></i>
+                                Actualités
+                            </NavLink>
                         </div>
                     </div>
 
@@ -184,6 +191,12 @@
                         :active="route().current('admin.pre-registrations.*')"
                     >
                         Pré-inscriptions
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink
+                        :href="route('admin.news.index')"
+                        :active="route().current('admin.news.*')"
+                    >
+                        Actualités
                     </ResponsiveNavLink>
                 </div>
 

@@ -90,16 +90,22 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span
-                                                class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"
+                                        <div class="text-xs">
+                                            <div
+                                                class="font-semibold text-blue-800"
                                             >
                                                 {{
                                                     registration.formation
                                                         ?.titre?.fr || "N/A"
                                                 }}
-                                            </span>
-                                        </td>
+                                            </div>
+                                            <div class="text-blue-600 italic">
+                                                {{
+                                                    registration.formation
+                                                        ?.titre?.en || ""
+                                                }}
+                                            </div>
+                                        </div>
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
                                         >
@@ -202,11 +208,21 @@
                             <div class="text-sm font-medium text-gray-700 mb-1">
                                 Formation:
                             </div>
-                            <span
-                                class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"
-                            >
-                                {{ registration.formation?.titre?.fr || "N/A" }}
-                            </span>
+                            <div class="bg-blue-50 px-3 py-2 rounded-lg">
+                                <div
+                                    class="font-semibold text-blue-800 text-sm"
+                                >
+                                    {{
+                                        registration.formation?.titre?.fr ||
+                                        "N/A"
+                                    }}
+                                </div>
+                                <div class="text-blue-600 text-xs italic">
+                                    {{
+                                        registration.formation?.titre?.en || ""
+                                    }}
+                                </div>
+                            </div>
                         </div>
 
                         <div
@@ -289,35 +305,32 @@
                         résultats
                     </div>
                     <div class="flex gap-2 justify-center">
-
-
                         <template
                             v-for="link in preRegistrations.links"
-                            
                             :key="link.label"
-                            >
-                            <Link 
-                            v-if="link.url"
-                            :href="link.url"
-                            :class="[
-                                'px-4 py-2 border rounded-lg text-sm',
-                                link.active
-                                    ? 'bg-blue-600 text-white border-blue-600'
-                                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50',
-                            ]"
-                            v-html="link.label"
-                            :disabled="!link.url"
-                        />
+                        >
+                            <Link
+                                v-if="link.url"
+                                :href="link.url"
+                                :class="[
+                                    'px-4 py-2 border rounded-lg text-sm',
+                                    link.active
+                                        ? 'bg-blue-600 text-white border-blue-600'
+                                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50',
+                                ]"
+                                v-html="link.label"
+                                :disabled="!link.url"
+                            />
 
-                          <span
-                                        v-else
-                                        :class="[
-                                            'px-4 py-2 border rounded-lg text-sm cursor-not-allowed opacity-50',
-                                            'bg-gray-100 text-gray-400 border-gray-200',
-                                        ]"
-                                        v-html="link.label"
-                                    />
-                                    </template>
+                            <span
+                                v-else
+                                :class="[
+                                    'px-4 py-2 border rounded-lg text-sm cursor-not-allowed opacity-50',
+                                    'bg-gray-100 text-gray-400 border-gray-200',
+                                ]"
+                                v-html="link.label"
+                            />
+                        </template>
                     </div>
                 </div>
             </div>

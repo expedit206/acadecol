@@ -173,105 +173,90 @@ onMounted(() => {
         </Head>
 
         <div class="home-container">
-            <section
-                id="hom"
-                class="py-5  relative flex overflow-hidden pt-2"
-            >
-                <!-- Background -->
-                <div class="absolute inset-0 z-0 py-">
-                    <img
-                        src="/img/school1.jpg"
-                        alt="Hero Background"
-                        class="w-full h-100 object-cover"
-                        onerror="this.src = '/img/hero.png'"
-                    />
-                    <div class="overlay"></div>
-                </div>
 
-                <!-- Content -->
-                <div class="relative z-10 w-full mt-2">
-                    <div class="max-w-7xl mx-auto px-4 md:px-6">
-                        <div
-                            class="max-w-full lg:max-w-[650px] opacity-0 translate-y-5 transition-all duration-700 reveal"
-                        >
-                            <!-- Badge -->
-                            <div class="mb-2">
-                                <span
-                                    class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wide rounded-full bg-blue-50 text-blue-600"
-                                >
-                                    Agréé par le MINEFOP
-                                </span>
-                            </div>
+         <section id="hom" class="py-4 md:py-8 relative overflow-hidden bg-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-4 items-center">
+      
+      <!-- TEXTE À GAUCHE (toujours visible) -->
+      <div class="opacity-0 translate-y-5 transition-all duration-700 reveal">
+        <!-- Badge -->
+        <div class="mb-2">
+          <span class="inline-block px-2.5 py-0.5 text-[10px] md:text-xs font-semibold uppercase tracking-wide rounded-full bg-blue-50 text-blue-600">
+            Agréé MINEFOP
+          </span>
+        </div>
 
-                            <!-- Title -->
-                            <h1
-                                class="text-md lg:text-2xl mb-2 font-bold leading-tight text-slate-900"
-                            >
-                                Construisez votre
-                                <span
-                                    class="bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text"
-                                >
-                                    Avenir Professionnel
-                                </span>
-                                avec ACADECOL
-                            </h1>
+        <!-- Title -->
+        <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-2 font-bold leading-tight text-gray-900">
+          Construisez votre
+          <span class="bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text">
+            Avenir Pro
+          </span>
+          avec ACADECOL
+        </h1>
 
-                            <!-- Description -->
-                            <p class="text-slate-600 mb-2 leading-relaxed">
-                                L'Académie Africaine Bilingue développe vos
-                                compétences pour faciliter votre employabilité.
-                                Formations certifiées de 1 à 12 mois.
-                            </p>
+        <!-- Description -->
+        <p class="text-gray-600 mb-3 text-xs sm:text-sm leading-relaxed max-w-lg">
+          Formations certifiées de 1 à 12 mois pour développer vos compétences et faciliter votre employabilité.
+        </p>
 
-                            <!-- CTA -->
-                            <div
-                                class="flex flex-col md:flex-row gap-2 md:gap-6 mb-4 md:mb-6"
-                            >
-                                <a
-                                    href="#formations"
-                                    class="inline-flex items-center justify-center gap-2 px-5 py-2 md:px-6 rounded-full font-semibold bg-blue-600 text-white hover:bg-blue-700 transition hover:-translate-y-0.5 shadow hover:shadow-lg"
-                                >
-                                    Découvrir nos formations
-                                    <i class="fas fa-arrow-right"></i>
-                                </a>
+        <!-- CTA -->
+        <div class="flex flex-row flex-wrap gap-2 mb-4">
+          <a href="#formations" 
+             class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full font-semibold bg-blue-600 text-white hover:bg-blue-700 transition text-xs shadow-md">
+            Découvrir
+            <i class="fas fa-arrow-right text-[10px]"></i>
+          </a>
 
-                                <a
-                                    href="#about"
-                                    class="inline-flex items-center justify-center gap-2 px-5 py-2 md:px-6 rounded-full font-semibold border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition"
-                                >
-                                    En savoir plus
-                                </a>
-                            </div>
+          <a href="#about" 
+             class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full font-semibold border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition text-xs">
+            En savoir +
+          </a>
+        </div>
 
-                            <!-- Features -->
-                            <div
-                                class="flex flex-col md:flex-row md:flex-wrap gap-4 md:gap-8 text-slate-700 font-semibold mb-16"
-                            >
-                                <div class="flex items-center gap-2">
-                                    <i
-                                        class="fas fa-check-circle text-emerald-500"
-                                    ></i>
-                                    <span>Diplômes Nationaux</span>
-                                </div>
+        <!-- Features -->
+        <div class="flex flex-wrap gap-2 md:gap-4 text-gray-700 font-medium">
+          <div class="flex items-center gap-1.5">
+            <i class="fas fa-check-circle text-emerald-500 text-xs"></i>
+            <span class="text-[11px] md:text-xs">Diplômes (DQP)</span>
+          </div>
 
-                                <div class="flex items-center gap-2">
-                                    <i
-                                        class="fas fa-check-circle text-emerald-500"
-                                    ></i>
-                                    <span>Certifications Internationales</span>
-                                </div>
+          <div class="flex items-center gap-1.5">
+            <i class="fas fa-check-circle text-emerald-500 text-xs"></i>
+            <span class="text-[11px] md:text-xs">Certifications</span>
+          </div>
 
-                                <div class="flex items-center gap-2">
-                                    <i
-                                        class="fas fa-check-circle text-emerald-500"
-                                    ></i>
-                                    <span>En ligne & présentiel</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+          <div class="flex items-center gap-1.5">
+            <i class="fas fa-check-circle text-emerald-500 text-xs"></i>
+            <span class="text-[11px] md:text-xs">En ligne/présentiel</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMAGE À DROITE - Hauteur réduite -->
+      <div class="hidden lg:block lg:order-2">
+        <div class="relative flex justify-center">
+          <div class="relative w-full max-w-md">
+            <!-- Badge flottant -->
+            <div class="absolute -top-3 -right-3 bg-yellow-400 text-gray-900 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg z-10">
+              🎓 Certifiant
+            </div>
+            
+            <!-- Image avec hauteur contrôlée -->
+            <img src="/img/school1.jpg" 
+                 alt="Formation ACADECOL" 
+                 class="w-full h-58 md:h-46 lg:h-[25rem] object-cover rounded-xl shadow-lg border-2 border-white"
+                 onerror="this.src = '/img/hero.png'">
+            
+           
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
             <!-- ABOUT SECTION -->
             <section id="about" class="section about">
@@ -280,7 +265,7 @@ onMounted(() => {
                         <div class="about-image reveal">
                             <div class="image-wrapper">
                                 <img
-                                    src="/img/school1.jpg"
+                                    src="/img/ACADECOL_20260107_114006_0000 (1).png"
                                     alt="About ACADECOL"
                                     class="main-img"
                                 />
@@ -434,68 +419,82 @@ onMounted(() => {
                     </div>
 
                     <!-- Langues -->
-                    <div class="formation-category reveal">
-                        <div class="category-header">
-                            <i class="fas fa-globe cat-icon text-md lg:!text-2xl"></i>
-                            <div>
-                                <h3 class="!text-sm md:!text-md lg:!text-xl !font-semi-bold">
-                                    Certificats de Compétences Linguistiques
-                                </h3>
-                                <p class="!text-xs md:!text-sm lg:!text-md ">
-                                    Linguistic Skills Certificate - 3 à 6 mois
-                                    (Présentiel ou en ligne)
-                                </p>
-                            </div>
-                        </div>
+            <!-- Section Certificats de Compétences Linguistiques -->
+<div class="formation-category reveal mb-8">
+    <!-- Header de catégorie -->
+    <div class="flex items-center gap-3 mb-4 pb-3 border-b-3 border-blue-600">
+        <div class="w-8 h-8 md:w-10 md:h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 shrink-0">
+            <i class="fas fa-globe text-sm md:text-base"></i>
+        </div>
+        <div>
+            <h3 class="text-sm md:text-base lg:text-lg font-bold text-gray-900">
+                Certificats de Compétences Linguistiques
+            </h3>
+            <p class="text-[10px] md:text-xs text-gray-500">
+                Linguistic Skills Certificate - 3 à 6 mois (Présentiel ou en ligne)
+            </p>
+        </div>
+    </div>
 
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-2 md">
-                            <div
-                                v-for="lang in languages"
-                                :key="lang.id"
-                                class=""
-                            >
-                                <div class="card-image flag-container">
-                                    <div class="flag-wrapper">
-                                        <span class="flag text-6xl">{{
-                                            getFlag(getText(lang.titre))
-                                        }}</span>
-                                    </div>
-                                    <span class="badge-overlay text-[.2rem]"
-                                        >Certificat</span
-                                    >
-                                </div>
-                                <div class="!text-sm md:!text-md lg:!text-xl !font-semi-bold pl-2 py-2">
-                                    <h4>{{ getText(lang.titre) }}</h4>
-                                    <p class="!text-xs md:!text-sm lg:!text-lg italic !font-semi-bold text-[.3rem]  ">
-                                        {{ getText(lang.description_courte) }}
-                                    </p>
-                                    <div
-                                        class="lang-levels"
-                                        v-if="lang.details?.niveau_requis"
-                                    >
-                                        {{
-                                            getText(lang.details.niveau_requis)
-                                        }}
-                                    </div>
-                                    <div class="card-meta">
-                                        <span
-                                            class="meta-item"
-                                            v-if="lang.details?.duree_formation"
-                                        >
-                                            <i class="far fa-clock"></i>
-                                            {{
-                                                getText(
-                                                    lang.details
-                                                        .duree_formation,
-                                                )
-                                            }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <!-- Grille des cartes - Redesign -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
+        <div v-for="lang in languages" :key="lang.id" 
+             class="group bg-white rounded-lg overflow-hidden border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all duration-300">
+            
+            <!-- Drapeau - Design épuré -->
+            <div class="relative h-20 sm:h-24 md:h-28 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+                <span class="text-4xl sm:text-5xl md:text-6xl transform group-hover:scale-110 transition-transform duration-300">
+                    {{ getFlag(getText(lang.titre)) }}
+                </span>
+                <!-- Badge niveau -->
+                <span v-if="lang.details?.niveau_requis" 
+                      class="absolute bottom-1 right-1 bg-blue-600 text-white text-[8px] px-1.5 py-0.5 rounded-full">
+                    {{ getText(lang.details.niveau_requis).substring(0, 3) }}
+                </span>
+            </div>
+
+            <!-- Contenu compact -->
+            <div class="p-2 md:p-3">
+                <!-- Titre et drapeau mini -->
+                <div class="flex items-center gap-1 mb-1">
+                    <span class="text-[10px] md:text-xs">{{ getFlag(getText(lang.titre)) }}</span>
+                    <h4 class="text-[11px] md:text-xs font-bold text-gray-900 truncate">
+                        {{ getText(lang.titre) }}
+                    </h4>
+                </div>
+
+                <!-- Description courte -->
+            <p class="text-[9px] md:text-[10px] text-gray-500 line-clamp-2 mb-2 min-h-[1rem]">
+                    {{ getText(lang.description_courte) || "Formation linguistique certifiante" }}
+                </p>
+
+                <!-- Métadonnées -->
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-1 text-gray-400">
+                        <i class="far fa-clock text-[8px]"></i>
+                        <span class="text-[8px] md:text-[9px] text-gray-600">
+                            {{ lang.details?.duree_formation ? getText(lang.details.duree_formation) : "3-6 mois" }}
+                        </span>
                     </div>
+                    
+                    <!-- Badge mode -->
+                    <span class="text-[7px] md:text-[8px] bg-green-50 text-green-600 px-1.5 py-0.5 rounded-full border border-green-100">
+                        {{ lang.details?.mode_enseignement ? getText(lang.details.mode_enseignement).substring(0, 8) : "Mixte" }}
+                    </span>
+                </div>
 
+             
+            </div>
+        </div>
+    </div>
+
+    <!-- Lien voir tout (optionnel) -->
+    <div class="text-right mt-3">
+        <a href="#" class="text-[10px] text-blue-600 font-medium inline-flex items-center gap-1 hover:gap-1.5 transition-all">
+            Toutes les langues <i class="fas fa-arrow-right text-[8px]"></i>
+        </a>
+    </div>
+</div>  
                     <!-- Humanitaire -->
                     <div class="formation-category reveal">
                         <div class="category-header">
