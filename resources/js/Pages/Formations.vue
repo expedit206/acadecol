@@ -12,13 +12,12 @@
             ></div>
             <div class="container mx-auto px-4 relative z-10 text-center">
                 <h1 class="text-xl md:text-4xl font-bold mb-3 tracking-tight">
-                    Nos Programmes de Formation
+                    {{ t.hero.title[locale] }}
                 </h1>
                 <p
                     class="text-sm md:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed"
                 >
-                    Des cursus certifiés par l'État pour propulser votre
-                    carrière dans les secteurs d'avenir.
+                    {{ t.hero.subtitle[locale] }}
                 </p>
             </div>
         </section>
@@ -36,7 +35,9 @@
                         @change="selectDomain(selectedDomainId)"
                         class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 bg-white text-sm font-semibold text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                     >
-                        <option :value="null">🎓 Toutes les formations</option>
+                        <option :value="null">
+                            {{ t.filter.all[locale] }}
+                        </option>
                         <option
                             v-for="domain in domains"
                             :key="domain.id"
@@ -61,7 +62,7 @@
                                 : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400 hover:text-blue-600',
                         ]"
                     >
-                        Toutes les formations
+                        {{ t.filter.all[locale] }}
                     </button>
 
                     <!-- Categories -->
@@ -97,14 +98,12 @@
                     >
                         <!-- Section Header -->
                         <div
-                            class="flex items-center gap-3 md:gap-4 mb-2 md:mb-4     border-b border-gray-200 pb-4"
+                            class="flex items-center gap-3 md:gap-4 mb-2 md:mb-4 border-b border-gray-200 pb-4"
                         >
                             <div
                                 :class="`w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-gradent-to-br ${group.color} flex items-center justify-center text-white shadow-lg shrink-0`"
                             >
-                              
-                                   <i class="fas fa-arrow-right text-black"></i>
-
+                                <i class="fas fa-arrow-right text-black"></i>
                             </div>
                             <div>
                                 <h2
@@ -112,7 +111,6 @@
                                 >
                                     {{ group.name }}
                                 </h2>
-                            
                             </div>
                         </div>
 
@@ -132,7 +130,7 @@
                                 >
                                     <img
                                         :src="getFormationImage(formation)"
-                                        :alt="getText(formation.titre)"
+                                        :alt="trans(formation.titre)"
                                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         onerror="this.src = '/img/school1.jpg'"
                                     />
@@ -148,19 +146,19 @@
                                     <h3
                                         class="text-xs md:text-md font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2"
                                     >
-                                        {{ getText(formation.titre) }}
+                                        {{ trans(formation.titre) }}
                                     </h3>
                                     <p
-                                        class="text-gray-500 text-xs md:text-sm  line-clamp-2 md:line-clamp-3"
+                                        class="text-gray-500 text-xs md:text-sm line-clamp-2 md:line-clamp-3"
                                     >
                                         {{
-                                            getText(
+                                            trans(
                                                 formation.description_courte,
                                             ) ||
-                                            getText(
+                                            trans(
                                                 formation.description_complete,
                                             ) ||
-                                            "Cliquez pour voir les détails."
+                                            t.card.clickDetails[locale]
                                         }}
                                     </p>
                                 </div>
@@ -172,7 +170,7 @@
                                     <span
                                         class="inline-flex items-center text-blue-600 text-xs md:text-sm font-semibold uppercase tracking-wider group-hover:translate-x-1 transition-transform"
                                     >
-                                        Détails
+                                        {{ t.card.details[locale] }}
                                         <i
                                             class="fas fa-arrow-right ml-1 md:ml-2"
                                         ></i>
@@ -192,10 +190,10 @@
                         <i class="far fa-folder-open"></i>
                     </div>
                     <h3 class="text-xl font-medium text-gray-900">
-                        Aucune formation trouvée pour le moment.
+                        {{ t.empty.title[locale] }}
                     </h3>
                     <p class="text-gray-500 mt-2">
-                        Revenez bientôt pour découvrir nos nouveaux programmes.
+                        {{ t.empty.subtitle[locale] }}
                     </p>
                 </div>
             </div>
@@ -245,7 +243,7 @@
                             >
                                 <img
                                     :src="getFormationImage(selectedFormation)"
-                                    :alt="getText(selectedFormation.titre)"
+                                    :alt="trans(selectedFormation.titre)"
                                     class="w-full h-full object-contain"
                                     onerror="this.src = '/img/school1.jpg'"
                                 />
@@ -254,7 +252,7 @@
                             <h2
                                 class="text-xl md:text-3xl font-bold leading-tight mb-2"
                             >
-                                {{ getText(selectedFormation.titre) }}
+                                {{ trans(selectedFormation.titre) }}
                             </h2>
                             <p
                                 class="text-white/80 text-xs md:text-sm font-medium uppercase tracking-wider mb-4 md:mb-8"
@@ -271,7 +269,7 @@
                                 @click="closeDetails"
                                 class="md:hidden w-full py-3 bg-white/20 hover:bg-white/30 rounded-xl font-bold backdrop-blur-md transition text-sm"
                             >
-                                Fermer
+                                {{ t.modal.close[locale] }}
                             </button>
                         </div>
                     </div>
@@ -293,18 +291,16 @@
                             <h3
                                 class="text-lg md:text-2xl font-bold text-gray-900 mb-3 md:mb-4 flex items-center gap-2"
                             >
-                                À propos de la formation
+                                {{ t.modal.about[locale] }}
                             </h3>
                             <p
                                 class="text-gray-600 leading-relaxed text-sm md:text-lg mb-4 md:mb-8"
                             >
                                 {{
-                                    getText(
+                                    trans(
                                         selectedFormation.description_complete,
                                     ) ||
-                                    getText(
-                                        selectedFormation.description_courte,
-                                    )
+                                    trans(selectedFormation.description_courte)
                                 }}
                             </p>
 
@@ -326,14 +322,12 @@
                                                 class="fas fa-briefcase text-white text-sm md:text-xl"
                                             ></i>
                                         </div>
-                                        Vos Opportunités de Carrière
+                                        {{ t.modal.opportunities[locale] }}
                                     </h4>
                                     <p
                                         class="text-gray-800 text-sm md:text-lg leading-relaxed"
                                     >
-                                        {{
-                                            getText(selectedFormation.debouches)
-                                        }}
+                                        {{ trans(selectedFormation.debouches) }}
                                     </p>
                                 </div>
                             </div>
@@ -356,14 +350,12 @@
                                                 class="fas fa-graduation-cap text-white text-sm md:text-xl"
                                             ></i>
                                         </div>
-                                        Conditions d'Admission
+                                        {{ t.modal.prerequisites[locale] }}
                                     </h4>
                                     <p
                                         class="text-gray-800 text-sm md:text-lg leading-relaxed"
                                     >
-                                        {{
-                                            getText(selectedFormation.prerequis)
-                                        }}
+                                        {{ trans(selectedFormation.prerequis) }}
                                     </p>
                                 </div>
                             </div>
@@ -383,7 +375,7 @@
                                                 class="fas fa-star text-white text-sm md:text-xl"
                                             ></i>
                                         </div>
-                                        Pourquoi Choisir ACADECOL ?
+                                        {{ t.modal.why[locale] }}
                                     </h4>
                                     <div
                                         class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4"
@@ -398,12 +390,20 @@
                                                 <p
                                                     class="font-bold text-gray-900 text-sm md:text-base"
                                                 >
-                                                    Formation Certifiée
+                                                    {{
+                                                        t.modal.certified.title[
+                                                            locale
+                                                        ]
+                                                    }}
                                                 </p>
                                                 <p
                                                     class="text-gray-700 text-xs md:text-sm"
                                                 >
-                                                    Diplômes reconnus par l'État
+                                                    {{
+                                                        t.modal.certified.desc[
+                                                            locale
+                                                        ]
+                                                    }}
                                                 </p>
                                             </div>
                                         </div>
@@ -417,12 +417,20 @@
                                                 <p
                                                     class="font-bold text-gray-900 text-sm md:text-base"
                                                 >
-                                                    Formateurs Experts
+                                                    {{
+                                                        t.modal.experts.title[
+                                                            locale
+                                                        ]
+                                                    }}
                                                 </p>
                                                 <p
                                                     class="text-gray-700 text-xs md:text-sm"
                                                 >
-                                                    Professionnels en activité
+                                                    {{
+                                                        t.modal.experts.desc[
+                                                            locale
+                                                        ]
+                                                    }}
                                                 </p>
                                             </div>
                                         </div>
@@ -436,12 +444,19 @@
                                                 <p
                                                     class="font-bold text-gray-900 text-sm md:text-base"
                                                 >
-                                                    Stage Pratique
+                                                    {{
+                                                        t.modal.internship
+                                                            .title[locale]
+                                                    }}
                                                 </p>
                                                 <p
                                                     class="text-gray-700 text-xs md:text-sm"
                                                 >
-                                                    Expérience terrain garantie
+                                                    {{
+                                                        t.modal.internship.desc[
+                                                            locale
+                                                        ]
+                                                    }}
                                                 </p>
                                             </div>
                                         </div>
@@ -455,13 +470,18 @@
                                                 <p
                                                     class="font-bold text-gray-900 text-sm md:text-base"
                                                 >
-                                                    Accompagnement Emploi
+                                                    {{
+                                                        t.modal.job.title[
+                                                            locale
+                                                        ]
+                                                    }}
                                                 </p>
                                                 <p
                                                     class="text-gray-700 text-xs md:text-sm"
                                                 >
-                                                    Aide à l'insertion
-                                                    professionnelle
+                                                    {{
+                                                        t.modal.job.desc[locale]
+                                                    }}
                                                 </p>
                                             </div>
                                         </div>
@@ -474,18 +494,18 @@
                                 class="mt-8 pt-8 border-t border-gray-100 flex flex-col sm:flex-row gap-4"
                             >
                                 <Link
-                                    href="/preinscription"
+                                    href="/pre-inscription"
                                     class="flex-1 text-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 hover:shadow-lg transition transform hover:-translate-y-1"
                                 >
                                     <i class="fas fa-paper-plane mr-2"></i>
-                                    Candidater maintenant
+                                    {{ t.modal.apply[locale] }}
                                 </Link>
                                 <Link
                                     href="/contact"
                                     class="flex-1 text-center px-8 py-4 bg-white border-2 border-gray-200 text-gray-700 font-bold rounded-xl hover:border-gray-900 hover:text-gray-900 transition"
                                 >
-                                    <i class="fas fa-phone mr-2"></i> Un
-                                    conseiller vous rappelle
+                                    <i class="fas fa-phone mr-2"></i>
+                                    {{ t.modal.callback[locale] }}
                                 </Link>
                             </div>
                         </div>
@@ -497,9 +517,12 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 import { Link } from "@inertiajs/vue3";
 import PublicLayout from "@/Layouts/PublicLayout.vue";
+import { useLocale } from "@/Composables/useLocale";
+
+const { trans, locale } = useLocale();
 
 const props = defineProps({
     formations: { type: Array, default: () => [] },
@@ -508,6 +531,88 @@ const props = defineProps({
 
 const selectedDomainId = ref(null);
 const selectedFormation = ref(null);
+const isOpen = ref(false);
+
+const t = {
+    hero: {
+        title: {
+            fr: "Nos Programmes de Formation",
+            en: "Our Training Programs",
+        },
+        subtitle: {
+            fr: "Des cursus certifiés par l'État pour propulser votre carrière dans les secteurs d'avenir.",
+            en: "State-certified curricula to propel your career in future sectors.",
+        },
+    },
+    filter: {
+        all: { fr: "🎓 Toutes les formations", en: "🎓 All trainings" },
+        placeholder: { fr: "Sélectionnez un domaine", en: "Select a domain" },
+    },
+    card: {
+        details: { fr: "Détails", en: "Details" },
+        clickDetails: {
+            fr: "Cliquez pour voir les détails.",
+            en: "Click to view details.",
+        },
+    },
+    empty: {
+        title: {
+            fr: "Aucune formation trouvée pour le moment.",
+            en: "No training found at the moment.",
+        },
+        subtitle: {
+            fr: "Revenez bientôt pour découvrir nos nouveaux programmes.",
+            en: "Check back soon to discover our new programs.",
+        },
+    },
+    modal: {
+        close: { fr: "Fermer", en: "Close" },
+        about: { fr: "À propos de la formation", en: "About the training" },
+        opportunities: {
+            fr: "Vos Opportunités de Carrière",
+            en: "Your Career Opportunities",
+        },
+        prerequisites: {
+            fr: "Conditions d'Admission",
+            en: "Admission Requirements",
+        },
+        why: { fr: "Pourquoi Choisir ACADECOL ?", en: "Why Choose ACADECOL?" },
+        certified: {
+            title: { fr: "Formation Certifiée", en: "Certified Training" },
+            desc: {
+                fr: "Diplômes reconnus par l'État",
+                en: "State recognized diplomas",
+            },
+        },
+        experts: {
+            title: { fr: "Formateurs Experts", en: "Expert Trainers" },
+            desc: {
+                fr: "Professionnels en activité",
+                en: "Active professionals",
+            },
+        },
+        internship: {
+            title: { fr: "Stage Pratique", en: "Practical Internship" },
+            desc: {
+                fr: "Expérience terrain garantie",
+                en: "Guaranteed field experience",
+            },
+        },
+        job: {
+            title: { fr: "Accompagnement Emploi", en: "Job Support" },
+            desc: {
+                fr: "Aide à l'insertion professionnelle",
+                en: "Help with professional insertion",
+            },
+        },
+        apply: { fr: "Candidater maintenant", en: "Apply now" },
+        callback: {
+            fr: "Un conseiller vous rappelle",
+            en: "A roadmap calls you back",
+        },
+    },
+};
+
 // Transform data for UI
 const domains = computed(() => {
     return props.categories.map((cat, index) => {
@@ -521,8 +626,8 @@ const domains = computed(() => {
 
         return {
             id: cat.id,
-            name: getText(cat.nom),
-            description: getText(cat.description),
+            name: trans(cat.nom),
+            description: trans(cat.description),
             iconClass: cat.icon_class || "fas fa-graduation-cap",
             color: colors[index % colors.length],
         };
@@ -546,11 +651,10 @@ const groupedFormations = computed(() => {
             items: props.formations.filter((f) => f.category_id === domain.id),
         }))
         .filter((g) => g.items.length > 0);
+    // Added filter to remove empty categories from display if needed,
+    // or keep them if you want to show empty categories.
+    // The previous code had .filter((g) => g.items.length > 0)
 });
-
-// Removed onMounted force-select
-
-const isOpen = ref(false);
 
 const toggleDropdown = () => {
     isOpen.value = !isOpen.value;
@@ -572,6 +676,8 @@ function getFormationImage(formation) {
 }
 
 function getCategoryImage(categoryName) {
+    // This mapping might need adjustment if category names are translated differently
+    // You might want to match by ID instead if possible for robustness
     const images = {
         "Les Langues": "/storage/formations/anglais.png",
         "Paramédicale et Biomédical": "/storage/formations/pharmacie.png",
@@ -595,24 +701,6 @@ function openDetails(formation) {
 function closeDetails() {
     selectedFormation.value = null;
     document.body.style.overflow = "";
-}
-
-// Helpers
-function getText(jsonField) {
-    if (!jsonField) return "";
-    if (typeof jsonField === "string") {
-        // Try parsing only if it looks like JSON
-        if (jsonField.trim().startsWith("{")) {
-            try {
-                const parsed = JSON.parse(jsonField);
-                return parsed.fr || parsed.en || jsonField;
-            } catch (e) {
-                return jsonField;
-            }
-        }
-        return jsonField;
-    }
-    return jsonField.fr || jsonField.en || "";
 }
 
 function formatPrice(price) {

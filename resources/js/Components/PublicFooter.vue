@@ -6,45 +6,44 @@
                 <!-- About -->
                 <div>
                     <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-                        <span class="text-2xl">📚</span>
+<img src="/img/logofr.jpeg" alt="" class="h-10 rounded-sm">
                         AcadEcol
                     </h3>
                     <p class="text-gray-400 text-sm">
-                        Plateforme leader en formations profesionnelles et
-                        certifications en ligne.
+                        {{ t.about.desc[locale] }}
                     </p>
                 </div>
 
                 <!-- Quick Links -->
                 <div>
-                    <h4 class="font-bold mb-4">Liens Rapides</h4>
+                    <h4 class="font-bold mb-4">{{ t.links.title[locale] }}</h4>
                     <ul class="space-y-2 text-sm">
                         <li>
                             <Link
                                 href="/"
                                 class="text-gray-400 hover:text-white transition"
-                                >Accueil</Link
+                                >{{ t.links.home[locale] }}</Link
                             >
                         </li>
                         <li>
                             <Link
                                 href="/formations"
                                 class="text-gray-400 hover:text-white transition"
-                                >Formations</Link
+                                >{{ t.links.trainings[locale] }}</Link
                             >
                         </li>
                         <li>
                             <Link
                                 href="/actualites"
                                 class="text-gray-400 hover:text-white transition"
-                                >Actualités</Link
+                                >{{ t.links.news[locale] }}</Link
                             >
                         </li>
                         <li>
                             <Link
                                 href="/a-propos"
                                 class="text-gray-400 hover:text-white transition"
-                                >À Propos</Link
+                                >{{ t.links.about[locale] }}</Link
                             >
                         </li>
                     </ul>
@@ -52,34 +51,36 @@
 
                 <!-- Categories -->
                 <div>
-                    <h4 class="font-bold mb-4">Catégories</h4>
+                    <h4 class="font-bold mb-4">
+                        {{ t.categories.title[locale] }}
+                    </h4>
                     <ul class="space-y-2 text-sm">
                         <li>
                             <a
                                 href="/formations?cat=informatique"
                                 class="text-gray-400 hover:text-white transition"
-                                >Informatique</a
+                                >{{ t.categories.it[locale] }}</a
                             >
                         </li>
                         <li>
                             <a
                                 href="/formations?cat=sante"
                                 class="text-gray-400 hover:text-white transition"
-                                >Santé</a
+                                >{{ t.categories.health[locale] }}</a
                             >
                         </li>
                         <li>
                             <a
                                 href="/formations?cat=commerce"
                                 class="text-gray-400 hover:text-white transition"
-                                >Commerce</a
+                                >{{ t.categories.business[locale] }}</a
                             >
                         </li>
                         <li>
                             <a
                                 href="/formations?cat=langues"
                                 class="text-gray-400 hover:text-white transition"
-                                >Langues</a
+                                >{{ t.categories.languages[locale] }}</a
                             >
                         </li>
                     </ul>
@@ -87,14 +88,13 @@
 
                 <!-- Contact -->
                 <div>
-                    <h4 class="font-bold mb-4">Nous Contacter</h4>
+                    <h4 class="font-bold mb-4">
+                        {{ t.contact.title[locale] }}
+                    </h4>
                     <ul class="space-y-2 text-sm text-gray-400">
                         <li class="flex items-center gap-2">
                             <span>📍</span>
-                            <span
-                                >Bafoussam, en face de l'ancienne gare routière
-                                général voyage</span
-                            >
+                            <span>{{ t.contact.address[locale] }}</span>
                         </li>
                         <li class="flex items-center gap-2">
                             <span>📧</span>
@@ -139,7 +139,14 @@
 
                 <!-- Copyright -->
                 <div class="text-center text-gray-500 text-sm">
-                    <p>&copy; 2026 AcadEcol. Tous droits réservés.</p>
+                    <p>
+                        {{
+                            t.copyright[locale]?.replace(
+                                "2026",
+                                new Date().getFullYear(),
+                            )
+                        }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -148,4 +155,41 @@
 
 <script setup>
 import { Link } from "@inertiajs/vue3";
+import { useLocale } from "@/Composables/useLocale";
+
+const { trans, locale } = useLocale();
+
+const t = {
+    about: {
+        desc: {
+            fr: "Plateforme leader en formations professionnelles et certifications en ligne.",
+            en: "Leading platform for professional training and online certifications.",
+        },
+    },
+    links: {
+        title: { fr: "Liens Rapides", en: "Quick Links" },
+        home: { fr: "Accueil", en: "Home" },
+        trainings: { fr: "Formations", en: "Trainings" },
+        news: { fr: "Actualités", en: "News" },
+        about: { fr: "À Propos", en: "About" },
+    },
+    categories: {
+        title: { fr: "Catégories", en: "Categories" },
+        it: { fr: "Informatique", en: "IT" },
+        health: { fr: "Santé", en: "Health" },
+        business: { fr: "Commerce", en: "Business" },
+        languages: { fr: "Langues", en: "Languages" },
+    },
+    contact: {
+        title: { fr: "Nous Contacter", en: "Contact Us" },
+        address: {
+            fr: "Bafoussam, en face de l'ancienne gare routière général voyage",
+            en: "Bafoussam, opposite the old General Voyage bus station",
+        },
+    },
+    copyright: {
+        fr: "© 2026 AcadEcol. Tous droits réservés.",
+        en: "© 2026 AcadEcol. All rights reserved.",
+    },
+};
 </script>

@@ -1,43 +1,66 @@
 <template>
-    <div class="relative inline-block text-left">
-        <button
-            @click="isOpen = !isOpen"
-            type="button"
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        >
-            <span class="text-lg">{{ locale === "fr" ? "🇫🇷" : "🇬🇧" }}</span>
-            <span class="uppercase">{{ locale }}</span>
-            <i class="fas fa-chevron-down text-xs ml-1"></i>
-        </button>
+    <div class="fixed bottom-6 left-6 z-[60]">
+        <div class="relative">
+            <button
+                @click="isOpen = !isOpen"
+                type="button"
+                class="flex items-center gap-2 px-4 py-2.5 bg-white/80 backdrop-blur-md border border-gray-200/50 rounded-full shadow-lg hover:shadow-xl hover:bg-white transition-all duration-300 group"
+                :class="{ 'ring-2 ring-blue-500 border-transparent': isOpen }"
+            >
+                <span class="text-xl leading-none">{{
+                    locale === "fr" ? "🇫🇷" : "🇬🇧"
+                }}</span>
+                <span
+                    class="font-bold text-gray-700 uppercase tracking-wider text-xs"
+                    >{{ locale }}</span
+                >
+                <i
+                    class="fas fa-chevron-up text-[10px] text-gray-400 group-hover:text-blue-500 transition-colors"
+                    :class="{ 'rotate-180': isOpen }"
+                ></i>
+            </button>
 
-        <div
-            v-if="isOpen"
-            class="absolute right-0 z-50 mt-2 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-        >
-            <div class="py-1">
-                <a
-                    href="/locale/fr"
-                    class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    @click.prevent="switchLocale('fr')"
-                >
-                    <span class="text-xl">🇫🇷</span> Français
-                </a>
-                <a
-                    href="/locale/en"
-                    class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    @click.prevent="switchLocale('en')"
-                >
-                    <span class="text-xl">🇬🇧</span> English
-                </a>
+            <div
+                v-if="isOpen"
+                class="absolute bottom-full left-0 mb-3 w-40 origin-bottom-left rounded-2xl bg-white/95 backdrop-blur-md shadow-2xl ring-1 ring-black/5 overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-200"
+            >
+                <div class="p-1.5 space-y-1">
+                    <a
+                        href="/locale/fr"
+                        class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-colors"
+                        :class="
+                            locale === 'fr'
+                                ? 'bg-blue-50 text-blue-700'
+                                : 'text-gray-700 hover:bg-gray-100'
+                        "
+                        @click.prevent="switchLocale('fr')"
+                    >
+                        <span class="text-xl leading-none">🇫🇷</span>
+                        <span>Français</span>
+                    </a>
+                    <a
+                        href="/locale/en"
+                        class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-colors"
+                        :class="
+                            locale === 'en'
+                                ? 'bg-blue-50 text-blue-700'
+                                : 'text-gray-700 hover:bg-gray-100'
+                        "
+                        @click.prevent="switchLocale('en')"
+                    >
+                        <span class="text-xl leading-none">🇬🇧</span>
+                        <span>English</span>
+                    </a>
+                </div>
             </div>
-        </div>
 
-        <!-- Backdrop to close -->
-        <div
-            v-if="isOpen"
-            @click="isOpen = false"
-            class="fixed inset-0 z-40"
-        ></div>
+            <!-- Backdrop to close -->
+            <div
+                v-if="isOpen"
+                @click="isOpen = false"
+                class="fixed inset-0 z-[-1]"
+            ></div>
+        </div>
     </div>
 </template>
 
@@ -51,9 +74,7 @@ const isOpen = ref(false);
 
 const switchLocale = (lang) => {
     isOpen.value = false;
-    router.visit(`/locale/${lang}`, {
-        preserveState: true,
-        preserveScroll: true,
-    });
+    // Force a full page reload to ensure session and locale are correctly applied
+    window.location.href = `/locale/${lang}`;
 };
 </script>

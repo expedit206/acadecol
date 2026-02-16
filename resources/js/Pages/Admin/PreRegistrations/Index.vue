@@ -90,22 +90,26 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <div class="text-xs">
-                                            <div
-                                                class="font-semibold text-blue-800"
-                                            >
-                                                {{
-                                                    registration.formation
-                                                        ?.titre?.fr || "N/A"
-                                                }}
+                                        <td class="px-6 py-4">
+                                            <div class="text-xs">
+                                                <div
+                                                    class="font-semibold text-blue-800"
+                                                >
+                                                    {{
+                                                        registration.formation
+                                                            ?.titre?.fr || "N/A"
+                                                    }}
+                                                </div>
+                                                <div
+                                                    class="text-blue-600 italic"
+                                                >
+                                                    {{
+                                                        registration.formation
+                                                            ?.titre?.en || ""
+                                                    }}
+                                                </div>
                                             </div>
-                                            <div class="text-blue-600 italic">
-                                                {{
-                                                    registration.formation
-                                                        ?.titre?.en || ""
-                                                }}
-                                            </div>
-                                        </div>
+                                        </td>
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
                                         >

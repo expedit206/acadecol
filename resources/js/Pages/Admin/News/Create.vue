@@ -146,6 +146,13 @@
                                     class="block text-sm font-medium text-gray-700"
                                     >Image de couverture</label
                                 >
+                                <div v-if="imagePreview" class="mt-2 mb-4">
+                                    <img
+                                        :src="imagePreview"
+                                        alt="Preview"
+                                        class="h-40 w-full object-cover rounded-lg border shadow-sm"
+                                    />
+                                </div>
                                 <input
                                     type="file"
                                     id="image"
@@ -161,7 +168,7 @@
                                 </div>
                             </div>
 
-                            <div>
+                            <div v-if="!form.is_published">
                                 <label
                                     for="published_at"
                                     class="block text-sm font-medium text-gray-700"
@@ -225,6 +232,9 @@
 <script setup>
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { useForm, Link } from "@inertiajs/vue3";
+import { ref } from "vue";
+
+const imagePreview = ref(null);
 
 const form = useForm({
     title: { fr: "", en: "" },
@@ -246,7 +256,13 @@ const updateSlug = () => {
 };
 
 const handleImageUpload = (e) => {
-    form.image = e.target.files[0];
+    const file = e.target.files[0];
+    form.image = file;
+    if (file) {
+        imagePreview.value = URL.createObjectURL(file);
+    } else {
+        imagePreview.value = null;
+    }
 };
 
 const submit = () => {

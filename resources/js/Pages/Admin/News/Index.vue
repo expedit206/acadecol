@@ -78,17 +78,9 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
-                                            :class="
-                                                item.is_published
-                                                    ? 'bg-green-100 text-green-800'
-                                                    : 'bg-red-100 text-red-800'
-                                            "
+                                            :class="getStatusClass(item)"
                                         >
-                                            {{
-                                                item.is_published
-                                                    ? "Publié"
-                                                    : "Brouillon"
-                                            }}
+                                            {{ getStatusLabel(item) }}
                                         </span>
                                     </td>
                                     <td
@@ -171,5 +163,18 @@ const deleteNews = (item) => {
     if (confirm("Êtes-vous sûr de vouloir supprimer cette actualité ?")) {
         router.delete(route("admin.news.destroy", item.id));
     }
+};
+
+const getStatusLabel = (item) => {
+    if (!item.is_published) return "Brouillon";
+    if (new Date(item.published_at) > new Date()) return "Planifié";
+    return "Publié";
+};
+
+const getStatusClass = (item) => {
+    if (!item.is_published) return "bg-red-100 text-red-800";
+    if (new Date(item.published_at) > new Date())
+        return "bg-blue-100 text-blue-800";
+    return "bg-green-100 text-green-800";
 };
 </script>

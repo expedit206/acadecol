@@ -50,6 +50,10 @@ class NewsController extends Controller
             $validated['image'] = 'storage/' . $path;
         }
 
+        if ($validated['is_published'] && empty($validated['published_at'])) {
+            $validated['published_at'] = now();
+        }
+
         News::create($validated);
 
         return redirect()->route('admin.news.index')->with('success', 'Actualité créée avec succès.');
@@ -94,6 +98,10 @@ class NewsController extends Controller
             $validated['image'] = 'storage/' . $path;
         } else {
             unset($validated['image']);
+        }
+
+        if ($validated['is_published'] && empty($validated['published_at'])) {
+            $validated['published_at'] = now();
         }
 
         $news->update($validated);

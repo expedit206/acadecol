@@ -145,11 +145,14 @@
                                     class="block text-sm font-medium text-gray-700"
                                     >Image de couverture</label
                                 >
-                                <div v-if="news.image" class="mb-2">
+                                <div
+                                    v-if="imagePreview || news.image"
+                                    class="mt-2 mb-4"
+                                >
                                     <img
-                                        :src="'/' + news.image"
-                                        alt="Current Image"
-                                        class="h-20 w-auto rounded object-cover"
+                                        :src="imagePreview || '/' + news.image"
+                                        alt="Preview"
+                                        class="h-40 w-full object-cover rounded-lg border shadow-sm"
                                     />
                                 </div>
                                 <input
@@ -167,7 +170,7 @@
                                 </div>
                             </div>
 
-                            <div>
+                            <div v-if="!form.is_published">
                                 <label
                                     for="published_at"
                                     class="block text-sm font-medium text-gray-700"
@@ -231,11 +234,13 @@
 <script setup>
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { useForm, Link } from "@inertiajs/vue3";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
 const props = defineProps({
     news: Object,
 });
+
+const imagePreview = ref(null);
 
 const form = useForm({
     _method: "PUT",
@@ -265,7 +270,13 @@ onMounted(() => {
 });
 
 const handleImageUpload = (e) => {
-    form.image = e.target.files[0];
+    const file = e.target.files[0];
+    form.image = file;
+    if (file) {
+        imagePreview.value = URL.createObjectURL(file);
+    } else {
+        imagePreview.value = null;
+    }
 };
 
 const submit = () => {

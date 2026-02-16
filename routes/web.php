@@ -10,11 +10,11 @@ use App\Http\Controllers\PublicController;
 // Public Routes
 Route::controller(PublicController::class)->group(function () {
     Route::get('/', 'home')->name('home');
-    Route::get('/locale/{locale}', function ($locale) {
+    Route::get('/locale/{locale}', function (string $locale) {
         if (!in_array($locale, ['fr', 'en'])) {
             abort(404);
         }
-        session(['locale' => $locale]);
+        request()->session()->put('locale', $locale);
         return redirect()->back();
     })->name('locale.switch');
 
@@ -23,6 +23,7 @@ Route::controller(PublicController::class)->group(function () {
 
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/actualites', 'news')->name('news');
+    Route::get('/actualites/{slug}', 'newsDetail')->name('news.show');
 });
 
 // Pré-inscriptions Publiques

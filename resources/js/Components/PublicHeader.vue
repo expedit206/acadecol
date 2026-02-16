@@ -10,6 +10,9 @@
             <div class="flex items-center gap-4">
                 <!-- Socials -->
                 <div class="flex items-center gap-3">
+                    <!-- Language Switcher -->
+                    <LanguageSwitcher />
+
                     <a
                         href="#"
                         class="text-gray-500 hover:text-blue-600 transition"
@@ -42,7 +45,7 @@
                         v-model="searchQuery"
                         @keyup.enter="handleSearch"
                         type="text"
-                        placeholder="Rechercher une formation..."
+                        :placeholder="t.search.placeholder[locale]"
                         class="pl-8 text-[11px] pr-4 py-1.5 rounded-full border border-gray-300 bg-gray-50 text-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 w-48 xl:w-64 transition-all"
                     />
                     <i
@@ -54,19 +57,19 @@
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-3">
                 <NavLink :prefetch="true" href="/" :active="isActive('/')">
-                    Accueil
+                    {{ t.nav.home[locale] }}
                 </NavLink>
                 <NavLink href="/formations" :active="isActive('/formations')">
-                    Formations
+                    {{ t.nav.trainings[locale] }}
                 </NavLink>
                 <NavLink href="/actualites" :active="isActive('/actualites')">
-                    Actualités
+                    {{ t.nav.news[locale] }}
                 </NavLink>
                 <NavLink href="/a-propos" :active="isActive('/a-propos')">
-                    À Propos
+                    {{ t.nav.about[locale] }}
                 </NavLink>
                 <NavLink href="/contact" :active="isActive('/contact')">
-                    Contact
+                    {{ t.nav.contact[locale] }}
                 </NavLink>
             </div>
 
@@ -107,7 +110,7 @@
                         v-model="searchQuery"
                         @keyup.enter="handleSearch"
                         type="text"
-                        placeholder="Rechercher une formation..."
+                        :placeholder="t.search.placeholder[locale]"
                         class="w-full pl-9 pr-4 py-2 rounded-lg border border-gray-300 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <i
@@ -119,27 +122,27 @@
                 <Link
                     href="/"
                     class="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded"
-                    >Accueil</Link
+                    >{{ t.nav.home[locale] }}</Link
                 >
                 <Link
                     href="/formations"
                     class="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded"
-                    >Formations</Link
+                    >{{ t.nav.trainings[locale] }}</Link
                 >
                 <Link
                     href="/actualites"
                     class="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded"
-                    >Actualités</Link
+                    >{{ t.nav.news[locale] }}</Link
                 >
                 <Link
                     href="/a-propos"
                     class="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded"
-                    >À Propos</Link
+                    >{{ t.nav.about[locale] }}</Link
                 >
                 <Link
                     href="/contact"
                     class="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded"
-                    >Contact</Link
+                    >{{ t.nav.contact[locale] }}</Link
                 >
 
                 <div class="border-t border-gray-200 mt-2 pt-2">
@@ -148,7 +151,8 @@
                             :href="route('admin.dashboard')"
                             class="block px-4 py-2 text-green-600 font-bold hover:bg-green-50 rounded"
                         >
-                            <i class="fas fa-cog mr-2"></i>Administration
+                            <i class="fas fa-cog mr-2"></i
+                            >{{ t.auth.admin[locale] }}
                         </Link>
                     </template>
                     <template v-else-if="$page.props.auth.is_student">
@@ -156,7 +160,8 @@
                             :href="route('pre-registration.show')"
                             class="block px-4 py-2 text-blue-600 font-bold hover:bg-blue-50 rounded"
                         >
-                            <i class="fas fa-user-check mr-2"></i>Mon Dossier
+                            <i class="fas fa-user-check mr-2"></i
+                            >{{ t.auth.myFile[locale] }}
                         </Link>
                     </template>
                     <template v-else>
@@ -164,7 +169,8 @@
                             :href="route('pre-registration.create')"
                             class="block px-4 py-2 text-blue-600 font-bold hover:bg-blue-50 rounded"
                         >
-                            <i class="fas fa-pen mr-2"></i>Se Préinscrire
+                            <i class="fas fa-pen mr-2"></i
+                            >{{ t.auth.register[locale] }}
                         </Link>
                     </template>
                 </div>
@@ -178,6 +184,31 @@ import { ref } from "vue";
 import { Link, usePage, router } from "@inertiajs/vue3";
 import NavLink from "@/Components/NavLink.vue";
 import ApplicationLogo from "./ApplicationLogo.vue";
+import LanguageSwitcher from "@/Components/LanguageSwitcher.vue";
+import { useLocale } from "@/Composables/useLocale";
+
+const { trans, locale } = useLocale();
+
+const t = {
+    search: {
+        placeholder: {
+            fr: "Rechercher une formation...",
+            en: "Search for a training...",
+        },
+    },
+    nav: {
+        home: { fr: "Accueil", en: "Home" },
+        trainings: { fr: "Formations", en: "Trainings" },
+        news: { fr: "Actualités", en: "News" },
+        about: { fr: "À Propos", en: "About" },
+        contact: { fr: "Contact", en: "Contact" },
+    },
+    auth: {
+        admin: { fr: "Administration", en: "Administration" },
+        myFile: { fr: "Mon Dossier", en: "My File" },
+        register: { fr: "Se Préinscrire", en: "Pre-register" },
+    },
+};
 
 const mobileMenuOpen = ref(false);
 const page = usePage();

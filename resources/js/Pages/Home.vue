@@ -3,6 +3,10 @@ import PublicLayout from "@/Layouts/PublicLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
 import { onMounted, computed } from "vue";
 
+import { useLocale } from "@/Composables/useLocale";
+
+const { trans: getText, locale } = useLocale();
+
 const props = defineProps({
     formations: {
         type: Array,
@@ -12,21 +16,13 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+    latestNews: {
+        type: Array,
+        default: () => [],
+    },
 });
 
 // --- Utility Functions ---
-function getText(jsonField) {
-    if (!jsonField) return "";
-    if (typeof jsonField === "string") {
-        try {
-            const parsed = JSON.parse(jsonField);
-            return parsed.fr || parsed.en || jsonField;
-        } catch (e) {
-            return jsonField;
-        }
-    }
-    return jsonField.fr || jsonField.en || "";
-}
 
 function formatPrice(price) {
     if (!price) return "Sur devis";
@@ -110,12 +106,28 @@ const management = computed(() => {
 });
 
 // --- Static Data for UI ---
-const stats = [
-    { icon: "fas fa-certificate", label: "Accréditations", value: "MINEFOP" },
-    { icon: "fas fa-book-open", label: "Formations", value: "30+" },
-    { icon: "fas fa-users", label: "Expertise", value: "Pratique" },
-    { icon: "fas fa-globe", label: "Mode", value: "Bilingue" },
-];
+const stats = computed(() => [
+    {
+        icon: "fas fa-certificate",
+        label: t.stats.accreditations[locale.value],
+        value: "MINEFOP",
+    },
+    {
+        icon: "fas fa-book-open",
+        label: t.stats.trainings[locale.value],
+        value: "30+",
+    },
+    {
+        icon: "fas fa-users",
+        label: t.stats.expertise[locale.value],
+        value: t.stats.valueExpertise[locale.value],
+    },
+    {
+        icon: "fas fa-globe",
+        label: t.stats.mode[locale.value],
+        value: t.stats.valueMode[locale.value],
+    },
+]);
 
 const domains = computed(() => props.categories.map((c) => getText(c.nom)));
 
@@ -136,6 +148,269 @@ const getFlag = (title) => {
     if (t.includes("italien")) return "🇮🇹";
     if (t.includes("chinois")) return "🇨🇳";
     return "🏳️";
+};
+
+// --- Translations ---
+const t = {
+    hero: {
+        badge: {
+            fr: "Agréé MINEFOP",
+            en: "MINEFOP Accredited",
+        },
+        title: {
+            fr: "Construisez votre",
+            en: "Build your",
+        },
+        highlight: {
+            fr: "Avenir Pro",
+            en: "Pro Future",
+        },
+        suffix: {
+            fr: "avec ACADECOL",
+            en: "with ACADECOL",
+        },
+        description: {
+            fr: "Formations certifiées de 1 à 12 mois pour développer vos compétences et faciliter votre employabilité.",
+            en: "Certified training from 1 to 12 months to develop your skills and facilitate your employability.",
+        },
+        discover: {
+            fr: "Découvrir",
+            en: "Discover",
+        },
+        moreContext: {
+            fr: "En savoir +",
+            en: "Learn more",
+        },
+        diplomas: {
+            fr: "Diplômes (DQP)",
+            en: "Diplomas (DQP)",
+        },
+        certifications: {
+            fr: "Certifications",
+            en: "Certifications",
+        },
+        mode: {
+            fr: "En ligne/présentiel",
+            en: "Online/On-site",
+        },
+    },
+    about: {
+        badge: {
+            fr: "À Propos de Nous",
+            en: "About Us",
+        },
+        title: {
+            fr: "Plus qu'un Institut, une",
+            en: "More than an Institute, a",
+        },
+        highlight: {
+            fr: "Passerelle vers l'Emploi",
+            en: "Gateway to Employment",
+        },
+        desc1: {
+            fr: "L'Institut de Formation Professionnelle ACADECOL, sis à Bafoussam (Entrée Ecole Normale), a objectif de développer les compétences des Africains actifs et des diplômés pour faciliter leur insertion professionnelle.",
+            en: "The ACADECOL Professional Training Institute, located in Bafoussam (Teachers' Training College Entrance), aims to develop the skills of active Africans and graduates to facilitate their professional integration.",
+        },
+        desc2: {
+            fr: "Sous l'arrêté N° : 000644/MINEFOP, nous proposons des offres diversifiées et courtes, allant de 1 à 12 mois, axées sur l'apprentissage en situation opérationnelle.",
+            en: "Under Decree No: 000644/MINEFOP, we offer diversified and short courses, ranging from 1 to 12 months, focused on learning in operational situations.",
+        },
+        domains: {
+            fr: "Nos 5 Domaines Ciblés :",
+            en: "Our 5 Targeted Areas:",
+        },
+    },
+    stats: {
+        accreditations: { fr: "Accréditations", en: "Accreditations" },
+        trainings: { fr: "Formations", en: "Trainings" },
+        expertise: { fr: "Expertise", en: "Expertise" },
+        mode: { fr: "Mode", en: "Mode" },
+        valueMode: { fr: "Bilingue", en: "Bilingual" },
+        valueExpertise: { fr: "Pratique", en: "Practical" },
+    },
+    formations: {
+        badge: { fr: "Nos Programmes", en: "Our Programs" },
+        title: { fr: "Des formations pour", en: "Training for" },
+        highlight: { fr: "tous les profils", en: "all profiles" },
+        desc: {
+            fr: "Nos cursus sont conçus pour répondre aux besoins réels du marché de l'emploi en Afrique. Formations courtes de 1 à 12 mois, axées sur la pratique opérationnelle.",
+            en: "Our courses are designed to meet the real needs of the African job market. Short courses from 1 to 12 months, focused on operational practice.",
+        },
+        national: {
+            title: {
+                fr: "Diplômes Nationaux d'État",
+                en: "National State Diplomas",
+            },
+            subtitle: {
+                fr: "National State Diploma - Formation en présentiel de 12 mois",
+                en: "National State Diploma - 12-month on-site training",
+            },
+            badge: { fr: "Diplôme d'État", en: "State Diploma" },
+        },
+        languages: {
+            title: {
+                fr: "Certificats de Compétences Linguistiques",
+                en: "Linguistic Skills Certificates",
+            },
+            subtitle: {
+                fr: "Linguistic Skills Certificate - 3 à 6 mois (Présentiel ou en ligne)",
+                en: "Linguistic Skills Certificate - 3 to 6 months (On-site or Online)",
+            },
+            defaultDesc: {
+                fr: "Formation linguistique certifiante",
+                en: "Certified language training",
+            },
+            defaultDuration: { fr: "3-6 mois", en: "3-6 months" },
+            viewAll: { fr: "Toutes les langues", en: "All languages" },
+        },
+        humanitarian: {
+            title: {
+                fr: "Certificats de Compétences Humanitaires",
+                en: "Humanitarian Skills Certificates",
+            },
+            subtitle: {
+                fr: "Humanitarian Skills Certificate - Formation en ligne",
+                en: "Humanitarian Skills Certificate - Online Training",
+            },
+        },
+        digital: {
+            title: {
+                fr: "Numérique Appliqué à la Santé Publique",
+                en: "Digital Applied to Public Health",
+            },
+            subtitle: {
+                fr: "Digital Skills in Public Health - Présentiel ou en ligne",
+                en: "Digital Skills in Public Health - On-site or Online",
+            },
+        },
+        management: {
+            title: {
+                fr: "Management & Recherche Opérationnelle en Santé",
+                en: "Management & Operational Research in Health",
+            },
+            subtitle: {
+                fr: "Health Management and Operational Research - Présentiel et en ligne",
+                en: "Health Management and Operational Research - On-site and Online",
+            },
+        },
+        cta: {
+            title: {
+                fr: "Prêt à démarrer votre formation ?",
+                en: "Ready to start your training?",
+            },
+            desc: {
+                fr: "Toutes nos formations sont certifiées par le Ministère de la Formation Professionnelle du Cameroun (MINEFOP)",
+                en: "All our training courses are certified by the Ministry of Vocational Training of Cameroon (MINEFOP)",
+            },
+            button: {
+                fr: "Demander plus d'informations",
+                en: "Request more information",
+            },
+        },
+    },
+    contact: {
+        badge: { fr: "Contactez-nous", en: "Contact Us" },
+        title: { fr: "Prenons", en: "Let's Get in" },
+        highlight: { fr: "Contact", en: "Touch" },
+        desc: {
+            fr: "Vous avez des questions sur nos formations ? Notre équipe est là pour vous accompagner dans votre choix professionnel.",
+            en: "Do you have questions about our training courses? Our team is here to support you in your professional choice.",
+        },
+        methods: {
+            phone: {
+                title: { fr: "Téléphone / WhatsApp", en: "Phone / WhatsApp" },
+            },
+            email: { title: { fr: "Email", en: "Email" } },
+            location: {
+                title: { fr: "Localisation", en: "Location" },
+                desc: {
+                    fr: "Bafoussam - Entrée École Normale",
+                    en: "Bafoussam - Teachers' Training College Entrance",
+                },
+                country: {
+                    fr: "République du Cameroun",
+                    en: "Republic of Cameroon",
+                },
+            },
+        },
+        form: {
+            title: {
+                fr: "Demande d'informations",
+                en: "Request for Information",
+            },
+            name: {
+                label: { fr: "Nom complet", en: "Full Name" },
+                placeholder: { fr: "Ex: Jean Dupont", en: "Ex: John Doe" },
+            },
+            email: {
+                label: { fr: "Email", en: "Email" },
+                placeholder: {
+                    fr: "Ex: jean@email.com",
+                    en: "Ex: john@email.com",
+                },
+            },
+            phone: {
+                label: { fr: "Téléphone", en: "Phone" },
+                placeholder: {
+                    fr: "Ex: +237 6XX XXX XXX",
+                    en: "Ex: +237 6XX XXX XXX",
+                },
+            },
+            formation: {
+                label: { fr: "Formation souhaitée", en: "Desired Training" },
+                placeholder: {
+                    fr: "Sélectionnez une formation",
+                    en: "Select a training",
+                },
+                options: [
+                    {
+                        fr: "Vendeur en Pharmacie",
+                        en: "Pharmacy Sales Assistant",
+                    },
+                    { fr: "Délégué Médical", en: "Medical Representative" },
+                    { fr: "Auxiliaire de Vie", en: "Caregiver" },
+                    {
+                        fr: "Maintenance Biomédicale",
+                        en: "Biomedical Maintenance",
+                    },
+                    { fr: "Analyste des Données", en: "Data Analyst" },
+                    { fr: "Community Management", en: "Community Management" },
+                    {
+                        fr: "Langues (Français, Anglais, etc.)",
+                        en: "Languages (French, English, etc.)",
+                    },
+                    {
+                        fr: "Certificats Humanitaires",
+                        en: "Humanitarian Certificates",
+                    },
+                    { fr: "Numérique en Santé", en: "Digital Health" },
+                    {
+                        fr: "Management & Recherche",
+                        en: "Management & Research",
+                    },
+                ],
+            },
+            message: {
+                label: { fr: "Message", en: "Message" },
+                placeholder: {
+                    fr: "Votre message ici...",
+                    en: "Your message here...",
+                },
+            },
+            submit: { fr: "Envoyer la demande", en: "Send Request" },
+        },
+    },
+    news: {
+        badge: { fr: "Actualités", en: "News" },
+        title: { fr: "Dernières", en: "Latest" },
+        highlight: { fr: "Nouvelles", en: "News" },
+        desc: {
+            fr: "Restez informé des événements et des opportunités chez ACADECOL.",
+            en: "Stay informed about events and opportunities at ACADECOL.",
+        },
+        readMore: { fr: "Lire la suite", en: "Read more" },
+        viewAll: { fr: "Voir toutes les actualités", en: "View all news" },
+    },
 };
 
 onMounted(() => {
@@ -173,90 +448,124 @@ onMounted(() => {
         </Head>
 
         <div class="home-container">
+            <section
+                id="hom"
+                class="py-4 md:py-8 relative overflow-hidden bg-white"
+            >
+                <div class="max-w-7xl mx-auto px-4 md:px-6">
+                    <div
+                        class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-4 items-center"
+                    >
+                        <!-- TEXTE À GAUCHE (toujours visible) -->
+                        <div
+                            class="opacity-0 translate-y-5 transition-all duration-700 reveal"
+                        >
+                            <!-- Badge -->
+                            <div class="mb-2">
+                                <span
+                                    class="inline-block px-2.5 py-0.5 text-[10px] md:text-xs font-semibold uppercase tracking-wide rounded-full bg-blue-50 text-blue-600"
+                                >
+                                    {{ t.hero.badge[locale] }}
+                                </span>
+                            </div>
 
-         <section id="hom" class="py-4 md:py-8 relative overflow-hidden bg-white">
-  <div class="max-w-7xl mx-auto px-4 md:px-6">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-4 items-center">
-      
-      <!-- TEXTE À GAUCHE (toujours visible) -->
-      <div class="opacity-0 translate-y-5 transition-all duration-700 reveal">
-        <!-- Badge -->
-        <div class="mb-2">
-          <span class="inline-block px-2.5 py-0.5 text-[10px] md:text-xs font-semibold uppercase tracking-wide rounded-full bg-blue-50 text-blue-600">
-            Agréé MINEFOP
-          </span>
-        </div>
+                            <!-- Title -->
+                            <h1
+                                class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-2 font-bold leading-tight text-gray-900"
+                            >
+                                {{ t.hero.title[locale] }}
+                                <span
+                                    class="bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text"
+                                >
+                                    {{ t.hero.highlight[locale] }}
+                                </span>
+                                {{ t.hero.suffix[locale] }}
+                            </h1>
 
-        <!-- Title -->
-        <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-2 font-bold leading-tight text-gray-900">
-          Construisez votre
-          <span class="bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text">
-            Avenir Pro
-          </span>
-          avec ACADECOL
-        </h1>
+                            <!-- Description -->
+                            <p
+                                class="text-gray-600 mb-3 text-xs sm:text-sm leading-relaxed max-w-lg"
+                            >
+                                {{ t.hero.description[locale] }}
+                            </p>
 
-        <!-- Description -->
-        <p class="text-gray-600 mb-3 text-xs sm:text-sm leading-relaxed max-w-lg">
-          Formations certifiées de 1 à 12 mois pour développer vos compétences et faciliter votre employabilité.
-        </p>
+                            <!-- CTA -->
+                            <div class="flex flex-row flex-wrap gap-2 mb-4">
+                                <a
+                                    href="#formations"
+                                    class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full font-semibold bg-blue-600 text-white hover:bg-blue-700 transition text-xs shadow-md"
+                                >
+                                    {{ t.hero.discover[locale] }}
+                                    <i
+                                        class="fas fa-arrow-right text-[10px]"
+                                    ></i>
+                                </a>
 
-        <!-- CTA -->
-        <div class="flex flex-row flex-wrap gap-2 mb-4">
-          <a href="#formations" 
-             class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full font-semibold bg-blue-600 text-white hover:bg-blue-700 transition text-xs shadow-md">
-            Découvrir
-            <i class="fas fa-arrow-right text-[10px]"></i>
-          </a>
+                                <a
+                                    href="#about"
+                                    class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full font-semibold border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition text-xs"
+                                >
+                                    {{ t.hero.moreContext[locale] }}
+                                </a>
+                            </div>
 
-          <a href="#about" 
-             class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full font-semibold border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition text-xs">
-            En savoir +
-          </a>
-        </div>
+                            <!-- Features -->
+                            <div
+                                class="flex flex-wrap gap-2 md:gap-4 text-gray-700 font-medium"
+                            >
+                                <div class="flex items-center gap-1.5">
+                                    <i
+                                        class="fas fa-check-circle text-emerald-500 text-xs"
+                                    ></i>
+                                    <span class="text-[11px] md:text-xs">{{
+                                        t.hero.diplomas[locale]
+                                    }}</span>
+                                </div>
 
-        <!-- Features -->
-        <div class="flex flex-wrap gap-2 md:gap-4 text-gray-700 font-medium">
-          <div class="flex items-center gap-1.5">
-            <i class="fas fa-check-circle text-emerald-500 text-xs"></i>
-            <span class="text-[11px] md:text-xs">Diplômes (DQP)</span>
-          </div>
+                                <div class="flex items-center gap-1.5">
+                                    <i
+                                        class="fas fa-check-circle text-emerald-500 text-xs"
+                                    ></i>
+                                    <span class="text-[11px] md:text-xs">{{
+                                        t.hero.certifications[locale]
+                                    }}</span>
+                                </div>
 
-          <div class="flex items-center gap-1.5">
-            <i class="fas fa-check-circle text-emerald-500 text-xs"></i>
-            <span class="text-[11px] md:text-xs">Certifications</span>
-          </div>
+                                <div class="flex items-center gap-1.5">
+                                    <i
+                                        class="fas fa-check-circle text-emerald-500 text-xs"
+                                    ></i>
+                                    <span class="text-[11px] md:text-xs">{{
+                                        t.hero.mode[locale]
+                                    }}</span>
+                                </div>
+                            </div>
+                        </div>
 
-          <div class="flex items-center gap-1.5">
-            <i class="fas fa-check-circle text-emerald-500 text-xs"></i>
-            <span class="text-[11px] md:text-xs">En ligne/présentiel</span>
-          </div>
-        </div>
-      </div>
+                        <!-- IMAGE À DROITE - Hauteur réduite -->
+                        <div class="hidden lg:block lg:order-2">
+                            <div class="relative flex justify-center">
+                                <div class="relative w-full max-w-md">
+                                    <!-- Badge flottant -->
+                                    <div
+                                        class="absolute -top-3 -right-3 bg-yellow-400 text-gray-900 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg z-10"
+                                    >
+                                        🎓 Certifiant
+                                    </div>
 
-      <!-- IMAGE À DROITE - Hauteur réduite -->
-      <div class="hidden lg:block lg:order-2">
-        <div class="relative flex justify-center">
-          <div class="relative w-full max-w-md">
-            <!-- Badge flottant -->
-            <div class="absolute -top-3 -right-3 bg-yellow-400 text-gray-900 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg z-10">
-              🎓 Certifiant
-            </div>
-            
-            <!-- Image avec hauteur contrôlée -->
-            <img src="/img/school1.jpg" 
-                 alt="Formation ACADECOL" 
-                 class="w-full h-58 md:h-46 lg:h-[25rem] object-cover rounded-xl shadow-lg border-2 border-white"
-                 onerror="this.src = '/img/hero.png'">
-            
-           
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
+                                    <!-- Image avec hauteur contrôlée -->
+                                    <img
+                                        src="/img/school1.jpg"
+                                        alt="Formation ACADECOL"
+                                        class="w-full h-58 md:h-46 lg:h-[25rem] object-cover rounded-xl shadow-lg border-2 border-white"
+                                        onerror="this.src = '/img/hero.png'"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- ABOUT SECTION -->
             <section id="about" class="section about">
@@ -279,31 +588,24 @@ onMounted(() => {
                         </div>
 
                         <div class="about-content reveal">
-                            <span class="badge badge-primary"
-                                >À Propos de Nous</span
-                            >
+                            <span class="badge badge-primary">{{
+                                t.about.badge[locale]
+                            }}</span>
                             <h2 class="text-xl">
-                                Plus qu'un Institut, une
-                                <span class="gradient-text"
-                                    >Passerelle vers l'Emploi</span
-                                >
+                                {{ t.about.title[locale] }}
+                                <span class="gradient-text">{{
+                                    t.about.highlight[locale]
+                                }}</span>
                             </h2>
                             <p class="text">
-                                L'Institut de Formation Professionnelle
-                                ACADECOL, sis à Bafoussam (Entrée Ecole
-                                Normale), a objectif de développer les
-                                compétences des Africains actifs et des diplômés
-                                pour faciliter leur insertion professionnelle.
+                                {{ t.about.desc1[locale] }}
                             </p>
                             <p>
-                                Sous l'arrêté N° : 000644/MINEFOP, nous
-                                proposons des offres diversifiées et courtes,
-                                allant de 1 à 12 mois, axées sur l'apprentissage
-                                en situation opérationnelle.
+                                {{ t.about.desc2[locale] }}
                             </p>
 
                             <div class="domains">
-                                <h4>Nos 5 Domaines Ciblés :</h4>
+                                <h4>{{ t.about.domains[locale] }}</h4>
                                 <ul>
                                     <li v-for="domain in domains" :key="domain">
                                         {{ domain }}
@@ -332,20 +634,21 @@ onMounted(() => {
             </section>
 
             <!-- FORMATIONS SECTION -->
-                <section id="formations" class="section formations">
+            <section id="formations" class="section formations">
                 <div class="container">
                     <!-- Header -->
                     <div class="formations-header reveal">
-                        <span class="badge badge-primary">Nos Programmes</span>
-                        <h2 class=" !text-sm">
-                            Des formations pour
-                            <span class="gradient-text">tous les profils</span>
+                        <span class="badge badge-primary">{{
+                            t.formations.badge[locale]
+                        }}</span>
+                        <h2 class="!text-sm">
+                            {{ t.formations.title[locale] }}
+                            <span class="gradient-text">{{
+                                t.formations.highlight[locale]
+                            }}</span>
                         </h2>
                         <p class="section-desc !text-xs">
-                            Nos cursus sont conçus pour répondre aux besoins
-                            réels du marché de l'emploi en Afrique. Formations
-                            courtes de 1 à 12 mois, axées sur la pratique
-                            opérationnelle.
+                            {{ t.formations.desc[locale] }}
                         </p>
                     </div>
 
@@ -356,15 +659,20 @@ onMounted(() => {
                                 class="fas fa-graduation-cap cat-icon text-xl"
                             ></i>
                             <div>
-                                <h3 class="!text-sm md:!text-md lg:!text-xl !font-semi-bold">Diplômes Nationaux d'État</h3>
+                                <h3
+                                    class="!text-sm md:!text-md lg:!text-xl !font-semi-bold"
+                                >
+                                    {{ t.formations.national.title[locale] }}
+                                </h3>
                                 <p class="!text-xs">
-                                    National State Diploma - Formation en
-                                    présentiel de 12 mois
+                                    {{ t.formations.national.subtitle[locale] }}
                                 </p>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mx-auto">
+                        <div
+                            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mx-auto"
+                        >
                             <div
                                 v-for="diploma in diplomas"
                                 :key="diploma.id"
@@ -376,13 +684,15 @@ onMounted(() => {
                                         :alt="getText(diploma.titre)"
                                         onerror="this.src = '/img/school1.jpg'"
                                     />
-                                    <span class="badge-overlay text-[.4rem]"
-                                        >Diplôme d'État</span
-                                    >
+                                    <span class="badge-overlay text-[.4rem]">{{
+                                        t.formations.national.badge[locale]
+                                    }}</span>
                                 </div>
                                 <div class="px-2 lg:px-3 py-2">
-                                    <h4 class="text-xs md:text-md">{{ getText(diploma.titre) }}</h4>
-                                    <p class="text-[.5rem] italic md:text-md ">
+                                    <h4 class="text-xs md:text-md">
+                                        {{ getText(diploma.titre) }}
+                                    </h4>
+                                    <p class="text-[.5rem] italic md:text-md">
                                         {{
                                             getText(diploma.description_courte)
                                         }}
@@ -419,91 +729,153 @@ onMounted(() => {
                     </div>
 
                     <!-- Langues -->
-            <!-- Section Certificats de Compétences Linguistiques -->
-<div class="formation-category reveal mb-8">
-    <!-- Header de catégorie -->
-    <div class="flex items-center gap-3 mb-4 pb-3 border-b-3 border-blue-600">
-        <div class="w-8 h-8 md:w-10 md:h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 shrink-0">
-            <i class="fas fa-globe text-sm md:text-base"></i>
-        </div>
-        <div>
-            <h3 class="text-sm md:text-base lg:text-lg font-bold text-gray-900">
-                Certificats de Compétences Linguistiques
-            </h3>
-            <p class="text-[10px] md:text-xs text-gray-500">
-                Linguistic Skills Certificate - 3 à 6 mois (Présentiel ou en ligne)
-            </p>
-        </div>
-    </div>
+                    <!-- Section Certificats de Compétences Linguistiques -->
+                    <div class="formation-category reveal mb-8">
+                        <!-- Header de catégorie -->
+                        <div
+                            class="flex items-center gap-3 mb-4 pb-3 border-b-3 border-blue-600"
+                        >
+                            <div
+                                class="w-8 h-8 md:w-10 md:h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 shrink-0"
+                            >
+                                <i
+                                    class="fas fa-globe text-sm md:text-base"
+                                ></i>
+                            </div>
+                            <div>
+                                <h3
+                                    class="text-sm md:text-base lg:text-lg font-bold text-gray-900"
+                                >
+                                    {{ t.formations.languages.title[locale] }}
+                                </h3>
+                                <p class="text-[10px] md:text-xs text-gray-500">
+                                    {{
+                                        t.formations.languages.subtitle[locale]
+                                    }}
+                                </p>
+                            </div>
+                        </div>
 
-    <!-- Grille des cartes - Redesign -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
-        <div v-for="lang in languages" :key="lang.id" 
-             class="group bg-white rounded-lg overflow-hidden border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all duration-300">
-            
-            <!-- Drapeau - Design épuré -->
-            <div class="relative h-20 sm:h-24 md:h-28 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
-                <span class="text-4xl sm:text-5xl md:text-6xl transform group-hover:scale-110 transition-transform duration-300">
-                    {{ getFlag(getText(lang.titre)) }}
-                </span>
-                <!-- Badge niveau -->
-                <span v-if="lang.details?.niveau_requis" 
-                      class="absolute bottom-1 right-1 bg-blue-600 text-white text-[8px] px-1.5 py-0.5 rounded-full">
-                    {{ getText(lang.details.niveau_requis).substring(0, 3) }}
-                </span>
-            </div>
+                        <!-- Grille des cartes - Redesign -->
+                        <div
+                            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3"
+                        >
+                            <div
+                                v-for="lang in languages"
+                                :key="lang.id"
+                                class="group bg-white rounded-lg overflow-hidden border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all duration-300"
+                            >
+                                <!-- Drapeau - Design épuré -->
+                                <div
+                                    class="relative h-20 sm:h-24 md:h-28 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center"
+                                >
+                                    <span
+                                        class="text-4xl sm:text-5xl md:text-6xl transform group-hover:scale-110 transition-transform duration-300"
+                                    >
+                                        {{ getFlag(getText(lang.titre)) }}
+                                    </span>
+                                    <!-- Badge niveau -->
+                                    <span
+                                        v-if="lang.details?.niveau_requis"
+                                        class="absolute bottom-1 right-1 bg-blue-600 text-white text-[8px] px-1.5 py-0.5 rounded-full"
+                                    >
+                                        {{
+                                            getText(
+                                                lang.details.niveau_requis,
+                                            ).substring(0, 3)
+                                        }}
+                                    </span>
+                                </div>
 
-            <!-- Contenu compact -->
-            <div class="p-2 md:p-3">
-                <!-- Titre et drapeau mini -->
-                <div class="flex items-center gap-1 mb-1">
-                    <span class="text-[10px] md:text-xs">{{ getFlag(getText(lang.titre)) }}</span>
-                    <h4 class="text-[11px] md:text-xs font-bold text-gray-900 truncate">
-                        {{ getText(lang.titre) }}
-                    </h4>
-                </div>
+                                <!-- Contenu compact -->
+                                <div class="p-2 md:p-3">
+                                    <!-- Titre et drapeau mini -->
+                                    <div class="flex items-center gap-1 mb-1">
+                                        <span class="text-[10px] md:text-md">{{
+                                            getFlag(getText(lang.titre))
+                                        }}</span>
+                                        <h4
+                                            class="text-[11px] md:text-xs font-bold text-gray-900 truncate"
+                                        >
+                                            {{ getText(lang.titre) }}
+                                        </h4>
+                                    </div>
 
-                <!-- Description courte -->
-            <p class="text-[9px] md:text-[10px] text-gray-500 line-clamp-2 mb-2 min-h-[1rem]">
-                    {{ getText(lang.description_courte) || "Formation linguistique certifiante" }}
-                </p>
+                                    <!-- Description courte -->
+                                    <p
+                                        class="text-[9px] md:text-[15px] text-gray-500 line-clamp-2 mb-2 min-h-[1rem]"
+                                    >
+                                        {{
+                                            getText(lang.description_courte) ||
+                                            t.formations.languages.defaultDesc[
+                                                locale
+                                            ]
+                                        }}
+                                    </p>
 
-                <!-- Métadonnées -->
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-1 text-gray-400">
-                        <i class="far fa-clock text-[8px]"></i>
-                        <span class="text-[8px] md:text-[9px] text-gray-600">
-                            {{ lang.details?.duree_formation ? getText(lang.details.duree_formation) : "3-6 mois" }}
-                        </span>
+                                    <!-- Métadonnées -->
+                                    <div
+                                        class="flex items-center justify-between"
+                                    >
+                                        <div
+                                            class="flex items-center gap-1 text-gray-400"
+                                        >
+                                            <i
+                                                class="fas heroicon-o-clock fa-clock text-[8px]"
+                                            ></i>
+                                            <span
+                                                class="text-[8px] md:text-[9px] text-gray-600"
+                                            >
+                                                {{
+                                                    lang.details
+                                                        ?.duree_formation
+                                                        ? getText(
+                                                              lang.details
+                                                                  .duree_formation,
+                                                          )
+                                                        : t.formations.languages
+                                                              .defaultDuration[
+                                                              locale
+                                                          ]
+                                                }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lien voir tout (optionnel) -->
+                        <div class="text-right mt-3">
+                            <a
+                                href="#"
+                                class="text-[10px] text-blue-600 font-medium inline-flex items-center gap-1 hover:gap-1.5 transition-all"
+                            >
+                                {{ t.formations.languages.viewAll[locale] }}
+                                <i class="fas fa-arrow-right text-[8px]"></i>
+                            </a>
+                        </div>
                     </div>
-                    
-                    <!-- Badge mode -->
-                    <span class="text-[7px] md:text-[8px] bg-green-50 text-green-600 px-1.5 py-0.5 rounded-full border border-green-100">
-                        {{ lang.details?.mode_enseignement ? getText(lang.details.mode_enseignement).substring(0, 8) : "Mixte" }}
-                    </span>
-                </div>
-
-             
-            </div>
-        </div>
-    </div>
-
-    <!-- Lien voir tout (optionnel) -->
-    <div class="text-right mt-3">
-        <a href="#" class="text-[10px] text-blue-600 font-medium inline-flex items-center gap-1 hover:gap-1.5 transition-all">
-            Toutes les langues <i class="fas fa-arrow-right text-[8px]"></i>
-        </a>
-    </div>
-</div>  
                     <!-- Humanitaire -->
                     <div class="formation-category reveal">
                         <div class="category-header">
-                            <i class="fas fa-heartbeat cat-icon text-md lg:!text-2xl"></i>
+                            <i
+                                class="fas fa-heartbeat cat-icon text-md lg:!text-2xl"
+                            ></i>
                             <div>
-                                <h3 class="!text-sm md:!text-md lg:!text-xl !font-semi-bold">Certificats de Compétences Humanitaires</h3>
-                                <p class="!text-xs md:!text-sm lg:!text-md ">
-                                    Humanitarian Skills Certificate - Formation
-                                    en ligne
+                                <h3
+                                    class="!text-sm md:!text-md lg:!text-xl !font-semi-bold"
+                                >
+                                    {{
+                                        t.formations.humanitarian.title[locale]
+                                    }}
+                                </h3>
+                                <p class="!text-xs md:!text-sm lg:!text-md">
+                                    {{
+                                        t.formations.humanitarian.subtitle[
+                                            locale
+                                        ]
+                                    }}
                                 </p>
                             </div>
                         </div>
@@ -535,10 +907,13 @@ onMounted(() => {
                                 class="fas fa-laptop-medical cat-icon text-md lg:!text-2xl"
                             ></i>
                             <div>
-                                <h3 class="!text-sm md:!text-md lg:!text-xl !font-semi-bold">Numérique Appliqué à la Santé Publique</h3>
-                                <p  class="!text-xs md:!text-sm lg:!text-md ">
-                                    Digital Skills in Public Health - Présentiel
-                                    ou en ligne
+                                <h3
+                                    class="!text-sm md:!text-md lg:!text-xl !font-semi-bold"
+                                >
+                                    {{ t.formations.digital.title[locale] }}
+                                </h3>
+                                <p class="!text-xs md:!text-sm lg:!text-md">
+                                    {{ t.formations.digital.subtitle[locale] }}
                                 </p>
                             </div>
                         </div>
@@ -566,15 +941,19 @@ onMounted(() => {
                     <!-- Management & Recherche -->
                     <div class="formation-category reveal">
                         <div class="category-header">
-                            <i class="fas fa-chart-line cat-icon  text-md lg:!text-2xl"></i>
+                            <i
+                                class="fas fa-chart-line cat-icon text-md lg:!text-2xl"
+                            ></i>
                             <div>
-                                <h3  class="!text-sm md:!text-md lg:!text-xl !font-semi-bold">
-                                    Management & Recherche Opérationnelle en
-                                    Santé
+                                <h3
+                                    class="!text-sm md:!text-md lg:!text-xl !font-semi-bold"
+                                >
+                                    {{ t.formations.management.title[locale] }}
                                 </h3>
-                                <p class="!text-xs md:!text-sm lg:!text-md ">
-                                    Health Management and Operational Research -
-                                    Présentiel et en ligne
+                                <p class="!text-xs md:!text-sm lg:!text-md">
+                                    {{
+                                        t.formations.management.subtitle[locale]
+                                    }}
                                 </p>
                             </div>
                         </div>
@@ -602,20 +981,126 @@ onMounted(() => {
                     <!-- CTA -->
                     <div class="formations-cta reveal">
                         <div class="cta-box">
-                            <h3>Prêt à démarrer votre formation ?</h3>
+                            <h3>{{ t.formations.cta.title[locale] }}</h3>
                             <p>
-                                Toutes nos formations sont certifiées par le
-                                Ministère de la Formation Professionnelle du
-                                Cameroun (MINEFOP)
+                                {{ t.formations.cta.desc[locale] }}
                             </p>
                             <div class="cta-actions">
                                 <a
                                     href="#contact"
                                     class="btn btn-outline hover:text-white"
-                                    >Demander plus d'informations</a
+                                    >{{ t.formations.cta.button[locale] }}</a
                                 >
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NEWS SECTION -->
+            <section
+                v-if="latestNews && latestNews.length > 0"
+                id="news"
+                class="section news bg-white"
+            >
+                <div class="container">
+                    <div class="text-center mb-12 reveal">
+                        <span class="badge badge-primary">{{
+                            t.news.badge[locale]
+                        }}</span>
+                        <h2 class="text-3xl mt-4">
+                            {{ t.news.title[locale] }}
+                            <span class="gradient-text">{{
+                                t.news.highlight[locale]
+                            }}</span>
+                        </h2>
+                        <p class="section-desc">
+                            {{ t.news.desc[locale] }}
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                        <article
+                            v-for="item in latestNews"
+                            :key="item.id"
+                            class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden border border-gray-100 flex flex-col h-full reveal"
+                        >
+                            <Link
+                                :href="route('news.show', item.slug)"
+                                class="flex flex-col h-full"
+                            >
+                                <div class="h-48 overflow-hidden relative">
+                                    <img
+                                        v-if="item.image"
+                                        :src="'/' + item.image"
+                                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        :alt="getText(item.title)"
+                                    />
+                                    <div
+                                        v-else
+                                        class="w-full h-full bg-gray-100 flex items-center justify-center"
+                                    >
+                                        <i
+                                            class="fas fa-newspaper text-4xl text-gray-300"
+                                        ></i>
+                                    </div>
+                                    <div class="absolute bottom-4 left-4">
+                                        <span
+                                            class="bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg"
+                                        >
+                                            {{
+                                                new Date(
+                                                    item.published_at,
+                                                ).toLocaleDateString(
+                                                    locale === "en"
+                                                        ? "en-US"
+                                                        : "fr-FR",
+                                                    {
+                                                        day: "numeric",
+                                                        month: "short",
+                                                    },
+                                                )
+                                            }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="p-6 flex flex-col flex-1">
+                                    <h3
+                                        class="text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2"
+                                    >
+                                        {{ getText(item.title) }}
+                                    </h3>
+                                    <p
+                                        class="text-gray-600 text-sm mb-6 line-clamp-3 flex-1"
+                                    >
+                                        {{
+                                            getText(item.content).substring(
+                                                0,
+                                                100,
+                                            )
+                                        }}...
+                                    </p>
+                                    <div
+                                        class="flex items-center text-blue-600 font-bold text-sm mt-auto"
+                                    >
+                                        {{ t.news.readMore[locale] }}
+                                        <i
+                                            class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"
+                                        ></i>
+                                    </div>
+                                </div>
+                            </Link>
+                        </article>
+                    </div>
+
+                    <div class="text-center reveal">
+                        <Link
+                            :href="route('news')"
+                            class="inline-flex items-center gap-2 text-blue-600 font-bold hover:gap-3 transition-all"
+                        >
+                            {{ t.news.viewAll[locale] }}
+                            <i class="fas fa-arrow-right"></i>
+                        </Link>
                     </div>
                 </div>
             </section>
@@ -625,17 +1110,17 @@ onMounted(() => {
                 <div class="container">
                     <div class="contact-grid">
                         <div class="contact-info reveal">
-                            <span class="badge badge-primary"
-                                >Contactez-nous</span
-                            >
+                            <span class="badge badge-primary">{{
+                                t.contact.badge[locale]
+                            }}</span>
                             <h2 class="section-title">
-                                Prenons
-                                <span class="gradient-text">Contact</span>
+                                {{ t.contact.title[locale] }}
+                                <span class="gradient-text">{{
+                                    t.contact.highlight[locale]
+                                }}</span>
                             </h2>
                             <p>
-                                Vous avez des questions sur nos formations ?
-                                Notre équipe est là pour vous accompagner dans
-                                votre choix professionnel.
+                                {{ t.contact.desc[locale] }}
                             </p>
 
                             <div class="contact-methods">
@@ -644,9 +1129,15 @@ onMounted(() => {
                                         <i class="fas fa-phone-alt"></i>
                                     </div>
                                     <div class="method-content">
-                                        <h4>Téléphone / WhatsApp</h4>
+                                        <h4>
+                                            {{
+                                                t.contact.methods.phone.title[
+                                                    locale
+                                                ]
+                                            }}
+                                        </h4>
                                         <p>+237 691 05 69 65</p>
-                                        <p>+237 621 96 86 40</p>
+                                        <p>+237 691 05 69 65</p>
                                     </div>
                                 </a>
 
@@ -658,7 +1149,13 @@ onMounted(() => {
                                         <i class="fas fa-envelope"></i>
                                     </div>
                                     <div class="method-content">
-                                        <h4>Email</h4>
+                                        <h4>
+                                            {{
+                                                t.contact.methods.email.title[
+                                                    locale
+                                                ]
+                                            }}
+                                        </h4>
                                         <p>acadecol25@gmail.com</p>
                                     </div>
                                 </a>
@@ -668,9 +1165,25 @@ onMounted(() => {
                                         <i class="fas fa-map-marker-alt"></i>
                                     </div>
                                     <div class="method-content">
-                                        <h4>Localisation</h4>
-                                        <p>Bafoussam - Entrée École Normale</p>
-                                        <p>République du Cameroun</p>
+                                        <h4>
+                                            {{
+                                                t.contact.methods.location
+                                                    .title[locale]
+                                            }}
+                                        </h4>
+                                        <p>
+                                            {{
+                                                t.contact.methods.location.desc[
+                                                    locale
+                                                ]
+                                            }}
+                                        </p>
+                                        <p>
+                                            {{
+                                                t.contact.methods.location
+                                                    .country[locale]
+                                            }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -699,67 +1212,88 @@ onMounted(() => {
 
                         <div class="contact-form-container reveal">
                             <form class="contact-form" @submit.prevent>
-                                <h3>Demande d'informations</h3>
+                                <h3>{{ t.contact.form.title[locale] }}</h3>
 
                                 <div class="form-group">
-                                    <label for="name">Nom complet</label>
+                                    <label for="name">{{
+                                        t.contact.form.name.label[locale]
+                                    }}</label>
                                     <input
                                         type="text"
                                         id="name"
-                                        placeholder="Ex: Jean Dupont"
+                                        :placeholder="
+                                            t.contact.form.name.placeholder[
+                                                locale
+                                            ]
+                                        "
                                         required
                                     />
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="email">Email</label>
+                                    <label for="email">{{
+                                        t.contact.form.email.label[locale]
+                                    }}</label>
                                     <input
                                         type="email"
                                         id="email"
-                                        placeholder="Ex: jean@email.com"
+                                        :placeholder="
+                                            t.contact.form.email.placeholder[
+                                                locale
+                                            ]
+                                        "
                                         required
                                     />
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="phone">Téléphone</label>
+                                    <label for="phone">{{
+                                        t.contact.form.phone.label[locale]
+                                    }}</label>
                                     <input
                                         type="tel"
                                         id="phone"
-                                        placeholder="Ex: +237 6XX XXX XXX"
+                                        :placeholder="
+                                            t.contact.form.phone.placeholder[
+                                                locale
+                                            ]
+                                        "
                                     />
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="formation"
-                                        >Formation souhaitée</label
-                                    >
+                                    <label for="formation">{{
+                                        t.contact.form.formation.label[locale]
+                                    }}</label>
                                     <select id="formation">
                                         <option value="">
-                                            Sélectionnez une formation
+                                            {{
+                                                t.contact.form.formation
+                                                    .placeholder[locale]
+                                            }}
                                         </option>
-                                        <option>Vendeur en Pharmacie</option>
-                                        <option>Délégué Médical</option>
-                                        <option>Auxiliaire de Vie</option>
-                                        <option>Maintenance Biomédicale</option>
-                                        <option>Analyste des Données</option>
-                                        <option>Community Management</option>
-                                        <option>
-                                            Langues (Français, Anglais, etc.)
+                                        <option
+                                            v-for="(opt, i) in t.contact.form
+                                                .formation.options"
+                                            :key="i"
+                                            :value="opt.fr"
+                                        >
+                                            {{ opt[locale] }}
                                         </option>
-                                        <option>
-                                            Certificats Humanitaires
-                                        </option>
-                                        <option>Numérique en Santé</option>
-                                        <option>Management & Recherche</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="message">Message</label>
+                                    <label for="message">{{
+                                        t.contact.form.message.label[locale]
+                                    }}</label>
                                     <textarea
                                         id="message"
-                                        placeholder="Votre message ici..."
+                                        :placeholder="
+                                            t.contact.form.message.placeholder[
+                                                locale
+                                            ]
+                                        "
                                         rows="4"
                                     ></textarea>
                                 </div>
@@ -768,7 +1302,7 @@ onMounted(() => {
                                     type="submit"
                                     class="btn btn-primary btn-block"
                                 >
-                                    Envoyer la demande
+                                    {{ t.contact.form.submit[locale] }}
                                     <i class="fas fa-paper-plane ml-2"></i>
                                 </button>
                             </form>
@@ -861,7 +1395,7 @@ h6 {
 }
 
 .btn {
-    padding: 0.75rem .7rem;
+    padding: 0.75rem 0.7rem;
     border-radius: 50px;
     font-weight: 600;
     /* font-size: 0.9rem; */
@@ -877,7 +1411,7 @@ h6 {
 
 @media (min-width: 768px) {
     .btn {
-        padding: 0.8rem .7rem;
+        padding: 0.8rem 0.7rem;
     }
 }
 
@@ -1225,7 +1759,7 @@ h6 {
 
 .section-desc {
     max-width: 700px;
-    margin: .4rem auto;
+    margin: 0.4rem auto;
     color: var(--gray-600);
     font-size: 1.1rem;
     line-height: 1.7;
@@ -1238,7 +1772,7 @@ h6 {
 .category-header {
     display: flex;
     align-items: center;
-    gap: .5rem;
+    gap: 0.5rem;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
     border-bottom: 3px solid var(--primary);
@@ -1247,7 +1781,6 @@ h6 {
 .cat-icon {
     color: var(--primary);
     flex-shrink: 0;
-    
 }
 
 .category-header h3 {
@@ -1258,7 +1791,6 @@ h6 {
 .category-header p {
     color: var(--gray-600);
 }
-
 
 .formation-card {
     background: var(--white);
@@ -1318,7 +1850,7 @@ h6 {
 
 .badge-overlay {
     position: absolute;
-    top: .5rem;
+    top: 0.5rem;
     right: 1rem;
     background: var(--primary);
     color: var(--white);
@@ -1392,15 +1924,15 @@ h6 {
 .competences-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: .7rem;
+    gap: 0.7rem;
 }
 
 .competence-item {
     display: flex;
-    align-items: center ;
+    align-items: center;
     gap: 0.75rem;
     background: var(--white);
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
     border-radius: 10px;
     transition: var(--transition);
     box-shadow: var(--shadow-sm);
@@ -1437,14 +1969,14 @@ h6 {
 
 .cta-box h3 {
     font-size: clamp(1.5rem, 3vw, 2rem);
-    margin-bottom: .6rem;
+    margin-bottom: 0.6rem;
 }
 
 .cta-box p {
     max-width: 600px;
     margin: 0 auto 2rem;
     opacity: 0.95;
-    font-size: .8rem;
+    font-size: 0.8rem;
 }
 
 .cta-actions {

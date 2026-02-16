@@ -15,7 +15,6 @@ const mode = ref("register"); // 'register' ou 'login'
 const customEducationLevel = ref("");
 
 const form = useForm({
-    // Informations de base
     formation_id: "",
     last_name: "",
     first_name: "",
@@ -26,28 +25,10 @@ const form = useForm({
     gender: "M",
     birth_place: "",
 
-    // Parcours académique
     education_level: "",
     last_school: "",
-    graduation_year: "",
     major_field: "",
 
-    // Situation professionnelle
-    professional_status: "",
-    current_position: "",
-    company_name: "",
-    years_of_experience: "",
-
-    // Langues
-    french_level: "",
-    english_level: "",
-    other_languages: "",
-
-    // Disponibilité
-    availability: "",
-    preferred_schedule: "",
-
-    // Message optionnel
     message: "",
 });
 

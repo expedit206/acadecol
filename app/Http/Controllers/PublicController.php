@@ -19,9 +19,15 @@ class PublicController extends Controller
 
         $categories = Category::orderBy('ordre_affichage')->get();
 
+        $latestNews = \App\Models\News::published()
+            ->orderBy('published_at', 'desc')
+            ->take(3)
+            ->get();
+
         return Inertia::render('Home', [
             'formations' => $formations,
-            'categories' => $categories
+            'categories' => $categories,
+            'latestNews' => $latestNews
         ]);
     }
 
@@ -92,5 +98,22 @@ class PublicController extends Controller
          return Inertia::render('News', [
              'news' => $news
          ]);
+    }
+
+    public function newsDetail($slug)
+    {
+        $news = \App\Models\News::where('slug', $slug)->firstOrFail();
+        
+        // Fetch recent news for sidebar/suggestion
+        $recentNews = \App\Models\News::published()
+            ->where('id', '!=', $news->id)
+            ->orderBy('published_at', 'desc')
+            ->take(3)
+            ->get();
+
+        return Inertia::render('NewsDetail', [
+            'newsItem' => $news,
+            'recentNews' => $recentNews
+        ]);
     }
 }
