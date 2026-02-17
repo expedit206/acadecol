@@ -63,18 +63,11 @@ const managementCategory = computed(() =>
 
 // Formations Filtering
 const diplomas = computed(() => {
-    // Fallback: Diplomas are those NOT in the other specific categories
-    const otherCatIds = [
-        languagesCategory.value?.id,
-        humanitarianCategory.value?.id,
-        digitalHealthCategory.value?.id,
-        managementCategory.value?.id,
-    ].filter(Boolean);
-
-    // Filter out formations that belong to the other categories
-    return props.formations
-        .filter((f) => !otherCatIds.includes(f.category_id))
-        .slice(0, 6);
+    // Filter by badge containing "Diplôme" to catch all National State Diplomas
+    return props.formations.filter((f) => {
+        const badge = f.badge || "";
+        return badge.includes("Diplôme") || badge.includes("Diploma");
+    });
 });
 
 const languages = computed(() => {
@@ -154,45 +147,70 @@ const getFlag = (title) => {
 const t = {
     hero: {
         badge: {
-            fr: "Agréé MINEFOP",
-            en: "MINEFOP Accredited",
+            fr: "CFP ACADECOL",
+            en: "CFP ACADECOL",
         },
         title: {
-            fr: "Construisez votre",
-            en: "Build your",
+            fr: "La formation professionnelle",
+            en: "Professional Training",
         },
         highlight: {
-            fr: "Avenir Pro",
-            en: "Pro Future",
-        },
-        suffix: {
-            fr: "avec ACADECOL",
-            en: "with ACADECOL",
+            fr: "qui vous connecte au terrain",
+            en: "that connects you to the field",
         },
         description: {
-            fr: "Formations certifiées de 1 à 12 mois pour développer vos compétences et faciliter votre employabilité.",
-            en: "Certified training from 1 to 12 months to develop your skills and facilitate your employability.",
+            fr: "Basé à Bafoussam, ACADECOL est un centre de formation professionnelle axé sur la pratique, l'innovation locale et l'insertion professionnelle.",
+            en: "Based in Bafoussam, ACADECOL is a professional training center focused on practice, local innovation and professional integration.",
         },
-        discover: {
-            fr: "Découvrir",
-            en: "Discover",
+        stats: {
+            items: [
+                {
+                    value: "150+",
+                    label: { fr: "Apprenants formés", en: "Students trained" },
+                },
+                {
+                    value: "100%",
+                    label: { fr: "Taux d'insertion", en: "Placement rate" },
+                },
+                { value: "20+", label: { fr: "Partenaires", en: "Partners" } },
+            ],
         },
-        moreContext: {
-            fr: "En savoir +",
-            en: "Learn more",
+        buttons: {
+            primary: {
+                fr: "Découvrir nos formations",
+                en: "Discover our courses",
+            },
+            secondary: { fr: "Devenir partenaire", en: "Become a partner" },
         },
-        diplomas: {
-            fr: "Diplômes (DQP)",
-            en: "Diplomas (DQP)",
-        },
-        certifications: {
-            fr: "Certifications",
-            en: "Certifications",
-        },
-        mode: {
-            fr: "En ligne/présentiel",
-            en: "Online/On-site",
-        },
+        features: [
+            {
+                title: { fr: "Formation Pratique", en: "Practical Training" },
+                desc: {
+                    fr: "80% pratique, 20% théorie",
+                    en: "80% practice, 20% theory",
+                },
+                icon: "fas fa-users",
+            },
+            {
+                title: {
+                    fr: "Insertion Garantie",
+                    en: "Guaranteed Integration",
+                },
+                desc: {
+                    fr: "Taux d'insertion supérieur à 100%",
+                    en: "Placement rate over 100%",
+                },
+                icon: "fas fa-briefcase",
+            },
+            {
+                title: { fr: "Excellence", en: "Excellence" },
+                desc: {
+                    fr: "Formateurs expérimentés du terrain",
+                    en: "Experienced field trainers",
+                },
+                icon: "fas fa-medal",
+            },
+        ],
     },
     about: {
         badge: {
@@ -450,20 +468,23 @@ onMounted(() => {
         <div class="home-container">
             <section
                 id="hom"
-                class="py-4 md:py-8 relative overflow-hidden bg-white"
+                class="py-12 md:py-20 relative overflow-hidden bg-slate-900"
             >
-                <div class="max-w-7xl mx-auto px-4 md:px-6">
+                <!-- Background Gradient Effect -->
+                <div
+                    class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-900/20 to-transparent pointer-events-none"
+                ></div>
+
+                <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
                     <div
-                        class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-4 items-center"
+                        class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
                     >
-                        <!-- TEXTE À GAUCHE (toujours visible) -->
-                        <div
-                            class="opacity-0 translate-y-5 transition-all duration-700 reveal"
-                        >
+                        <!-- TEXTE À GAUCHE -->
+                        <div class="opacity-0 translate-y-5 reveal text-white">
                             <!-- Badge -->
-                            <div class="mb-2">
+                            <div class="mb-6">
                                 <span
-                                    class="inline-block px-2.5 py-0.5 text-[10px] md:text-xs font-semibold uppercase tracking-wide rounded-full bg-blue-50 text-blue-600"
+                                    class="inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-wider rounded-full border border-blue-500/30 text-blue-400 bg-blue-900/30"
                                 >
                                     {{ t.hero.badge[locale] }}
                                 </span>
@@ -471,95 +492,95 @@ onMounted(() => {
 
                             <!-- Title -->
                             <h1
-                                class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-2 font-bold leading-tight text-gray-900"
+                                class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6"
                             >
                                 {{ t.hero.title[locale] }}
-                                <span
-                                    class="bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text"
-                                >
+                                <span class="block text-amber-500 mt-2">
                                     {{ t.hero.highlight[locale] }}
                                 </span>
-                                {{ t.hero.suffix[locale] }}
                             </h1>
 
                             <!-- Description -->
                             <p
-                                class="text-gray-600 mb-3 text-xs sm:text-sm leading-relaxed max-w-lg"
+                                class="text-slate-300 mb-8 text-lg leading-relaxed max-w-lg"
                             >
                                 {{ t.hero.description[locale] }}
                             </p>
 
-                            <!-- CTA -->
-                            <div class="flex flex-row flex-wrap gap-2 mb-4">
-                                <a
-                                    href="#formations"
-                                    class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full font-semibold bg-blue-600 text-white hover:bg-blue-700 transition text-xs shadow-md"
+                            <!-- Stats -->
+                            <div
+                                class="flex flex-wrap gap-8 mb-10 border-t border-slate-800 pt-6"
+                            >
+                                <div
+                                    v-for="(stat, index) in t.hero.stats.items"
+                                    :key="index"
                                 >
-                                    {{ t.hero.discover[locale] }}
-                                    <i
-                                        class="fas fa-arrow-right text-[10px]"
-                                    ></i>
-                                </a>
-
-                                <a
-                                    href="#about"
-                                    class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full font-semibold border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition text-xs"
-                                >
-                                    {{ t.hero.moreContext[locale] }}
-                                </a>
+                                    <div
+                                        class="text-2xl font-bold text-blue-400"
+                                    >
+                                        {{ stat.value }}
+                                    </div>
+                                    <div
+                                        class="text-xs text-slate-400 uppercase tracking-wide font-medium"
+                                    >
+                                        {{ stat.label[locale] }}
+                                    </div>
+                                </div>
                             </div>
 
-                            <!-- Features -->
-                            <div
-                                class="flex flex-wrap gap-2 md:gap-4 text-gray-700 font-medium"
-                            >
-                                <div class="flex items-center gap-1.5">
-                                    <i
-                                        class="fas fa-check-circle text-emerald-500 text-xs"
-                                    ></i>
-                                    <span class="text-[11px] md:text-xs">{{
-                                        t.hero.diplomas[locale]
-                                    }}</span>
-                                </div>
+                            <!-- Buttons -->
+                            <div class="flex flex-wrap gap-4">
+                                <a
+                                    href="#formations"
+                                    class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-md font-bold bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg text-sm uppercase tracking-wide transform hover:-translate-y-1"
+                                >
+                                    {{ t.hero.buttons.primary[locale] }}
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
 
-                                <div class="flex items-center gap-1.5">
-                                    <i
-                                        class="fas fa-check-circle text-emerald-500 text-xs"
-                                    ></i>
-                                    <span class="text-[11px] md:text-xs">{{
-                                        t.hero.certifications[locale]
-                                    }}</span>
-                                </div>
-
-                                <div class="flex items-center gap-1.5">
-                                    <i
-                                        class="fas fa-check-circle text-emerald-500 text-xs"
-                                    ></i>
-                                    <span class="text-[11px] md:text-xs">{{
-                                        t.hero.mode[locale]
-                                    }}</span>
-                                </div>
+                                <a
+                                    href="#contact"
+                                    class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-md font-bold bg-emerald-600 text-white hover:bg-emerald-700 transition shadow-lg text-sm uppercase tracking-wide border border-emerald-500 transform hover:-translate-y-1"
+                                >
+                                    {{ t.hero.buttons.secondary[locale] }}
+                                </a>
                             </div>
                         </div>
 
-                        <!-- IMAGE À DROITE - Hauteur réduite -->
+                        <!-- CARTE À DROITE (No Image) -->
                         <div class="hidden lg:block lg:order-2">
-                            <div class="relative flex justify-center">
-                                <div class="relative w-full max-w-md">
-                                    <!-- Badge flottant -->
+                            <div
+                                class="relative bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-xl p-8 max-w-md mx-auto transform rotate-1 hover:rotate-0 transition duration-500 shadow-2xl"
+                            >
+                                <div class="flex flex-col gap-8">
                                     <div
-                                        class="absolute -top-3 -right-3 bg-yellow-400 text-gray-900 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg z-10"
+                                        v-for="(feat, i) in t.hero.features"
+                                        :key="i"
+                                        class="flex gap-4 items-start group"
                                     >
-                                        🎓 Certifiant
+                                        <div
+                                            class="w-12 h-12 rounded-lg bg-blue-900/30 flex items-center justify-center shrink-0 border border-blue-500/20 group-hover:bg-blue-600/20 transition"
+                                        >
+                                            <i
+                                                :class="[
+                                                    feat.icon,
+                                                    'text-amber-500 text-xl group-hover:text-amber-400',
+                                                ]"
+                                            ></i>
+                                        </div>
+                                        <div>
+                                            <h3
+                                                class="text-white font-bold text-lg mb-1 group-hover:text-blue-400 transition"
+                                            >
+                                                {{ feat.title[locale] }}
+                                            </h3>
+                                            <p
+                                                class="text-slate-400 text-sm leading-snug"
+                                            >
+                                                {{ feat.desc[locale] }}
+                                            </p>
+                                        </div>
                                     </div>
-
-                                    <!-- Image avec hauteur contrôlée -->
-                                    <img
-                                        src="/img/school1.jpg"
-                                        alt="Formation ACADECOL"
-                                        class="w-full h-58 md:h-46 lg:h-[25rem] object-cover rounded-xl shadow-lg border-2 border-white"
-                                        onerror="this.src = '/img/hero.png'"
-                                    />
                                 </div>
                             </div>
                         </div>
@@ -641,13 +662,15 @@ onMounted(() => {
                         <span class="badge badge-primary">{{
                             t.formations.badge[locale]
                         }}</span>
-                        <h2 class="!text-sm">
+                        <h2 class="text-2xl md:text-4xl font-bold mt-2">
                             {{ t.formations.title[locale] }}
                             <span class="gradient-text">{{
                                 t.formations.highlight[locale]
                             }}</span>
                         </h2>
-                        <p class="section-desc !text-xs">
+                        <p
+                            class="section-desc text-base md:text-lg text-gray-600 mt-4 max-w-2xl mx-auto"
+                        >
                             {{ t.formations.desc[locale] }}
                         </p>
                     </div>
@@ -660,11 +683,11 @@ onMounted(() => {
                             ></i>
                             <div>
                                 <h3
-                                    class="!text-sm md:!text-md lg:!text-xl !font-semi-bold"
+                                    class="text-lg md:text-xl lg:text-2xl font-bold"
                                 >
                                     {{ t.formations.national.title[locale] }}
                                 </h3>
-                                <p class="!text-xs">
+                                <p class="text-sm md:text-base text-gray-500">
                                     {{ t.formations.national.subtitle[locale] }}
                                 </p>
                             </div>
@@ -684,41 +707,43 @@ onMounted(() => {
                                         :alt="getText(diploma.titre)"
                                         onerror="this.src = '/img/school1.jpg'"
                                     />
-                                    <span class="badge-overlay text-[.4rem]">{{
-                                        t.formations.national.badge[locale]
-                                    }}</span>
+                                    <span
+                                        class="badge-overlay text-xs font-bold"
+                                        >{{
+                                            diploma.badge ||
+                                            t.formations.national.badge[locale]
+                                        }}</span
+                                    >
                                 </div>
-                                <div class="px-2 lg:px-3 py-2">
-                                    <h4 class="text-xs md:text-md">
+                                <div class="px-3 lg:px-4 py-3">
+                                    <h4
+                                        class="text-sm md:text-lg font-bold text-gray-900 mb-1"
+                                    >
                                         {{ getText(diploma.titre) }}
                                     </h4>
-                                    <p class="text-[.5rem] italic md:text-md">
+                                    <p
+                                        class="text-xs md:text-sm text-gray-600 italic mb-2"
+                                    >
                                         {{
                                             getText(diploma.description_courte)
                                         }}
                                     </p>
-                                    <div class="">
+                                    <div class="flex items-center gap-2 mt-2">
                                         <span
                                             class="meta-item"
-                                            v-if="diploma.details"
+                                            v-if="diploma.duree"
                                         >
                                             <i class="far fa-clock"></i>
-                                            {{
-                                                getText(
-                                                    diploma.details
-                                                        .duree_formation,
-                                                )
-                                            }}
+                                            {{ diploma.duree }}
                                         </span>
                                         <span
                                             class="meta-item"
-                                            v-if="diploma.details"
+                                            v-if="diploma.description_courte"
                                         >
                                             <i class="fas fa-check-circle"></i>
                                             {{
                                                 getText(
-                                                    diploma.details
-                                                        .mode_enseignement,
+                                                    diploma.description_courte,
                                                 )
                                             }}
                                         </span>
@@ -776,26 +801,22 @@ onMounted(() => {
                                     </span>
                                     <!-- Badge niveau -->
                                     <span
-                                        v-if="lang.details?.niveau_requis"
-                                        class="absolute bottom-1 right-1 bg-blue-600 text-white text-[8px] px-1.5 py-0.5 rounded-full"
+                                        v-if="lang.description_courte"
+                                        class="absolute bottom-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full"
                                     >
-                                        {{
-                                            getText(
-                                                lang.details.niveau_requis,
-                                            ).substring(0, 3)
-                                        }}
+                                        {{ getText(lang.description_courte) }}
                                     </span>
                                 </div>
 
                                 <!-- Contenu compact -->
-                                <div class="p-2 md:p-3">
+                                <div class="p-3 md:p-4">
                                     <!-- Titre et drapeau mini -->
-                                    <div class="flex items-center gap-1 mb-1">
-                                        <span class="text-[10px] md:text-md">{{
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="text-lg md:text-2xl">{{
                                             getFlag(getText(lang.titre))
                                         }}</span>
                                         <h4
-                                            class="text-[11px] md:text-xs font-bold text-gray-900 truncate"
+                                            class="text-sm md:text-base font-bold text-gray-900 truncate"
                                         >
                                             {{ getText(lang.titre) }}
                                         </h4>
@@ -803,7 +824,7 @@ onMounted(() => {
 
                                     <!-- Description courte -->
                                     <p
-                                        class="text-[9px] md:text-[15px] text-gray-500 line-clamp-2 mb-2 min-h-[1rem]"
+                                        class="text-xs md:text-sm text-gray-500 line-clamp-2 mb-3 min-h-[1.25rem]"
                                     >
                                         {{
                                             getText(lang.description_courte) ||
@@ -818,25 +839,18 @@ onMounted(() => {
                                         class="flex items-center justify-between"
                                     >
                                         <div
-                                            class="flex items-center gap-1 text-gray-400"
+                                            class="flex items-center gap-1.5 text-gray-500"
                                         >
                                             <i
-                                                class="fas heroicon-o-clock fa-clock text-[8px]"
+                                                class="fas heroicon-o-clock fa-clock text-xs"
                                             ></i>
                                             <span
-                                                class="text-[8px] md:text-[9px] text-gray-600"
+                                                class="text-xs md:text-sm font-medium"
                                             >
                                                 {{
-                                                    lang.details
-                                                        ?.duree_formation
-                                                        ? getText(
-                                                              lang.details
-                                                                  .duree_formation,
-                                                          )
-                                                        : t.formations.languages
-                                                              .defaultDuration[
-                                                              locale
-                                                          ]
+                                                    lang.duree ||
+                                                    t.formations.languages
+                                                        .defaultDuration[locale]
                                                 }}
                                             </span>
                                         </div>
@@ -849,10 +863,10 @@ onMounted(() => {
                         <div class="text-right mt-3">
                             <a
                                 href="#"
-                                class="text-[10px] text-blue-600 font-medium inline-flex items-center gap-1 hover:gap-1.5 transition-all"
+                                class="text-sm text-blue-600 font-bold inline-flex items-center gap-1 hover:gap-2 transition-all"
                             >
                                 {{ t.formations.languages.viewAll[locale] }}
-                                <i class="fas fa-arrow-right text-[8px]"></i>
+                                <i class="fas fa-arrow-right text-xs"></i>
                             </a>
                         </div>
                     </div>
@@ -864,13 +878,13 @@ onMounted(() => {
                             ></i>
                             <div>
                                 <h3
-                                    class="!text-sm md:!text-md lg:!text-xl !font-semi-bold"
+                                    class="text-lg md:text-xl lg:text-2xl font-bold"
                                 >
                                     {{
                                         t.formations.humanitarian.title[locale]
                                     }}
                                 </h3>
-                                <p class="!text-xs md:!text-sm lg:!text-md">
+                                <p class="text-sm md:text-base text-gray-500">
                                     {{
                                         t.formations.humanitarian.subtitle[
                                             locale
@@ -908,11 +922,11 @@ onMounted(() => {
                             ></i>
                             <div>
                                 <h3
-                                    class="!text-sm md:!text-md lg:!text-xl !font-semi-bold"
+                                    class="text-lg md:text-xl lg:text-2xl font-bold"
                                 >
                                     {{ t.formations.digital.title[locale] }}
                                 </h3>
-                                <p class="!text-xs md:!text-sm lg:!text-md">
+                                <p class="text-sm md:text-base text-gray-500">
                                     {{ t.formations.digital.subtitle[locale] }}
                                 </p>
                             </div>
@@ -946,11 +960,11 @@ onMounted(() => {
                             ></i>
                             <div>
                                 <h3
-                                    class="!text-sm md:!text-md lg:!text-xl !font-semi-bold"
+                                    class="text-lg md:text-xl lg:text-2xl font-bold"
                                 >
                                     {{ t.formations.management.title[locale] }}
                                 </h3>
-                                <p class="!text-xs md:!text-sm lg:!text-md">
+                                <p class="text-sm md:text-base text-gray-500">
                                     {{
                                         t.formations.management.subtitle[locale]
                                     }}
@@ -1046,7 +1060,8 @@ onMounted(() => {
                                     </div>
                                     <div class="absolute bottom-4 left-4">
                                         <span
-                                            class="bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg"
+                                        <span
+                                            class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg"
                                         >
                                             {{
                                                 new Date(
@@ -1085,7 +1100,7 @@ onMounted(() => {
                                     >
                                         {{ t.news.readMore[locale] }}
                                         <i
-                                            class="fas fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"
+                                            class="fas fa-arrow-right ml-2 text-sm group-hover:translate-x-1 transition-transform"
                                         ></i>
                                     </div>
                                 </div>
@@ -1656,9 +1671,15 @@ h6 {
 }
 
 .floating-card .label {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 600;
     text-align: center;
+}
+
+@media (min-width: 768px) {
+    .floating-card .label {
+        font-size: 0.875rem;
+    }
 }
 
 .section-title {
@@ -1693,10 +1714,16 @@ h6 {
 }
 
 .domains li {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--gray-700);
     padding-left: 1.25rem;
     position: relative;
+}
+
+@media (min-width: 768px) {
+    .domains li {
+        font-size: 1.05rem;
+    }
 }
 
 .domains li::before {
@@ -1745,6 +1772,15 @@ h6 {
 .stat-info p {
     font-size: 0.8rem;
     margin: 0;
+}
+
+@media (min-width: 768px) {
+    .stat-info h3 {
+        font-size: 1.125rem;
+    }
+    .stat-info p {
+        font-size: 0.9rem;
+    }
 }
 
 /* FORMATIONS */
@@ -1973,10 +2009,15 @@ h6 {
 }
 
 .cta-box p {
-    max-width: 600px;
     margin: 0 auto 2rem;
     opacity: 0.95;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+}
+
+@media (min-width: 768px) {
+    .cta-box p {
+        font-size: 1rem;
+    }
 }
 
 .cta-actions {
@@ -2058,6 +2099,15 @@ h6 {
     margin: 0;
 }
 
+@media (min-width: 768px) {
+    .method-content h4 {
+        font-size: 1.125rem;
+    }
+    .method-content p {
+        font-size: 1rem;
+    }
+}
+
 .social-links {
     display: flex;
     gap: 1rem;
@@ -2101,10 +2151,15 @@ h6 {
 
 label {
     display: block;
-    font-size: 0.9rem;
     font-weight: 600;
     color: var(--gray-700);
     margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    label {
+        font-size: 1rem;
+    }
 }
 
 input,

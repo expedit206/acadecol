@@ -55,7 +55,7 @@
                 </div>
             </div>
             <!-- Desktop Menu -->
-            <div class="hidden lg:flex items-center gap-3">
+            <div class="hidden lg:flex items-center gap-5">
                 <NavLink :prefetch="true" href="/" :active="isActive('/')">
                     {{ t.nav.home[locale] }}
                 </NavLink>
@@ -169,8 +169,9 @@
                             :href="route('pre-registration.create')"
                             class="block px-4 py-2 text-blue-600 font-bold hover:bg-blue-50 rounded"
                         >
-                            <i class="fas fa-pen mr-2"></i
-                            >{{ t.auth.register[locale] }}
+                            <i class="fas fa-pencil mr-2"></i
+                            >
+                            {{ t.auth.register[locale] }}
                         </Link>
                     </template>
                 </div>

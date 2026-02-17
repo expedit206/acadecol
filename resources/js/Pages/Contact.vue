@@ -500,7 +500,7 @@
                 </div>
             </div>
         </section>
-    </PublicLayyout>
+    </PublicLayout>
 </template>
 
 <script setup>

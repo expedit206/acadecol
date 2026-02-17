@@ -28,7 +28,7 @@
                     <Link
                         v-if="route('pre-registration.create')"
                         :href="route('pre-registration.create')"
-                        class="px-3 md:px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition shadow-md font-semibold"
+                        class="px-3 md:px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition shadow-md font-semibold !text-lg "
                     >
                         Se Préinscrire
                     </Link>
