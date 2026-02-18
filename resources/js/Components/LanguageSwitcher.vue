@@ -7,13 +7,12 @@
                 class="flex items-center gap-2 px-4 py-2.5 bg-white/80 backdrop-blur-md border border-gray-200/50 rounded-full shadow-lg hover:shadow-xl hover:bg-white transition-all duration-300 group"
                 :class="{ 'ring-2 ring-blue-500 border-transparent': isOpen }"
             >
-                <span class="text-xl leading-none">{{
-                    locale === "fr" ? "🇫🇷" : "🇬🇧"
+            <i class="fas fa-globe text-gr00 text-sm text-blue-500"></i>
+
+                <span class="text-sm leading-none">{{
+                    locale === "fr" ? "🇫🇷" : "EN"
                 }}</span>
-                <span
-                    class="font-bold text-gray-700 uppercase tracking-wider text-xs"
-                    >{{ locale }}</span
-                >
+              
                 <i
                     class="fas fa-chevron-up text-[10px] text-gray-400 group-hover:text-blue-500 transition-colors"
                     :class="{ 'rotate-180': isOpen }"
@@ -48,7 +47,7 @@
                         "
                         @click.prevent="switchLocale('en')"
                     >
-                        <span class="text-xl leading-none">🇬🇧</span>
+                        <span class="text-xl leading-none">EN</span>
                         <span>English</span>
                     </a>
                 </div>

@@ -42,7 +42,7 @@ Tous les drapeaux ont été configurés dans le seeder :
 | Langue      | Chemin                            | Statut |
 | ----------- | --------------------------------- | ------ |
 | 🇫🇷 Français | `storage/formations/francais.png` | ✅     |
-| 🇬🇧 Anglais  | `storage/formations/anglais.png`  | ✅     |
+| EN Anglais  | `storage/formations/anglais.png`  | ✅     |
 | 🇪🇸 Espagnol | `storage/formations/espagnol.png` | ✅     |
 | 🇩🇪 Allemand | `storage/formations/allemand.png` | ✅     |
 | 🇮🇹 Italien  | `storage/formations/italien.png`  | ✅     |

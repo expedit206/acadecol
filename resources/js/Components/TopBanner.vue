@@ -38,72 +38,72 @@
             </div>
 
             <!-- DESKTOP VIEW (Formal Layout) -->
-            <div class="hidden md:flex flex-col gap-1 w-full max-w-6xl mx-auto">
+            <div class="hidden md:flex flex-col gap-1 w-full mx-auto justify-center ">
                 <!-- ROW 1: Ministries & Republic -->
                 <div
-                    class="grid grid-cols-[1fr_auto_1fr] gap-4 items-start pt-2"
+                    class="flex justify-between px-8 gap-4 items-center pt-2"
                 >
                     <!-- Left: French -->
-                    <div class="text-center">
+                    <div class="text-center w-1/3">
                         <h3
-                            class="text-xs font-bold uppercase text-gray-900 leading-snug"
+                            class="text-lg font-bold uppercase text-gray-900 leading-snug"
                         >
                             République du Cameroun
                         </h3>
-                        <p class="text-[0.65rem] italic text-gray-700 mb-1">
+                        <p class="text-[0.7rem] italic text-gray-700 mb-1">
                             Paix – Travail – Patrie
                         </p>
                         <h4
-                            class="text-[0.7rem] font-bold text-gray-800 leading-tight"
+                            class="text-[.9rem]  font-bold text-gray-700 leading-tight"
                         >
-                            Ministère de l'Emploi et de la<br />Formation
+                            Ministère de l'Emploi et de la Formation <br />
                             Professionnelle
                         </h4>
                     </div>
 
                     <!-- Center: MINEFOP Logo -->
-                    <div class="flex justify-center px-4">
+                    <div class="flex justify-center px-4 ">
                         <img
                             src="/img/minefop.jpg"
                             alt="MINEFOP Logo"
-                            class="h-16 w-auto object-contain"
+                            class="h-[9rem] w-[9rem] "
                         />
                     </div>
 
                     <!-- Right: English -->
-                    <div class="text-center">
+                    <div class="text-center w-1/3">
                         <h3
-                            class="text-xs font-bold uppercase text-gray-900 leading-snug"
+                            class="text-lg font-bold uppercase text-gray-900 leading-snug"
                         >
                             Republic of Cameroon
                         </h3>
-                        <p class="text-[0.65rem] italic text-gray-700 mb-1">
+                        <p class="text-[0.7rem] italic text-gray-700 mb-1">
                             Peace – Work – Fatherland
                         </p>
                         <h4
-                            class="text-[0.7rem] font-bold text-gray-800 leading-tight"
+                            class="text-[0.9rem] font-bold text-gray-800 leading-tight"
                         >
-                            Ministry of Employment and<br />Vocational Training
+                            Ministry of Employment and Vocational <br /> Training
                         </h4>
                     </div>
                 </div>
 
                 <!-- ROW 2: Institute Info -->
                 <div
-                    class="flex items-center justify-between gap-4 mt-2 border-t border-gray-100 pt-2"
+                    class="flex items-center justify-between gap-4 mt-2 border-t border-gray-100 pt-2 px-6"
                 >
                     <!-- Left Logo -->
                     <img
                         src="/img/logofr.jpeg"
                         alt="ACADECOL Logo"
-                        class="h-24 w-auto object-contain cursor-pointer"
+                        class="h-[10rem] object-contain cursor-pointer"
                         @dblclick="$emit('leftLogoDblClick')"
                     />
 
                     <!-- Center Info -->
-                    <div class="text-center flex-1">
+                    <div class="text-center flex-1 px-1">
                         <h1
-                            class="text-xl font-black uppercase text-gray-900 tracking-wide mb-1"
+                            class="text-[1rem] font-black uppercase text-gray-900 tracking-wide mb-1"
                         >
                             Académie Africaine pour le Développement des
                             Compétences Locales – ACADECOL
@@ -142,7 +142,7 @@
                     <img
                         src="/img/logoen.jpeg"
                         alt="ACADECOL Logo"
-                        class="h-24 w-auto object-contain cursor-pointer"
+                        class="h-[10rem] w-auto object-contain cursor-pointer"
                         @dblclick="$emit('rightLogoDblClick')"
                     />
                 </div>
