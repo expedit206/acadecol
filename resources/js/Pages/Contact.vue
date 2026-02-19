@@ -88,7 +88,7 @@
             </div>
         </section>
 
-        <!-- CONTACT SECTION - Design moderne -->
+        <!-- CONTACT SECTION - Design moderne  -->
         <section class="py-8 md:py-12 bg-white">
             <div class="container mx-auto px-4">
                 <!-- En-tête de section -->
